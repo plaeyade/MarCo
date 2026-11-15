@@ -4,7 +4,7 @@ Id de pieza: `MC-{SEDE}-{canal}-{aaaamm}-{nn}`. Un "no" en un punto ● bloquea 
 
 | # | Verificación | Aplica | Evidencia |
 |---|---|---|---|
-| ● 1 | Permiso (establecimiento) o aviso (profesional) vigente para versión y medio, o dictamen de no requerido | Todas | Número / dictamen |
+| ● 1 | Permiso 02-001 mod. A (establecimiento, aunque el público sea médico) o aviso 02-002 supuesto A (profesional, presentado ≥ 5 días antes y con cédula) para versión y medio, o dictamen de no requerido | Todas | Número / acuse / dictamen |
 | ● 2 | Servicio autorizado y operando en la sede (licencia sanitaria, CNSNS, CBPF si aplica) | Todas | Licencias |
 | ● 3 | Sin promesas de curación, % no sustentados, "100 %", "sin riesgo", "el mejor" | Todas | Firma médica |
 | ● 4 | Afirmaciones con sustento archivado | Todas | Carpeta |

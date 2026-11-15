@@ -37,7 +37,7 @@
 |---|---|---|
 | Publicidad comprobable, orientadora y educativa | Cada afirmación (tiempos, "primero", "único", tecnología) con sustento archivado | [LGS art. 306](https://mley.mx/LGS/articulo/306/) |
 | Permiso para publicidad de servicios de salud de establecimientos | Campañas de sedes y del CINO → **permiso de publicidad** (modalidad A tras la simplificación 2025), por versión y medio | [RLGSMP art. 79](https://mley.mx/Reg_LGS_MP/articulo/79/), [art. 80](https://mley.mx/Reg_LGS_MP/articulo/80/); [SIDOF](https://sidof.segob.gob.mx/notas/docFuente/5756000) |
-| Aviso de publicidad para actividades profesionales | Perfil individual del médico nuclear (cédula visible †) | [Manual COFEPRIS de aviso](https://www.gob.mx/cms/uploads/attachment/file/795383/Manual_Aviso_de_Publicidad.pdf) |
+| Aviso de publicidad para actividades profesionales (COFEPRIS-02-002, supuesto A; fusionado por acuerdo DOF 4-may-2026) | Perfil individual del médico nuclear; presentar ≥ 5 días antes de difundir; el proyecto debe señalar la cédula profesional/especialidad; gratuito † | [Manual COFEPRIS de aviso](https://www.gob.mx/cms/uploads/attachment/file/795383/Manual_Aviso_de_Publicidad.pdf) |
 | No se autoriza publicidad de tratamientos sin eficacia comprobada o sin acreditar personal y recursos | Nada de "cura", porcentajes de éxito, ni servicios aún no autorizados | [RLGSMP art. 18](https://mley.mx/Reg_LGS_MP/articulo/18/) |
 | Datos de salud = datos sensibles; consentimiento expreso y por escrito | Ninguna lista de pacientes se sube a plataformas; testimonios sólo con consentimiento específico | [LFPDPPP 2025](https://www.diputados.gob.mx/LeyesBiblio/pdf/LFPDPPP.pdf) |
 | Confidencialidad del expediente | Sin imágenes clínicas identificables ni metadatos DICOM | [NOM-004-SSA3-2012, 5.5](https://www.gob.mx/cms/uploads/attachment/file/512094/NOM-004-SSA3-2012.pdf) |
@@ -187,7 +187,7 @@ Disponibilidad y precios de Waze Ads en México por verificar con la plataforma 
 |---|---|---|---|
 | Radio local (noticieros matutinos, programas de salud) | Entrevistas educativas (ganadas) y cápsulas pagadas de 20–30 s | Días mundiales (cáncer, tiroides, próstata), lanzamiento del CINO | Cápsulas pagadas = publicidad → permiso COFEPRIS por versión y medio |
 | Prensa estatal impresa y digital | Notas de prensa (obra, licencias, inauguración), inserciones informativas | Hitos del CINO; apertura de Toluca | Kit de prensa con hoja de datos verificados |
-| Revistas de colegios médicos y boletines hospitalarios | Anuncio institucional para médicos | Congresos estatales | Publicidad dirigida a profesionales † (validar modalidad) |
+| Revistas de colegios médicos y boletines hospitalarios | Anuncio institucional para médicos | Congresos estatales | **Permiso** de publicidad (servicios de establecimiento, aunque el público sea médico; ver `docs/legal/aviso_cofepris_02-002-A.md`) |
 | Exterior (espectaculares, parabuses) | Sólo marca + ubicación del CINO | Lanzamiento, con licencias | Alto costo; únicamente si la ola de lanzamiento lo justifica |
 | TV local | Entrevista en programa de salud (ganada) | Lanzamiento CINO | Vocería entrenada; sin pacientes identificables |
 

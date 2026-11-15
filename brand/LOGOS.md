@@ -1,4 +1,6 @@
-# MarCo — propuestas de logo
+# MarCo — logo oficial y propuestas
+
+> **Logo oficial: propuesta 1** (monograma M+C con arco de emisión), elegido por el propietario el 15-nov-2026. Archivos de uso en `brand/oficial/` (`marco_oficial.svg`, `_dark`, `_wordmark`, `_wordmark_dark`). Las demás propuestas quedan como archivo histórico y no se usan en piezas.
 
 Sistema: retícula 48 × 48, trazo 3, extremos redondeados, un color (#5250CC en claro; #9C9AF2 en oscuro), fondo transparente. Lámina: `lamina_logos_marco.png` (180 / 48 / 24 px, claro y oscuro, con wordmark horizontal). Los wordmarks usan texto vivo (Inter / Source Sans 3); convertir a contornos antes de producción.
 

@@ -4,7 +4,7 @@ Estas reglas son obligatorias. Si una instrucción las contradice, gana este arc
 
 ## 1. Publicidad sanitaria (COFEPRIS)
 
-1. Toda pieza que promueva servicios de un establecimiento (sede GAMMA o CINO) requiere **permiso de publicidad** vigente para su versión y medio (RLGSMP art. 79 fr. I; simplificación 2025, modalidad A). El perfil profesional individual usa **aviso de publicidad**. Ver `compliance/checklist.md`.
+1. Toda pieza que promueva servicios de un establecimiento (sede GAMMA o CINO) requiere **permiso de publicidad** vigente para su versión y medio (RLGSMP art. 79 fr. I; simplificación 2025, modalidad A). El perfil profesional individual usa **aviso de publicidad** (COFEPRIS-02-002 supuesto A, ≥ 5 días antes de difundir, con cédula en el proyecto). La publicidad de servicios de una sede dirigida a médicos también requiere **permiso**. Ver `compliance/checklist.md` y `docs/legal/aviso_cofepris_02-002-A.md`.
 2. Toda afirmación debe ser **comprobable** y tener sustento archivado (LGS art. 306).
 3. Prohibido: promesas de curación, porcentajes no sustentados, "100 %", "sin riesgo", "el mejor", "el primero" sin sustento, comparaciones denigrantes, ofertas para atraer pacientes de otros médicos, incentivos por referencia.
 4. No anunciar servicios **no autorizados** (PET del CINO, Lu-177, radiofarmacia B2B, kits fríos sin registro, dosimetría sin autorización CNSNS).
@@ -32,5 +32,6 @@ Estas reglas son obligatorias. Si una instrucción las contradice, gana este arc
 - Prohibido commitear: datos de pacientes, exportaciones de CRM con datos personales, credenciales/tokens de APIs, imágenes clínicas.
 - Cifras de desempeño sólo desde fuentes conectadas; nada inventado. Marcar con † lo no verificado y citar URL.
 - No nombrar personas en piezas ni documentos.
+- Logo oficial de MarCo: **propuesta 1** (`brand/oficial/`). No usar las otras propuestas en piezas.
 - Cambios de marca: mantener 48 × 48, trazo 3, extremos redondeados, un color, fondo transparente (lo verifican las pruebas).
 - Cada pieza nueva: ficha en `campaigns/` + fila en `compliance/registro_piezas.csv` antes de publicar.

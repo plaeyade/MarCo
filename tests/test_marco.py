@@ -36,6 +36,13 @@ class TestMarca(unittest.TestCase):
             esperado = "#9C9AF2" if f.endswith("_dark.svg") else "#5250CC"
             self.assertIn(esperado, open(f).read().upper(), f)
 
+    def test_logo_oficial_es_propuesta_1(self):
+        for v in ("", "_dark", "_wordmark", "_wordmark_dark"):
+            a = open(os.path.join(ROOT, f"brand/oficial/marco_oficial{v}.svg")).read()
+            b = open(os.path.join(ROOT, f"brand/logos/marco_m1_monograma{v}.svg")).read()
+            self.assertEqual(a, b, v)
+        self.assertIn("Logo oficial: propuesta 1", open(os.path.join(ROOT, "brand/LOGOS.md")).read())
+
     def test_wordmarks(self):
         ws = glob.glob(os.path.join(ROOT, "brand/logos/*_wordmark*.svg"))
         self.assertGreaterEqual(len(ws), 14)
@@ -82,7 +89,10 @@ class TestCumplimiento(unittest.TestCase):
 
     def test_registro_columnas(self):
         cab = next(csv.reader(open(os.path.join(ROOT, "compliance/registro_piezas.csv"))))
-        self.assertEqual(cab, ["pieza_id", "sede", "canal", "mes", "permiso_o_aviso", "checklist_completo", "publicada"])
+        cols = ["pieza_id", "sede", "canal", "mes", "tramite", "permiso_o_aviso", "checklist_completo", "publicada"]
+        self.assertEqual(cab, cols)
+        cab2 = next(csv.reader(open(os.path.join(ROOT, "dashboard/data/cumplimiento_piezas.csv"))))
+        self.assertEqual(cab2, cols)
 
     def test_checklist_tiene_19_puntos(self):
         txt = open(os.path.join(ROOT, "compliance/checklist.md")).read()
@@ -135,6 +145,36 @@ class TestTablero(unittest.TestCase):
         for r in csv.DictReader(open(os.path.join(ROOT, "dashboard/data/sedes.csv"))):
             for k in ("referencias_mes", "referentes_activos", "conversion_pct", "nps", "sesiones_organicas", "costo_paciente_mxn"):
                 self.assertEqual(r[k], "", (r["sede"], k))
+
+    def test_plantillas_de_desempeno_vacias(self):
+        plantillas = {
+            "plazas_mensual.csv": ("estudios", "terapias", "referencias", "referentes_activos", "conversion_pct", "ingresos_mxn"),
+            "canales.csv": ("alcance", "impresiones", "clics", "ctr_pct", "cpc_mxn", "leads", "cpl_mxn", "pacientes",
+                            "costo_paciente_mxn", "gasto_mxn", "atribucion_ultimo_clic_pct"),
+            "embudo.csv": ("valor",),
+            "resenas_seo.csv": ("resenas_google", "calificacion_google", "nps_pacientes", "nps_referentes",
+                                "posicion_media_seo", "local_pack_top3"),
+        }
+        for f, campos in plantillas.items():
+            for r in csv.DictReader(open(os.path.join(ROOT, "dashboard/data", f))):
+                for k in campos:
+                    self.assertEqual(r[k], "", (f, k))
+
+    def test_ejemplos_marcados(self):
+        for f in glob.glob(os.path.join(ROOT, "dashboard/data/*.csv")):
+            nombre = os.path.basename(f)
+            if nombre.startswith("ejemplo_"):
+                self.assertTrue(os.path.exists(os.path.join(ROOT, "dashboard/data", nombre[len("ejemplo_"):])), nombre)
+
+    def test_datos_publicos_con_fuente(self):
+        for r in csv.DictReader(open(os.path.join(ROOT, "dashboard/data/geo_estados.csv"))):
+            self.assertTrue(r["fuente_poblacion"].startswith("https://") and r["fuente_mortalidad"].startswith("https://"))
+        for r in csv.DictReader(open(os.path.join(ROOT, "dashboard/data/cancer_mexico.csv"))):
+            if r["valor"]:
+                self.assertTrue(r["url"].startswith("https://"), r["indicador_id"])
+        for r in csv.DictReader(open(os.path.join(ROOT, "dashboard/data/congresos.csv"))):
+            if r["verificado"] == "No":
+                self.assertEqual(r["inicio"], "", r["congreso_id"])
 
     def test_conectores_cubren_fuentes_del_esquema(self):
         esquema = json.load(open(os.path.join(ROOT, "dashboard/metricas.schema.json")))

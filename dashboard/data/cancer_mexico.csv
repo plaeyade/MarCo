@@ -1,0 +1,10 @@
+indicador_id,indicador,valor,unidad,ambito,fuente,url
+tiroides_casos,Cáncer de tiroides: casos nuevos,4849,casos/año,México,"GLOBOCAN (ficha México, IARC)",https://gco.iarc.who.int/media/globocan/factsheets/populations/484-mexico-fact-sheet.pdf
+tiroides_muertes,Cáncer de tiroides: muertes,1035,muertes/año,México,"GLOBOCAN (ficha México, IARC)",https://gco.iarc.who.int/media/globocan/factsheets/populations/484-mexico-fact-sheet.pdf
+prostata_casos,Cáncer de próstata: casos nuevos,24628,casos/año,México,"GLOBOCAN (ficha México, IARC)",https://gco.iarc.who.int/media/globocan/factsheets/populations/484-mexico-fact-sheet.pdf
+prostata_muertes,Cáncer de próstata: muertes,8206,muertes/año,México,"GLOBOCAN (ficha México, IARC)",https://gco.iarc.who.int/media/globocan/factsheets/populations/484-mexico-fact-sheet.pdf
+todos_casos,Todos los cánceres: casos nuevos,201137,casos/año,México,"GLOBOCAN (ficha México, IARC)",https://gco.iarc.who.int/media/globocan/factsheets/populations/484-mexico-fact-sheet.pdf
+mort_tumores_nal,Mortalidad por tumores malignos 2024 (tasa estandarizada),73.1,por 100 mil hab.,México,"INEGI, EDR 2024",https://www.inegi.org.mx/contenidos/saladeprensa/aproposito/2026/EAP_Cancer_26.pdf
+prostata_60,"Mortalidad por cáncer de próstata, hombres ≥ 60 años, 2024",97.9,por 100 mil hombres ≥ 60,México,"INEGI, EDR 2024",https://www.inegi.org.mx/contenidos/saladeprensa/aproposito/2026/EAP_Cancer_26.pdf
+net_estatal,Tumores neuroendocrinos (NET) por estado,,,Por estado,Sin fuente pública por estado encontrada,
+tiroides_estatal,Cáncer de tiroides por estado,,,Por estado,Sin fuente pública por estado encontrada,

@@ -2,154 +2,411 @@
 <style>
   .mc { font-family: var(--font-anthropic-sans); color: var(--color-fg); }
   .mc-title { font-family: var(--font-anthropic-serif); font-weight: 400; font-size: var(--cds-font-size-title); margin: 0 0 var(--cds-gap-xs); }
-  .mc-lead { color: var(--color-fg-muted); margin: 0 0 var(--cds-gap-lg); max-width: 70ch; }
-  .mc-banner { border: 1px solid var(--color-warn); border-radius: var(--cds-radius); padding: var(--cds-pad-md); margin-bottom: var(--cds-gap-lg); }
+  .mc-lead { color: var(--color-fg-muted); margin: 0 0 var(--cds-gap-md); max-width: 75ch; }
+  .mc-banner { border: 1px solid var(--color-warn); border-radius: var(--cds-radius); padding: var(--cds-pad-md); margin-bottom: var(--cds-gap-md); font-size: var(--cds-font-size-caption); }
   .mc-banner strong { color: var(--color-warn); }
-  .mc-tiles { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: var(--cds-gap-md); margin-bottom: var(--cds-gap-xl); }
+  .mc-bar { display: flex; flex-wrap: wrap; gap: var(--cds-gap-sm); align-items: center; margin-bottom: var(--cds-gap-lg); }
+  .mc-tabs { display: flex; flex-wrap: wrap; gap: 4px; }
+  .mc-tab { font: inherit; font-size: var(--cds-font-size-caption); padding: 6px 12px; border-radius: 999px; border: 1px solid var(--color-border-line); background: var(--color-panel); color: var(--color-fg); cursor: pointer; }
+  .mc-tab[aria-selected=true] { background: var(--color-fg); color: var(--color-bg); border-color: var(--color-fg); }
+  .mc-toggle { font-size: var(--cds-font-size-caption); display: inline-flex; gap: 6px; align-items: center; margin-left: auto; }
+  .mc-tiles { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: var(--cds-gap-md); margin-bottom: var(--cds-gap-lg); }
   .mc-card { background: var(--color-panel); border: 1px solid var(--color-border-line); border-radius: var(--cds-radius); padding: var(--cds-pad-lg); }
   .mc-card h3 { font-size: var(--cds-font-size-caption); font-weight: var(--cds-font-weight-medium); color: var(--color-fg-muted); margin: 0 0 var(--cds-gap-xs); }
-  .mc-big { font-family: var(--font-anthropic-serif); font-weight: 400; font-size: 1.7rem; font-variant-numeric: tabular-nums; }
+  .mc-big { font-family: var(--font-anthropic-serif); font-weight: 400; font-size: 1.6rem; font-variant-numeric: tabular-nums; }
+  .mc-mid { font-size: var(--cds-font-size-body); font-weight: var(--cds-font-weight-medium); }
   .mc-sub { font-size: var(--cds-font-size-caption); color: var(--color-fg-muted); margin-top: var(--cds-gap-xs); }
   .mc h2 { font-size: var(--cds-font-size-heading); font-weight: var(--cds-font-weight-medium); margin: var(--cds-gap-xl) 0 var(--cds-gap-xs); }
-  .mc-note { font-size: var(--cds-font-size-caption); color: var(--color-fg-muted); margin: 0 0 var(--cds-gap-md); max-width: 75ch; }
-  .mc-chart { position: relative; min-height: 360px; }
+  .mc h2:first-child { margin-top: 0; }
+  .mc-note { font-size: var(--cds-font-size-caption); color: var(--color-fg-muted); margin: 0 0 var(--cds-gap-md); max-width: 80ch; }
+  .mc-chart { position: relative; min-height: 320px; }
+  .mc-chart.short { min-height: 220px; }
   .mc-chart svg text { font-size: var(--cds-font-size-caption); fill: var(--cds-text-secondary); }
   .mc-chart svg .mc-lab { fill: var(--color-fg); }
-  .mc-tip { position: absolute; pointer-events: none; background: var(--cds-surface-popover); border: 1px solid var(--cds-border); box-shadow: var(--cds-shadow-popover); border-radius: var(--cds-radius); padding: var(--cds-pad-sm); font-size: var(--cds-font-size-caption); max-width: 260px; }
-  .mc-wrap { overflow-x: auto; }
+  .mc-chart svg .mc-wm { font-size: 28px; font-weight: 700; fill: var(--color-warn); opacity: .18; }
+  .mc-tip { position: absolute; pointer-events: none; background: var(--cds-surface-popover); border: 1px solid var(--cds-border); box-shadow: var(--cds-shadow-popover); border-radius: var(--cds-radius); padding: var(--cds-pad-sm); font-size: var(--cds-font-size-caption); max-width: 280px; z-index: 2; }
+  .mc-wrap { overflow-x: auto; margin-bottom: var(--cds-gap-md); }
   .mc-table { border-collapse: collapse; width: 100%; font-size: var(--cds-font-size-caption); }
   .mc-table th, .mc-table td { text-align: left; padding: 6px 8px; border-bottom: 1px solid var(--color-border-line); vertical-align: top; }
   .mc-table th { color: var(--color-fg-muted); font-weight: var(--cds-font-weight-medium); }
-  .mc-table td.num, .mc-table th.num { text-align: right; font-variant-numeric: tabular-nums; }
+  .mc-table td.num, .mc-table th.num { text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; }
+  .mc-table a { color: inherit; }
   .mc-empty { color: var(--color-fg-muted); font-style: italic; }
-  .mc-pill { display: inline-block; padding: 1px 8px; border-radius: 999px; border: 1px solid var(--color-border-line); }
+  .mc-ex { color: var(--color-warn); font-weight: var(--cds-font-weight-medium); }
+  .mc-panels { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: var(--cds-gap-md); }
+  .mc-panel { border: 1px solid var(--color-border-line); border-radius: var(--cds-radius); padding: var(--cds-pad-sm); position: relative; min-height: 170px; }
+  .mc-panel h4 { margin: 0 0 4px; font-size: var(--cds-font-size-caption); font-weight: var(--cds-font-weight-medium); }
+  .mc-legend { display: flex; flex-wrap: wrap; gap: var(--cds-gap-md); font-size: var(--cds-font-size-caption); color: var(--color-fg-muted); margin-bottom: var(--cds-gap-sm); }
+  .mc-sw { display: inline-block; width: 10px; height: 10px; border-radius: 50%; margin-right: 4px; vertical-align: middle; }
+  .mc-row { display: flex; flex-wrap: wrap; gap: var(--cds-gap-sm); align-items: center; margin-bottom: var(--cds-gap-sm); font-size: var(--cds-font-size-caption); }
   .mc details { margin-top: var(--cds-gap-xl); font-size: var(--cds-font-size-caption); color: var(--color-fg-muted); }
   [data-dash-source-state=refreshing] { opacity: .5; }
 </style>
 
 <div class="mc">
   <h1 class="mc-title" id="titulo">MarCo Tablero</h1>
-  <p class="mc-lead">Tablero de marketing y comunicación de la red GAMMA y del CINO. Hoy muestra sólo presupuestos y metas del plan; las métricas de desempeño quedan vacías hasta conectar las fuentes reales.</p>
+  <p class="mc-lead">Marketing y comunicación de la red GAMMA (Oaxaca, Villahermosa y Mérida), del proyecto Toluca y del CINO en Villahermosa. Hoy no hay métricas de desempeño conectadas: las cifras reales son los presupuestos del plan y datos públicos con fuente (INEGI, GLOBOCAN, calendarios de congresos, tarifas IMPI).</p>
 
   <div class="mc-banner" id="aviso">
-    <strong>Sin datos reales todavía.</strong> Ninguna cifra de desempeño en esta página es real ni de ejemplo: las celdas de valor dicen «sin datos». Los montos son rangos de planeación (MXN, IVA no incluido) tomados de <code>plan_gamma_marketing.md</code> § 5.2 y <code>plan_publicidad_multicanal.md</code> § 4.
+    <strong>Sin datos de desempeño reales.</strong> Las celdas de desempeño dicen «sin datos». El interruptor «Ver ejemplo» muestra cifras inventadas para ver cómo se leerá cada gráfica; van marcadas <strong>EJEMPLO, NO REAL</strong> y nunca deben citarse.
   </div>
 
-  <div class="mc-tiles" id="resumen">
-    <div class="mc-card" id="tile-pauta">
-      <h3>Pauta digital, presupuesto mensual</h3>
-      <div class="mc-big"><span data-draw="pauta-bajo" data-source="pauta_total" data-field="bajo" data-row="0">—</span>–<span data-draw="pauta-alto" data-source="pauta_total" data-field="alto" data-row="0">—</span></div>
-      <div class="mc-sub">MXN/mes · Google, Meta, LinkedIn, YouTube, TikTok, Waze y reserva</div>
+  <div class="mc-bar">
+    <nav class="mc-tabs" id="pestanas" role="tablist">
+      <button class="mc-tab" role="tab" data-tab="resumen" aria-selected="true">Resumen</button>
+      <button class="mc-tab" role="tab" data-tab="plazas" aria-selected="false">Plazas</button>
+      <button class="mc-tab" role="tab" data-tab="audiencia" aria-selected="false">Audiencia y medición</button>
+      <button class="mc-tab" role="tab" data-tab="mapa" aria-selected="false">Mapa del sureste</button>
+      <button class="mc-tab" role="tab" data-tab="congresos" aria-selected="false">Congresos</button>
+      <button class="mc-tab" role="tab" data-tab="cumplimiento" aria-selected="false">COFEPRIS</button>
+      <button class="mc-tab" role="tab" data-tab="presupuesto" aria-selected="false">Presupuesto</button>
+      <button class="mc-tab" role="tab" data-tab="marca" aria-selected="false">Marca e IMPI</button>
+      <button class="mc-tab" role="tab" data-tab="fuentes" aria-selected="false">KPIs y fuentes</button>
+    </nav>
+    <label class="mc-toggle" id="interruptor-ejemplo"><input type="checkbox" id="mc-ejemplo"> Ver ejemplo (no real)</label>
+  </div>
+
+  <!-- ===================== RESUMEN ===================== -->
+  <section id="resumen" class="mc-sec">
+    <h2>Resumen ejecutivo</h2>
+    <div class="mc-tiles" id="resumen-tiles">
+      <div class="mc-card" id="tile-sedes">
+        <h3>Sedes operando</h3>
+        <div class="mc-big"><span data-draw="sedes-operando" data-source="sedes_resumen" data-field="operando" data-row="0">—</span> de <span data-draw="sedes-total" data-source="sedes_resumen" data-field="total" data-row="0">—</span></div>
+        <div class="mc-sub">Toluca en proyecto; CINO en pre-licencia</div>
+      </div>
+      <div class="mc-card" id="tile-poblacion">
+        <h3>Población de los estados asignados por el plan a las 3 sedes</h3>
+        <div class="mc-big"><span data-draw="pob-area" data-source="area_resumen" data-field="poblacion" data-row="0">—</span></div>
+        <div class="mc-sub">INEGI, Censo 2020 · <span data-draw="pob-estados" data-source="area_resumen" data-field="estados" data-row="0">—</span> estados</div>
+      </div>
+      <div class="mc-card" id="tile-pauta">
+        <h3>Pauta digital, presupuesto mensual</h3>
+        <div class="mc-big"><span data-draw="pauta-bajo" data-source="pauta_total" data-field="bajo" data-row="0">—</span>–<span data-draw="pauta-alto" data-source="pauta_total" data-field="alto" data-row="0">—</span></div>
+        <div class="mc-sub">MXN/mes, sin IVA · gasto real: sin datos</div>
+      </div>
+      <div class="mc-card" id="tile-anual">
+        <h3>Presupuesto anual del plan</h3>
+        <div class="mc-big"><span data-draw="anual-bajo" data-source="anual_total" data-field="bajo" data-row="0">—</span>–<span data-draw="anual-alto" data-source="anual_total" data-field="alto" data-row="0">—</span></div>
+        <div class="mc-sub">MXN/año, todas las partidas</div>
+      </div>
+      <div class="mc-card" id="tile-congreso">
+        <h3>Próximo congreso confirmado</h3>
+        <div class="mc-mid"><span data-draw="prox-congreso" data-source="congresos_resumen" data-field="proximo" data-row="0">—</span></div>
+        <div class="mc-sub"><span data-draw="prox-fecha" data-source="congresos_resumen" data-field="fecha" data-row="0">—</span> · <span data-draw="prox-ciudad" data-source="congresos_resumen" data-field="ciudad" data-row="0">—</span></div>
+      </div>
+      <div class="mc-card" id="tile-impi">
+        <h3>Derechos IMPI estimados (marcas y nombres)</h3>
+        <div class="mc-big"><span data-draw="impi-total" data-source="marcas_total" data-field="total" data-row="0">—</span></div>
+        <div class="mc-sub">MXN con IVA · <span data-draw="impi-clases" data-source="marcas_total" data-field="clases" data-row="0">—</span> solicitudes-clase</div>
+      </div>
+      <div class="mc-card" id="tile-piezas">
+        <h3>Piezas registradas (COFEPRIS)</h3>
+        <div class="mc-big"><span data-draw="piezas" data-source="piezas_resumen" data-field="registradas" data-row="0">—</span></div>
+        <div class="mc-sub">Meta: todas con permiso/aviso y checklist</div>
+      </div>
+      <div class="mc-card" id="tile-kpis">
+        <h3>KPIs con dato real</h3>
+        <div class="mc-big"><span data-draw="kpis-con-dato" data-source="kpis_resumen" data-field="con_dato" data-row="0">—</span> de <span data-draw="kpis-total" data-source="kpis_resumen" data-field="total" data-row="0">—</span></div>
+        <div class="mc-sub">Se llenan al conectar CRM, GA4 y APIs de pauta</div>
+      </div>
     </div>
-    <div class="mc-card" id="tile-anual">
-      <h3>Presupuesto anual del plan</h3>
-      <div class="mc-big"><span data-draw="anual-bajo" data-source="anual_total" data-field="bajo" data-row="0">—</span>–<span data-draw="anual-alto" data-source="anual_total" data-field="alto" data-row="0">—</span></div>
-      <div class="mc-sub">MXN/año · todas las partidas, incluida la contingencia</div>
+    <h2 id="resumen-plazas">Plazas de un vistazo</h2>
+    <p class="mc-note">Último mes con dato por sede para la métrica elegida en «Plazas». Sin fuentes conectadas, todo dice «sin datos».</p>
+    <div class="mc-wrap">
+      <table class="mc-table" data-source="plazas_resumen" data-row-key="sede" id="tabla-resumen-plazas">
+        <thead><tr>
+          <th data-field="nombre">Sede</th>
+          <th data-field="metrica">Métrica</th>
+          <th data-field="ultimo_mes">Último mes</th>
+          <th data-field="valor" class="num">Valor</th>
+          <th data-field="mom_pct" class="num">Mes vs mes anterior</th>
+          <th data-field="yoy_pct" class="num">Mes vs mismo mes año anterior</th>
+          <th data-field="origen">Origen</th>
+        </tr></thead>
+        <tbody data-draw="tabla-resumen-plazas"></tbody>
+      </table>
     </div>
-    <div class="mc-card" id="tile-piezas">
-      <h3>Piezas registradas (cumplimiento)</h3>
-      <div class="mc-big"><span data-draw="piezas" data-source="piezas_resumen" data-field="registradas" data-row="0">—</span></div>
-      <div class="mc-sub">Meta: 100 % con checklist y permiso/aviso COFEPRIS</div>
+  </section>
+
+  <!-- ===================== PLAZAS ===================== -->
+  <section id="plazas" class="mc-sec" hidden>
+    <h2>Por plaza: tendencia mensual</h2>
+    <p class="mc-note">Una gráfica por sede (Oaxaca, Villahermosa, Mérida, Toluca y CINO). Estudios y terapias desde la agenda de GAMMA OS; referencias, referentes activos y conversión desde el CRM (contrato <code>gamma/referencia@1</code>, agregados k ≥ 5); ingresos desde la plantilla financiera. Crecimiento mes a mes y año a año en la tabla del Resumen.</p>
+    <div class="mc-row">
+      <label for="mc-metrica">Métrica</label>
+      <select class="dash-select" id="mc-metrica" aria-label="Métrica">
+        <option value="estudios">Estudios</option>
+        <option value="terapias">Terapias</option>
+        <option value="referencias">Referencias recibidas</option>
+        <option value="referentes_activos">Médicos referentes activos</option>
+        <option value="conversion_pct">Conversión de referencia (%)</option>
+        <option value="ingresos_mxn">Ingresos (MXN, plantilla)</option>
+      </select>
     </div>
-    <div class="mc-card" id="tile-kpis">
-      <h3>KPIs con dato real</h3>
-      <div class="mc-big"><span data-draw="kpis-con-dato" data-source="kpis_resumen" data-field="con_dato" data-row="0">—</span> de <span data-draw="kpis-total" data-source="kpis_resumen" data-field="total" data-row="0">—</span></div>
-      <div class="mc-sub">Se llenan al conectar CRM, GA4 y APIs de pauta</div>
+    <div class="mc-panels" id="graficas-plazas" data-draw="plazas-chart" data-source="plazas_vista"></div>
+    <h2 id="plazas-detalle">Crecimiento por sede</h2>
+    <p class="mc-note">Mes contra mes anterior y contra el mismo mes del año anterior, por sede, para la métrica elegida.</p>
+    <div class="mc-wrap">
+      <table class="mc-table" data-source="plazas_resumen" data-row-key="sede" id="tabla-plazas">
+        <thead><tr>
+          <th data-field="nombre">Sede</th>
+          <th data-field="ultimo_mes">Último mes</th>
+          <th data-field="valor" class="num">Valor</th>
+          <th data-field="mom_pct" class="num">Mes a mes</th>
+          <th data-field="yoy_pct" class="num">Año a año</th>
+          <th data-field="acumulado" class="num">Acumulado del año</th>
+          <th data-field="origen">Origen</th>
+        </tr></thead>
+        <tbody data-draw="tabla-plazas"></tbody>
+      </table>
     </div>
-  </div>
+  </section>
 
-  <h2 id="inversion">Inversión por canal frente al presupuesto mensual</h2>
-  <p class="mc-note">Cada barra es el rango mensual del plan (bajo–alto). El punto de gasto real aparecerá cuando se conecten las APIs de cada plataforma; hoy no hay gasto registrado.</p>
-  <div class="mc-chart" id="grafica-inversion" data-draw="inversion" data-source="presupuesto_canal"></div>
+  <!-- ===================== AUDIENCIA ===================== -->
+  <section id="audiencia" class="mc-sec" hidden>
+    <h2>Audiencia y conversión por canal</h2>
+    <p class="mc-note">CTR = clics ÷ impresiones; CPC = gasto ÷ clics; CPL = gasto ÷ leads (formulario, llamada o WhatsApp); costo por paciente = gasto ÷ estudios realizados atribuidos por UTM dentro de GAMMA OS. Ningún evento de cita ni dato de salud se envía a las plataformas.</p>
+    <div class="mc-wrap">
+      <table class="mc-table" data-source="canales_vista" data-row-key="canal" id="tabla-canales">
+        <thead><tr>
+          <th data-field="canal">Canal</th>
+          <th data-field="alcance" class="num">Alcance</th>
+          <th data-field="impresiones" class="num">Impresiones</th>
+          <th data-field="clics" class="num">Clics</th>
+          <th data-field="ctr_pct" class="num">CTR %</th>
+          <th data-field="cpc_mxn" class="num">CPC MXN</th>
+          <th data-field="leads" class="num">Leads</th>
+          <th data-field="cpl_mxn" class="num">CPL MXN</th>
+          <th data-field="pacientes" class="num">Pacientes</th>
+          <th data-field="costo_paciente_mxn" class="num">Costo/paciente MXN</th>
+          <th data-field="atribucion_ultimo_clic_pct" class="num">Atribución (último clic) %</th>
+        </tr></thead>
+        <tbody data-draw="tabla-canales"></tbody>
+      </table>
+    </div>
+    <h2 id="embudo">Embudo</h2>
+    <p class="mc-note">De impresiones a estudios realizados, con la caída entre etapas. Escala logarítmica para que se lean todas las etapas.</p>
+    <div class="mc-chart short" id="grafica-embudo" data-draw="embudo-chart" data-source="embudo_vista"></div>
+    <h2 id="resenas">Reseñas de Google, NPS y SEO por sede</h2>
+    <p class="mc-note">Reseñas y calificación desde el Perfil de Empresa; NPS de pacientes (encuesta sin preguntas clínicas) y de referentes; posición media en 40 búsquedas clave y si la sede aparece en el top 3 del mapa local.</p>
+    <div class="mc-wrap">
+      <table class="mc-table" data-source="resenas_seo" data-row-key="sede" id="tabla-resenas">
+        <thead><tr>
+          <th data-field="nombre">Sede</th>
+          <th data-field="resenas_google" class="num">Reseñas Google</th>
+          <th data-field="calificacion_google" class="num">Calificación</th>
+          <th data-field="nps_pacientes" class="num">NPS pacientes</th>
+          <th data-field="nps_referentes" class="num">NPS referentes</th>
+          <th data-field="posicion_media_seo" class="num">Posición media SEO</th>
+          <th data-field="local_pack_top3">Top 3 local</th>
+        </tr></thead>
+        <tbody data-draw="tabla-resenas"></tbody>
+      </table>
+    </div>
+  </section>
 
-  <h2 id="kpis">KPIs del plan</h2>
-  <p class="mc-note">Metas orientativas del plan base (§ 4.1 y § 5.4). «Fijar tras línea base» significa que la meta numérica se define tras 90 días de medición.</p>
-  <div class="mc-wrap">
-    <table class="mc-table" data-source="kpis" data-row-key="kpi_id" id="tabla-kpis">
-      <thead><tr>
-        <th data-field="kpi">KPI</th>
-        <th data-field="definicion">Definición</th>
-        <th data-field="meta_plan">Meta del plan</th>
-        <th data-field="valor_real">Valor real</th>
-        <th data-field="fuente_futura">Fuente</th>
-        <th data-field="frecuencia">Frecuencia</th>
-      </tr></thead>
-      <tbody data-draw="tabla-kpis"></tbody>
-    </table>
-  </div>
+  <!-- ===================== MAPA ===================== -->
+  <section id="mapa" class="mc-sec" hidden>
+    <h2>Sedes y áreas de influencia en el sureste</h2>
+    <p class="mc-note">Esquema sin límites estatales: cada burbuja es la capital de un estado, con tamaño según su población (INEGI 2020) y color según la sede que la atiende en el plan. Los anillos marcan 150 y 300 km en línea recta desde cada sede; no son tiempos de manejo.</p>
+    <div class="mc-legend" id="leyenda-mapa">
+      <span><span class="mc-sw" style="background: var(--cds-chart-muted)"></span>Área asignada por el plan (supuesto, no dato)</span>
+      <span>◆ sede operando · ◇ proyecto o pre-licencia</span>
+    </div>
+    <div class="mc-chart" id="grafica-mapa" data-draw="mapa-chart" data-source="geo_estados geo_sedes geo_ciudades"></div>
+    <h2 id="estados">Estados del área de influencia</h2>
+    <p class="mc-note">Población: INEGI, Censo de Población y Vivienda 2020. Mortalidad: defunciones por tumores malignos 2024, tasa estandarizada por 100 mil habitantes (INEGI, EDR 2024; nacional 73.1). No se encontró fuente pública por estado de oncólogos, endocrinólogos, cáncer de tiroides ni NET: esas celdas quedan en «sin datos».</p>
+    <div class="mc-wrap">
+      <table class="mc-table" data-source="geo_estados" data-row-key="estado" id="tabla-estados">
+        <thead><tr>
+          <th data-field="estado">Estado</th>
+          <th data-field="poblacion_2020" class="num">Población 2020</th>
+          <th data-field="tasa_mort_tumores_2024" class="num">Mortalidad por tumores 2024</th>
+          <th data-field="area_influencia">Sede (plan)</th>
+          <th data-field="oncologos" class="num">Oncólogos</th>
+          <th data-field="endocrinologos" class="num">Endocrinólogos</th>
+          <th data-field="fuente_poblacion">Fuente población</th>
+        </tr></thead>
+        <tbody data-draw="tabla-estados"></tbody>
+      </table>
+    </div>
+    <h2 id="distancias">Distancia de cada ciudad a la sede operando más cercana</h2>
+    <p class="mc-note">Línea recta calculada con coordenadas aproximadas del centro de cada ciudad. El tiempo por carretera no tiene fuente cargada: requiere una API de rutas.</p>
+    <div class="mc-wrap">
+      <table class="mc-table" data-source="distancias" data-row-key="ciudad" id="tabla-distancias">
+        <thead><tr>
+          <th data-field="ciudad">Ciudad</th>
+          <th data-field="estado">Estado</th>
+          <th data-field="sede_cercana">Sede operando más cercana</th>
+          <th data-field="km_linea_recta" class="num">km en línea recta</th>
+          <th data-field="tiempo_carretera">Tiempo por carretera</th>
+        </tr></thead>
+        <tbody data-draw="tabla-distancias"></tbody>
+      </table>
+    </div>
+    <h2 id="cancer">Carga de cáncer en México</h2>
+    <p class="mc-note">Cifras nacionales de la ficha de México de GLOBOCAN (IARC) y de INEGI. Sirven para dimensionar la demanda de I-131 (tiroides), PSMA (próstata) y NET; no hay desglose estatal público de tiroides ni NET.</p>
+    <div class="mc-wrap">
+      <table class="mc-table" data-source="cancer_mexico" data-row-key="indicador_id" id="tabla-cancer">
+        <thead><tr>
+          <th data-field="indicador">Indicador</th>
+          <th data-field="valor" class="num">Valor</th>
+          <th data-field="unidad">Unidad</th>
+          <th data-field="fuente">Fuente</th>
+        </tr></thead>
+        <tbody data-draw="tabla-cancer"></tbody>
+      </table>
+    </div>
+  </section>
 
-  <h2 id="sedes">Referencias y desempeño por sede</h2>
-  <p class="mc-note">Estructura lista para el CRM de referencias de GAMMA OS (contrato <code>gamma/referencia@1</code>, agregados con k ≥ 5). El reparto de pauta local es la propuesta del plan multicanal.</p>
-  <div class="mc-wrap">
-    <table class="mc-table" data-source="sedes" data-row-key="sede" id="tabla-sedes">
-      <thead><tr>
-        <th data-field="nombre">Sede</th>
-        <th data-field="estado">Estado</th>
-        <th data-field="reparto_pauta_local">Reparto de pauta</th>
-        <th data-field="referencias_mes" class="num">Referencias/mes</th>
-        <th data-field="referentes_activos" class="num">Referentes activos</th>
-        <th data-field="conversion_pct" class="num">Conversión %</th>
-        <th data-field="nps" class="num">NPS</th>
-        <th data-field="sesiones_organicas" class="num">Sesiones orgánicas</th>
-        <th data-field="costo_paciente_mxn" class="num">Costo por paciente</th>
-      </tr></thead>
-      <tbody data-draw="tabla-sedes"></tbody>
-    </table>
-  </div>
+  <!-- ===================== CONGRESOS ===================== -->
+  <section id="congresos" class="mc-sec" hidden>
+    <h2>Calendario de congresos, noviembre 2026 a diciembre 2027</h2>
+    <p class="mc-note">Barras llenas: fechas confirmadas (sitio del organizador o agregador). Barras huecas: mes estimado por el patrón histórico (†). Los congresos sin fecha pública aparecen sólo en la tabla. Prioridad 1 = mayor retorno para las 3 sedes.</p>
+    <div class="mc-chart" id="grafica-congresos" data-draw="congresos-chart" data-source="congresos"></div>
+    <h2 id="congresos-tabla">Detalle, participación y patrocinio</h2>
+    <p class="mc-note">Opciones: stand, simposio satélite, cartel o trabajo libre, conferencia, patrocinio de taller. Sin incentivos a médicos; cada impreso o video de stand con permiso COFEPRIS. Costos de stand: los organizadores no los publican; se piden por prospecto comercial. Partida anual de congresos del plan: <span data-draw="congresos-ppto" data-source="presupuesto_anual" data-field="bajo_mxn_anual" data-where="partida=Congresos">—</span>–<span data-draw="congresos-ppto-alto" data-source="presupuesto_anual" data-field="alto_mxn_anual" data-where="partida=Congresos">—</span> MXN.</p>
+    <div class="mc-wrap">
+      <table class="mc-table" data-source="congresos" data-row-key="congreso_id" id="tabla-congresos">
+        <thead><tr>
+          <th data-field="prioridad" class="num">Prioridad</th>
+          <th data-field="congreso">Congreso</th>
+          <th data-field="inicio">Inicio</th>
+          <th data-field="fin">Fin</th>
+          <th data-field="mes_estimado">Mes estimado</th>
+          <th data-field="ciudad">Ciudad</th>
+          <th data-field="verificado">Verificado</th>
+          <th data-field="publico">Público</th>
+          <th data-field="participacion_sugerida">Participación sugerida</th>
+          <th data-field="fuente">Fuente</th>
+        </tr></thead>
+        <tbody data-draw="tabla-congresos"></tbody>
+      </table>
+    </div>
+  </section>
 
-  <h2 id="cumplimiento">Cumplimiento COFEPRIS de piezas</h2>
-  <p class="mc-note">Cada pieza publicada se registra con su id (MC-sede-canal-aaaamm-nn), su permiso o aviso y la lista de verificación de 19 puntos. Hoy no hay piezas registradas.</p>
-  <div class="mc-wrap">
-    <table class="mc-table" data-source="cumplimiento_piezas" data-row-key="pieza_id" id="tabla-piezas">
-      <thead><tr>
-        <th data-field="pieza_id">Pieza</th>
-        <th data-field="sede">Sede</th>
-        <th data-field="canal">Canal</th>
-        <th data-field="mes">Mes</th>
-        <th data-field="permiso_o_aviso">Permiso/aviso</th>
-        <th data-field="checklist_completo">Checklist</th>
-        <th data-field="publicada">Publicada</th>
-      </tr></thead>
-      <tbody data-draw="tabla-piezas"></tbody>
-    </table>
-  </div>
+  <!-- ===================== COFEPRIS ===================== -->
+  <section id="cumplimiento" class="mc-sec" hidden>
+    <h2>Qué trámite COFEPRIS lleva cada pieza</h2>
+    <p class="mc-note">Las sedes y el CINO anuncian servicios con <strong>permiso</strong> (02-001 modalidad A), también ante médicos. El médico como profesional individual usa el <strong>aviso</strong> 02-002 supuesto A: gratuito, al menos 5 días antes de difundir y con su cédula en el proyecto (acuerdo DOF 4-may-2026).</p>
+    <div class="mc-wrap">
+      <table class="mc-table" data-source="tramites_cofepris" data-row-key="tipo_pieza" id="tabla-tramites">
+        <thead><tr>
+          <th data-field="tipo_pieza">Tipo de pieza</th>
+          <th data-field="ejemplo">Ejemplo</th>
+          <th data-field="tramite">Trámite</th>
+          <th data-field="fundamento">Fundamento</th>
+          <th data-field="cuando">Cuándo</th>
+          <th data-field="costo">Costo</th>
+        </tr></thead>
+        <tbody data-draw="tabla-tramites"></tbody>
+      </table>
+    </div>
+    <h2 id="piezas">Cumplimiento por pieza</h2>
+    <p class="mc-note">Cada pieza: id MC-sede-canal-aaaamm-nn, trámite, número de permiso o acuse de aviso y checklist de 19 puntos. Hoy no hay piezas registradas.</p>
+    <div class="mc-wrap">
+      <table class="mc-table" data-source="cumplimiento_piezas" data-row-key="pieza_id" id="tabla-piezas">
+        <thead><tr>
+          <th data-field="pieza_id">Pieza</th>
+          <th data-field="sede">Sede</th>
+          <th data-field="canal">Canal</th>
+          <th data-field="mes">Mes</th>
+          <th data-field="tramite">Trámite</th>
+          <th data-field="permiso_o_aviso">Permiso / acuse</th>
+          <th data-field="checklist_completo">Checklist</th>
+          <th data-field="publicada">Publicada</th>
+        </tr></thead>
+        <tbody data-draw="tabla-piezas"></tbody>
+      </table>
+    </div>
+  </section>
 
-  <h2 id="anual">Presupuesto anual por partida</h2>
-  <div class="mc-wrap">
-    <table class="mc-table" data-source="presupuesto_anual" data-row-key="partida" id="tabla-anual">
-      <thead><tr>
-        <th data-field="partida">Partida</th>
-        <th data-field="bajo_mxn_anual" class="num">Bajo (MXN)</th>
-        <th data-field="alto_mxn_anual" class="num">Alto (MXN)</th>
-      </tr></thead>
-      <tbody data-draw="tabla-anual"></tbody>
-    </table>
-  </div>
+  <!-- ===================== PRESUPUESTO ===================== -->
+  <section id="presupuesto" class="mc-sec" hidden>
+    <h2>Presupuesto mensual por canal frente al gasto</h2>
+    <p class="mc-note">Cada barra es el rango mensual del plan (bajo–alto). El punto de gasto real aparecerá al conectar las APIs de cada plataforma; hoy no hay gasto registrado.</p>
+    <div class="mc-chart" id="grafica-inversion" data-draw="inversion" data-source="presupuesto_canal"></div>
+    <h2 id="anual">Presupuesto anual por partida</h2>
+    <div class="mc-wrap">
+      <table class="mc-table" data-source="presupuesto_anual" data-row-key="partida" id="tabla-anual">
+        <thead><tr>
+          <th data-field="partida">Partida</th>
+          <th data-field="bajo_mxn_anual" class="num">Bajo (MXN)</th>
+          <th data-field="alto_mxn_anual" class="num">Alto (MXN)</th>
+        </tr></thead>
+        <tbody data-draw="tabla-anual"></tbody>
+      </table>
+    </div>
+  </section>
 
-  <h2 id="fuentes">Fuentes futuras</h2>
-  <p class="mc-note">Conectores previstos. Ninguno envía a las plataformas datos de salud ni eventos de «cita agendada».</p>
-  <div class="mc-wrap">
-    <table class="mc-table" data-source="fuentes_futuras" data-row-key="fuente" id="tabla-fuentes">
-      <thead><tr>
-        <th data-field="fuente">Fuente</th>
-        <th data-field="via">Vía</th>
-        <th data-field="metricas">Métricas</th>
-        <th data-field="privacidad">Privacidad</th>
-        <th data-field="estado">Estado</th>
-      </tr></thead>
-      <tbody data-draw="tabla-fuentes"></tbody>
-    </table>
-  </div>
+  <!-- ===================== MARCA ===================== -->
+  <section id="marca" class="mc-sec" hidden>
+    <h2>Marca e IMPI</h2>
+    <p class="mc-note">Logo oficial de MarCo: propuesta 1 (monograma M+C con arco de emisión). «GAMMA» sola es débil en medicina nuclear por descriptiva y por antecedentes de terceros: se registra como signo mixto con el logotipo. Derechos por clase según la tarifa IMPI vigente (2,695.18 MXN + IVA, art. 14 a); sin honorarios.</p>
+    <div class="mc-wrap">
+      <table class="mc-table" data-source="marcas_impi" data-row-key="signo" id="tabla-marcas">
+        <thead><tr>
+          <th data-field="signo">Signo</th>
+          <th data-field="clases">Clases de Niza</th>
+          <th data-field="n_clases" class="num">Clases</th>
+          <th data-field="derechos_mxn_con_iva" class="num">Derechos MXN con IVA</th>
+          <th data-field="estado">Estado</th>
+          <th data-field="riesgo">Riesgo</th>
+        </tr></thead>
+        <tbody data-draw="tabla-marcas"></tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- ===================== FUENTES ===================== -->
+  <section id="fuentes" class="mc-sec" hidden>
+    <h2>KPIs del plan</h2>
+    <p class="mc-note">Metas orientativas del plan base. «Fijar tras línea base» significa que la meta se define tras 90 días de medición.</p>
+    <div class="mc-wrap">
+      <table class="mc-table" data-source="kpis" data-row-key="kpi_id" id="tabla-kpis">
+        <thead><tr>
+          <th data-field="kpi">KPI</th>
+          <th data-field="definicion">Definición</th>
+          <th data-field="meta_plan">Meta del plan</th>
+          <th data-field="valor_real">Valor real</th>
+          <th data-field="fuente_futura">Fuente</th>
+          <th data-field="frecuencia">Frecuencia</th>
+        </tr></thead>
+        <tbody data-draw="tabla-kpis"></tbody>
+      </table>
+    </div>
+    <h2 id="conectores">Fuentes por conectar</h2>
+    <p class="mc-note">Ninguna envía a las plataformas datos de salud ni eventos de «cita agendada».</p>
+    <div class="mc-wrap">
+      <table class="mc-table" data-source="fuentes_futuras" data-row-key="fuente" id="tabla-fuentes">
+        <thead><tr>
+          <th data-field="fuente">Fuente</th>
+          <th data-field="via">Vía</th>
+          <th data-field="metricas">Métricas</th>
+          <th data-field="privacidad">Privacidad</th>
+          <th data-field="estado">Estado</th>
+        </tr></thead>
+        <tbody data-draw="tabla-fuentes"></tbody>
+      </table>
+    </div>
+  </section>
 
   <details id="notas">
-    <summary>Definiciones y reglas del tablero</summary>
-    <p>Conversión de referencia: referencias que terminan en estudio realizado entre referencias recibidas. Costo por paciente (digital): gasto de pauta entre estudios agendados atribuidos por UTM dentro de GAMMA OS; el evento de cita nunca se envía a Meta, Google, TikTok ni LinkedIn. NPS: encuestas sin preguntas clínicas. Todo agregado por sede o referente se muestra sólo con k ≥ 5. No se nombran personas.</p>
+    <summary>Definiciones, reglas y fuentes</summary>
+    <p>Conversión de referencia: referencias con estudio realizado ÷ referencias recibidas. Costo por paciente: gasto de pauta ÷ estudios realizados atribuidos por UTM en GAMMA OS. Atribución: último clic no directo hasta tener suficiente volumen para un modelo basado en datos. NPS: encuestas sin preguntas clínicas. Agregados por sede o referente sólo con k ≥ 5; no se nombran personas.</p>
+    <p>Fuentes públicas: INEGI Censo 2020 (comunicados estatales de Oaxaca, Tabasco y Yucatán; DataMéxico para Toluca); INEGI, Estadísticas a propósito del Día Mundial contra el Cáncer 2026 (EDR 2024); GLOBOCAN, ficha de México (IARC); calendarios de congresos enlazados en la tabla; tarifa IMPI (DOF 12-may-2023); RLGSMP arts. 79, 80, 86, 87 y acuerdos de simplificación COFEPRIS 2025 y 2026.</p>
   </details>
 </div>
 
 <script>
   window.mcFmt = new Intl.NumberFormat('es-MX', { maximumFractionDigits: 0 });
+  window.mcFmt1 = new Intl.NumberFormat('es-MX', { maximumFractionDigits: 1 });
+  window.mcFmt2 = new Intl.NumberFormat('es-MX', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
   window.mcNum = (v) => (v === null || v === undefined || v === '' ? null : +v);
+  window.mcEj = () => dash.params().ejemplo === 'si';
+  window.mcSedes = [['OAX', 'GAMMA Oaxaca'], ['VSA', 'GAMMA Villahermosa'], ['MID', 'GAMMA Mérida'], ['TOL', 'GAMMA Toluca'], ['CINO', 'CINO (Zumaya)']];
+  window.mcMetricas = { estudios: 'Estudios', terapias: 'Terapias', referencias: 'Referencias', referentes_activos: 'Referentes activos', conversion_pct: 'Conversión %', ingresos_mxn: 'Ingresos MXN' };
 
   dash.calc('pauta_total', {
     title: 'Pauta digital: suma del rango mensual',
@@ -168,9 +425,9 @@
   });
   dash.calc('piezas_resumen', {
     title: 'Piezas registradas',
-    description: 'Número de piezas en el registro de cumplimiento y cuántas tienen checklist completo.',
+    description: 'Número de piezas en el registro de cumplimiento.',
     inputs: ['cumplimiento_piezas'],
-    fn: (piezas) => [{ registradas: piezas.length, con_checklist: piezas.filter((r) => String(r.checklist_completo).toLowerCase() === 'si' || String(r.checklist_completo).toLowerCase() === 'sí').length }],
+    fn: (piezas) => [{ registradas: piezas.length }],
   });
   dash.calc('kpis_resumen', {
     title: 'KPIs con dato real',
@@ -178,63 +435,166 @@
     inputs: ['kpis'],
     fn: (kpis) => [{ total: kpis.length, con_dato: kpis.filter((r) => r.valor_real !== null && r.valor_real !== undefined && r.valor_real !== '').length }],
   });
+  dash.calc('sedes_resumen', {
+    title: 'Sedes operando',
+    description: 'Sedes con estatus Operando sobre el total de sedes y proyectos.',
+    inputs: ['geo_sedes'],
+    fn: (sedes) => [{ operando: sedes.filter((s) => s.estatus === 'Operando').length, total: sedes.length }],
+  });
+  dash.calc('area_resumen', {
+    title: 'Población del área de las 3 sedes',
+    description: 'Suma de la población 2020 de los estados asignados a Oaxaca, Villahermosa y Mérida.',
+    inputs: ['geo_estados'],
+    fn: (estados) => {
+      const e = estados.filter((r) => ['OAX', 'VSA', 'MID'].includes(r.area_influencia));
+      return [{ poblacion: d3.sum(e, (r) => +r.poblacion_2020), estados: e.length }];
+    },
+  });
+  dash.calc('marcas_total', {
+    title: 'Derechos IMPI estimados',
+    description: 'Suma de derechos con IVA y de solicitudes-clase del plan de registro.',
+    inputs: ['marcas_impi'],
+    fn: (marcas) => [{ total: d3.sum(marcas, (r) => +r.derechos_mxn_con_iva), clases: d3.sum(marcas, (r) => +r.n_clases) }],
+  });
+  dash.calc('congresos_resumen', {
+    title: 'Próximo congreso confirmado',
+    description: 'Primer congreso con fecha de inicio confirmada a partir de hoy.',
+    inputs: ['congresos'],
+    fn: (congresos) => {
+      const hoy = new Date().toISOString().slice(0, 10);
+      const c = congresos.filter((r) => r.inicio && r.inicio >= hoy).sort((a, b) => d3.ascending(a.inicio, b.inicio))[0];
+      return c ? [{ proximo: c.congreso, fecha: c.inicio + ' a ' + c.fin, ciudad: c.ciudad }] : [{ proximo: 'Ninguno', fecha: '', ciudad: '' }];
+    },
+  });
+  dash.calc('plazas_vista', {
+    title: 'Serie mensual por plaza (real o ejemplo)',
+    description: 'Filas de la plantilla real o, con «Ver ejemplo», del archivo de ejemplo no real, para la métrica elegida.',
+    inputs: ['plazas_mensual', 'ejemplo_plazas_mensual'],
+    fn: (real, ejemplo) => {
+      const p = dash.params();
+      const ej = p.ejemplo === 'si';
+      const m = p.metrica || 'estudios';
+      return (ej ? ejemplo : real).map((r) => ({ sede: r.sede, mes: r.mes, valor: r[m] === '' || r[m] == null ? null : +r[m], origen: ej ? 'EJEMPLO, NO REAL' : 'real' }));
+    },
+  });
+  dash.calc('plazas_resumen', {
+    title: 'Crecimiento por plaza',
+    description: 'Último mes con dato, variación mes a mes y año a año, y acumulado del año por sede para la métrica elegida.',
+    inputs: ['plazas_vista'],
+    fn: (serie) => {
+      const m = dash.params().metrica || 'estudios';
+      const nombres = { OAX: 'GAMMA Oaxaca', VSA: 'GAMMA Villahermosa', MID: 'GAMMA Mérida', TOL: 'GAMMA Toluca', CINO: 'CINO (Zumaya)' };
+      const etiquetas = { estudios: 'Estudios', terapias: 'Terapias', referencias: 'Referencias', referentes_activos: 'Referentes activos', conversion_pct: 'Conversión %', ingresos_mxn: 'Ingresos MXN' };
+      const pct = (a, b) => (a == null || b == null || b === 0 ? null : Math.round((a / b - 1) * 1000) / 10);
+      return Object.keys(nombres).map((s) => {
+        const filas = (serie || []).filter((r) => r.sede === s && r.valor != null && !(r.valor === 0 && (s === 'TOL' || s === 'CINO'))).sort((a, b) => d3.ascending(a.mes, b.mes));
+        const u = filas[filas.length - 1];
+        const origen = (serie || []).find((r) => r.sede === s)?.origen || 'real';
+        if (!u) return { sede: s, nombre: nombres[s], metrica: etiquetas[m], ultimo_mes: null, valor: null, mom_pct: null, yoy_pct: null, acumulado: null, origen };
+        const prev = filas.find((r) => r.mes === d3.utcFormat('%Y-%m')(d3.utcMonth.offset(new Date(u.mes + '-01T00:00:00Z'), -1)));
+        const ya = filas.find((r) => r.mes === (+u.mes.slice(0, 4) - 1) + u.mes.slice(4));
+        const anio = filas.filter((r) => r.mes.slice(0, 4) === u.mes.slice(0, 4));
+        const acum = m === 'conversion_pct' ? null : d3.sum(anio, (r) => r.valor);
+        return { sede: s, nombre: nombres[s], metrica: etiquetas[m], ultimo_mes: u.mes, valor: u.valor, mom_pct: pct(u.valor, prev?.valor), yoy_pct: pct(u.valor, ya?.valor), acumulado: acum, origen };
+      });
+    },
+  });
+  dash.calc('canales_vista', {
+    title: 'Canales (real o ejemplo)',
+    description: 'Filas de la plantilla real de canales o, con «Ver ejemplo», del archivo de ejemplo no real.',
+    inputs: ['canales', 'ejemplo_canales'],
+    fn: (real, ejemplo) => (dash.params().ejemplo === 'si' ? ejemplo : real),
+  });
+  dash.calc('embudo_vista', {
+    title: 'Embudo (real o ejemplo)',
+    description: 'Etapas del embudo de la plantilla real o, con «Ver ejemplo», del archivo de ejemplo no real.',
+    inputs: ['embudo', 'ejemplo_embudo'],
+    fn: (real, ejemplo) => (dash.params().ejemplo === 'si' ? ejemplo : real),
+  });
+  dash.calc('distancias', {
+    title: 'Distancia a la sede operando más cercana',
+    description: 'Distancia en línea recta (haversine, radio terrestre 6,371 km) de cada ciudad a la sede operando más cercana.',
+    inputs: ['geo_ciudades', 'geo_sedes'],
+    fn: (ciudades, sedes) => {
+      const op = sedes.filter((s) => s.estatus === 'Operando');
+      const rad = (d) => (d * Math.PI) / 180;
+      const km = (a, b) => {
+        const dLat = rad(b.lat - a.lat), dLon = rad(b.lon - a.lon);
+        const h = Math.sin(dLat / 2) ** 2 + Math.cos(rad(a.lat)) * Math.cos(rad(b.lat)) * Math.sin(dLon / 2) ** 2;
+        return 2 * 6371 * Math.asin(Math.sqrt(h));
+      };
+      return ciudades.map((c) => {
+        const p = { lat: +c.lat, lon: +c.lon };
+        const best = op.map((s) => ({ s, d: km(p, { lat: +s.lat, lon: +s.lon }) })).sort((a, b) => a.d - b.d)[0];
+        return { ciudad: c.ciudad, estado: c.estado, sede_cercana: best.s.nombre, km_linea_recta: Math.round(best.d), tiempo_carretera: null };
+      }).sort((a, b) => a.km_linea_recta - b.km_linea_recta);
+    },
+  });
 
   const mcCell = (id, field, fmt) => (el) => {
     const d = dash.data(id);
     if (d.status !== 'ok' || !d.data || !d.data.length) { el.textContent = '—'; return; }
     const v = d.data[0][field];
-    el.textContent = fmt ? fmt(v) : String(v);
+    el.textContent = v === null || v === undefined || v === '' ? 'sin datos' : fmt ? fmt(v) : String(v);
   };
-  dash.draw('pauta-bajo', mcCell('pauta_total', 'bajo', (v) => mcFmt.format(v)));
-  dash.draw('pauta-alto', mcCell('pauta_total', 'alto', (v) => mcFmt.format(v)));
-  dash.draw('anual-bajo', mcCell('anual_total', 'bajo', (v) => mcFmt.format(v)));
-  dash.draw('anual-alto', mcCell('anual_total', 'alto', (v) => mcFmt.format(v)));
-  dash.draw('piezas', mcCell('piezas_resumen', 'registradas', (v) => mcFmt.format(v)));
-  dash.draw('kpis-con-dato', mcCell('kpis_resumen', 'con_dato', (v) => mcFmt.format(v)));
-  dash.draw('kpis-total', mcCell('kpis_resumen', 'total', (v) => mcFmt.format(v)));
+  const mcWhere = (id, key, val, field, fmt) => (el) => {
+    const d = dash.data(id);
+    const r = d.status === 'ok' ? d.data.find((x) => x[key] === val) : null;
+    el.textContent = r ? (fmt ? fmt(r[field]) : String(r[field])) : '—';
+  };
+  const f0 = (v) => mcFmt.format(+v);
+  dash.draw('sedes-operando', mcCell('sedes_resumen', 'operando', f0));
+  dash.draw('sedes-total', mcCell('sedes_resumen', 'total', f0));
+  dash.draw('pob-area', mcCell('area_resumen', 'poblacion', f0));
+  dash.draw('pob-estados', mcCell('area_resumen', 'estados', f0));
+  dash.draw('pauta-bajo', mcCell('pauta_total', 'bajo', f0));
+  dash.draw('pauta-alto', mcCell('pauta_total', 'alto', f0));
+  dash.draw('anual-bajo', mcCell('anual_total', 'bajo', f0));
+  dash.draw('anual-alto', mcCell('anual_total', 'alto', f0));
+  dash.draw('prox-congreso', mcCell('congresos_resumen', 'proximo'));
+  dash.draw('prox-fecha', mcCell('congresos_resumen', 'fecha'));
+  dash.draw('prox-ciudad', mcCell('congresos_resumen', 'ciudad'));
+  dash.draw('impi-total', mcCell('marcas_total', 'total', (v) => mcFmt2.format(+v)));
+  dash.draw('impi-clases', mcCell('marcas_total', 'clases', f0));
+  dash.draw('piezas', mcCell('piezas_resumen', 'registradas', f0));
+  dash.draw('kpis-con-dato', mcCell('kpis_resumen', 'con_dato', f0));
+  dash.draw('kpis-total', mcCell('kpis_resumen', 'total', f0));
+  dash.draw('congresos-ppto', mcWhere('presupuesto_anual', 'partida', 'Congresos', 'bajo_mxn_anual', f0));
+  dash.draw('congresos-ppto-alto', mcWhere('presupuesto_anual', 'partida', 'Congresos', 'alto_mxn_anual', f0));
 </script>
 
 <script>
-  dash.draw('inversion', (el) => {
-    const d = dash.data('presupuesto_canal');
-    if (d.status !== 'ok') { el.textContent = d.status === 'error' ? 'No se pudo cargar' : '—'; return; }
-    const rows = d.data.map((r) => ({ canal: r.canal, partida: r.partida, bajo: +r.bajo_mxn_mes, alto: +r.alto_mxn_mes, real: mcNum(r.gasto_real_mxn_mes) }));
-    el.replaceChildren();
-    const W = Math.max(280, el.clientWidth);
-    const rowH = 40, top = 8, right = 16, left = 8, bottom = 28;
-    const H = top + rows.length * rowH + bottom;
-    const x = d3.scaleLinear().domain([0, d3.max(rows, (r) => Math.max(r.alto, r.real || 0)) * 1.05]).nice().range([left, W - right]);
-    const svg = d3.select(el).append('svg').attr('width', '100%').attr('viewBox', `0 0 ${W} ${H}`)
-      .attr('role', 'img').attr('aria-label', 'Rango de presupuesto mensual por canal en MXN; sin gasto real registrado');
-    const ticks = W < 480 ? 3 : 6;
-    svg.append('g').attr('transform', `translate(0,${H - bottom})`).call(d3.axisBottom(x).ticks(ticks).tickFormat((v) => mcFmt.format(v / 1000) + ' k'))
-      .call((g) => g.select('.domain').remove())
-      .call((g) => g.selectAll('line').attr('y1', -(H - bottom - top)).style('stroke', 'var(--cds-chart-grid)'));
-    const tip = d3.select(el).append('div').attr('class', 'mc-tip').style('display', 'none');
-    const g = svg.append('g').selectAll('g').data(rows).join('g').attr('transform', (r, i) => `translate(0,${top + i * rowH})`);
-    g.append('text').attr('class', 'mc-lab').attr('x', left).attr('y', 12).text((r) => r.canal + (r.partida !== 'Pauta digital' ? ' · ' + r.partida : ''));
-    g.append('rect').attr('x', (r) => x(r.bajo)).attr('y', 18).attr('height', 12)
-      .attr('width', (r) => Math.max(3, x(r.alto) - x(r.bajo))).attr('rx', 3)
-      .style('fill', (r) => (r.partida === 'Pauta digital' ? dash.colors[0] : 'var(--cds-chart-muted)'));
-    g.filter((r) => r.real !== null).append('circle').attr('cx', (r) => x(r.real)).attr('cy', 24).attr('r', 5)
-      .style('fill', (r) => (r.real > r.alto ? 'var(--cds-chart-status-critical)' : 'var(--color-fg)'));
-    g.append('rect').attr('x', 0).attr('y', 0).attr('width', W).attr('height', rowH).style('fill', 'transparent')
-      .on('pointerenter pointermove', (ev, r) => {
-        const [mx, my] = d3.pointer(ev, el);
-        tip.style('display', null).style('left', Math.min(mx + 12, el.clientWidth - 270) + 'px').style('top', (my + 12) + 'px');
-        tip.selectAll('*').remove();
-        tip.append('div').style('font-weight', '600').text(r.canal);
-        tip.append('div').text('Presupuesto: ' + mcFmt.format(r.bajo) + '–' + mcFmt.format(r.alto) + ' MXN/mes');
-        tip.append('div').text('Gasto real: ' + (r.real === null ? 'sin datos' : mcFmt.format(r.real) + ' MXN'));
-        tip.append('div').text('Partida: ' + r.partida);
-      })
-      .on('pointerleave', () => tip.style('display', 'none'));
-  });
+  // Pestañas, interruptor de ejemplo y selector de métrica (sólo atributos permitidos)
+  (function () {
+    const tabs = Array.from(document.querySelectorAll('.mc-tab[data-tab]'));
+    const show = (id) => {
+      for (const t of tabs) {
+        const on = t.getAttribute('data-tab') === id;
+        t.setAttribute('aria-selected', on ? 'true' : 'false');
+        const sec = document.getElementById(t.getAttribute('data-tab'));
+        if (sec) sec.hidden = !on;
+      }
+    };
+    for (const t of tabs) t.addEventListener('click', () => { const id = t.getAttribute('data-tab'); show(id); dash.setLink(id); });
+    const h = (location.hash || '').replace('#', '');
+    if (h && tabs.some((t) => t.getAttribute('data-tab') === h)) show(h);
+    for (const cb of document.querySelectorAll('#mc-ejemplo')) {
+      cb.checked = dash.params().ejemplo === 'si';
+      cb.addEventListener('change', () => dash.setParams({ ejemplo: cb.checked ? 'si' : 'no' }));
+    }
+    for (const sel of document.querySelectorAll('#mc-metrica')) {
+      sel.value = dash.params().metrica || 'estudios';
+      sel.addEventListener('change', () => dash.setParams({ metrica: sel.value }));
+    }
+  })();
+</script>
 
-  const mcTable = (id, cols, emptyText) => (tb) => {
+<script>
+  // Tablas
+  window.mcTable = (id, cols, emptyText) => (tb) => {
     const d = dash.data(id);
     tb.replaceChildren();
-    if (d.status !== 'ok') return;
+    if (d.status !== 'ok' || !Array.isArray(d.data)) return;
     if (!d.data.length) {
       const tr = tb.insertRow(); const td = tr.insertCell();
       td.colSpan = cols.length; td.className = 'mc-empty'; td.textContent = emptyText;
@@ -246,14 +606,232 @@
         const td = tr.insertCell();
         const v = r[c.f];
         if (c.num) td.className = 'num';
-        if (v === null || v === undefined || v === '') { td.textContent = 'sin datos'; td.classList.add('mc-empty'); }
-        else td.textContent = c.fmt ? c.fmt(v) : String(v);
+        if (v === null || v === undefined || v === '') { td.textContent = c.blank || 'sin datos'; td.classList.add('mc-empty'); }
+        else if (c.link && /^https:\/\//.test(String(v))) {
+          const a = document.createElement('a'); a.href = String(v); a.target = '_blank'; a.rel = 'noopener';
+          a.textContent = (() => { try { return new URL(String(v)).hostname.replace('www.', ''); } catch (e) { return 'enlace'; } })();
+          td.appendChild(a);
+        } else td.textContent = c.fmt ? c.fmt(v) : String(v);
+        if (c.f === 'origen' && String(v).startsWith('EJEMPLO')) td.classList.add('mc-ex');
       }
     }
   };
+  const n0 = (v) => mcFmt.format(+v);
+  const n1 = (v) => mcFmt1.format(+v);
+  const sg = (v) => (v > 0 ? '+' : '') + mcFmt1.format(+v) + ' %';
+  const vMet = (v) => (dash.params().metrica === 'conversion_pct' ? n1(v) + ' %' : n0(v));
+  dash.draw('tabla-resumen-plazas', mcTable('plazas_resumen', [{ f: 'nombre' }, { f: 'metrica' }, { f: 'ultimo_mes' }, { f: 'valor', num: 1, fmt: vMet }, { f: 'mom_pct', num: 1, fmt: sg }, { f: 'yoy_pct', num: 1, fmt: sg }, { f: 'origen' }], 'Sin sedes'));
+  dash.draw('tabla-plazas', mcTable('plazas_resumen', [{ f: 'nombre' }, { f: 'ultimo_mes' }, { f: 'valor', num: 1, fmt: vMet }, { f: 'mom_pct', num: 1, fmt: sg }, { f: 'yoy_pct', num: 1, fmt: sg }, { f: 'acumulado', num: 1, fmt: n0, blank: 'no aplica / sin datos' }, { f: 'origen' }], 'Sin sedes'));
+  dash.draw('tabla-canales', mcTable('canales_vista', [{ f: 'canal' }, { f: 'alcance', num: 1, fmt: n0 }, { f: 'impresiones', num: 1, fmt: n0 }, { f: 'clics', num: 1, fmt: n0 }, { f: 'ctr_pct', num: 1, fmt: n1 }, { f: 'cpc_mxn', num: 1, fmt: n1 }, { f: 'leads', num: 1, fmt: n0 }, { f: 'cpl_mxn', num: 1, fmt: n0 }, { f: 'pacientes', num: 1, fmt: n0 }, { f: 'costo_paciente_mxn', num: 1, fmt: n0 }, { f: 'atribucion_ultimo_clic_pct', num: 1, fmt: n1 }], 'Sin canales'));
+  dash.draw('tabla-resenas', mcTable('resenas_seo', [{ f: 'nombre' }, { f: 'resenas_google', num: 1, fmt: n0 }, { f: 'calificacion_google', num: 1, fmt: n1 }, { f: 'nps_pacientes', num: 1, fmt: n0 }, { f: 'nps_referentes', num: 1, fmt: n0 }, { f: 'posicion_media_seo', num: 1, fmt: n1 }, { f: 'local_pack_top3' }], 'Sin sedes'));
+  dash.draw('tabla-estados', mcTable('geo_estados', [{ f: 'estado' }, { f: 'poblacion_2020', num: 1, fmt: n0 }, { f: 'tasa_mort_tumores_2024', num: 1, fmt: n1 }, { f: 'area_influencia' }, { f: 'oncologos', num: 1, blank: 'sin datos (sin fuente pública)' }, { f: 'endocrinologos', num: 1, blank: 'sin datos (sin fuente pública)' }, { f: 'fuente_poblacion', link: 1 }], 'Sin estados'));
+  dash.draw('tabla-distancias', mcTable('distancias', [{ f: 'ciudad' }, { f: 'estado' }, { f: 'sede_cercana' }, { f: 'km_linea_recta', num: 1, fmt: n0 }, { f: 'tiempo_carretera', blank: 'sin datos' }], 'Sin ciudades'));
+  dash.draw('tabla-cancer', mcTable('cancer_mexico', [{ f: 'indicador' }, { f: 'valor', num: 1, fmt: (v) => (String(v).includes('.') ? n1(v) : n0(v)) }, { f: 'unidad', blank: '' }, { f: 'fuente' }], 'Sin indicadores'));
+  dash.draw('tabla-congresos', mcTable('congresos', [{ f: 'prioridad', num: 1 }, { f: 'congreso' }, { f: 'inicio', blank: '†' }, { f: 'fin', blank: '†' }, { f: 'mes_estimado', blank: '' }, { f: 'ciudad' }, { f: 'verificado' }, { f: 'publico' }, { f: 'participacion_sugerida' }, { f: 'fuente', link: 1 }], 'Sin congresos'));
+  dash.draw('tabla-tramites', mcTable('tramites_cofepris', [{ f: 'tipo_pieza' }, { f: 'ejemplo' }, { f: 'tramite' }, { f: 'fundamento' }, { f: 'cuando' }, { f: 'costo' }], 'Sin trámites'));
+  dash.draw('tabla-piezas', mcTable('cumplimiento_piezas', [{ f: 'pieza_id' }, { f: 'sede' }, { f: 'canal' }, { f: 'mes' }, { f: 'tramite' }, { f: 'permiso_o_aviso' }, { f: 'checklist_completo' }, { f: 'publicada' }], 'Aún no hay piezas registradas.'));
+  dash.draw('tabla-anual', mcTable('presupuesto_anual', [{ f: 'partida' }, { f: 'bajo_mxn_anual', num: 1, fmt: n0 }, { f: 'alto_mxn_anual', num: 1, fmt: n0 }], 'Sin partidas'));
+  dash.draw('tabla-marcas', mcTable('marcas_impi', [{ f: 'signo' }, { f: 'clases' }, { f: 'n_clases', num: 1 }, { f: 'derechos_mxn_con_iva', num: 1, fmt: (v) => mcFmt2.format(+v) }, { f: 'estado' }, { f: 'riesgo' }], 'Sin signos'));
   dash.draw('tabla-kpis', mcTable('kpis', [{ f: 'kpi' }, { f: 'definicion' }, { f: 'meta_plan' }, { f: 'valor_real' }, { f: 'fuente_futura' }, { f: 'frecuencia' }], 'Sin KPIs'));
-  dash.draw('tabla-sedes', mcTable('sedes', [{ f: 'nombre' }, { f: 'estado' }, { f: 'reparto_pauta_local' }, { f: 'referencias_mes', num: 1 }, { f: 'referentes_activos', num: 1 }, { f: 'conversion_pct', num: 1 }, { f: 'nps', num: 1 }, { f: 'sesiones_organicas', num: 1 }, { f: 'costo_paciente_mxn', num: 1 }], 'Sin sedes'));
-  dash.draw('tabla-piezas', mcTable('cumplimiento_piezas', [{ f: 'pieza_id' }, { f: 'sede' }, { f: 'canal' }, { f: 'mes' }, { f: 'permiso_o_aviso' }, { f: 'checklist_completo' }, { f: 'publicada' }], 'Aún no hay piezas registradas.'));
-  dash.draw('tabla-anual', mcTable('presupuesto_anual', [{ f: 'partida' }, { f: 'bajo_mxn_anual', num: 1, fmt: (v) => mcFmt.format(+v) }, { f: 'alto_mxn_anual', num: 1, fmt: (v) => mcFmt.format(+v) }], 'Sin partidas'));
   dash.draw('tabla-fuentes', mcTable('fuentes_futuras', [{ f: 'fuente' }, { f: 'via' }, { f: 'metricas' }, { f: 'privacidad' }, { f: 'estado' }], 'Sin fuentes'));
+</script>
+
+<script>
+  // Utilidades de gráficas
+  window.mcTip = (el) => {
+    let t = el.querySelector(':scope > .mc-tip');
+    if (!t) { t = document.createElement('div'); t.className = 'mc-tip'; t.style.display = 'none'; el.appendChild(t); }
+    return {
+      show(ev, lines) {
+        const [mx, my] = d3.pointer(ev, el);
+        t.replaceChildren();
+        lines.forEach((l, i) => { const d = document.createElement('div'); d.textContent = l; if (i === 0) d.style.fontWeight = '600'; t.appendChild(d); });
+        t.style.display = 'block';
+        t.style.left = Math.max(0, Math.min(mx + 12, el.clientWidth - 290)) + 'px';
+        t.style.top = (my + 12) + 'px';
+      },
+      hide() { t.style.display = 'none'; },
+    };
+  };
+  window.mcStatus = (el, ids) => {
+    for (const id of ids) {
+      const d = dash.data(id);
+      if (d.status !== 'ok') { el.replaceChildren(); el.textContent = d.status === 'error' ? 'No se pudo cargar' : '—'; return false; }
+    }
+    return true;
+  };
+</script>
+
+<script>
+  // Plazas: una gráfica por sede
+  dash.draw('plazas-chart', (el) => {
+    if (!mcStatus(el, ['plazas_vista'])) return;
+    const serie = dash.data('plazas_vista').data || [];
+    const m = dash.params().metrica || 'estudios';
+    const ej = dash.params().ejemplo === 'si';
+    el.replaceChildren();
+    const meses = Array.from(new Set(serie.map((r) => r.mes))).sort();
+    const x0 = new Date(meses[0] + '-01T00:00:00Z'), x1 = new Date(meses[meses.length - 1] + '-01T00:00:00Z');
+    const vals = serie.filter((r) => r.valor != null).map((r) => r.valor);
+    const ymax = vals.length ? d3.max(vals) : 1;
+    for (const [s, nombre] of mcSedes) {
+      const filas = serie.filter((r) => r.sede === s && r.valor != null && !(r.valor === 0 && (s === 'TOL' || s === 'CINO')));
+      const panel = document.createElement('div'); panel.className = 'mc-panel';
+      const h = document.createElement('h4'); h.textContent = nombre + ' · ' + mcMetricas[m]; panel.appendChild(h);
+      el.appendChild(panel);
+      if (!filas.length) {
+        const p = document.createElement('div'); p.className = 'mc-empty';
+        p.textContent = s === 'TOL' ? 'Sin datos: sede en proyecto.' : s === 'CINO' ? 'Sin datos: CINO en pre-licencia.' : 'Sin datos: conectar agenda y CRM de GAMMA OS.';
+        panel.appendChild(p); continue;
+      }
+      const W = Math.max(220, panel.clientWidth - 8), H = 140, ml = 44, mr = 8, mt = 8, mb = 22;
+      const x = d3.scaleUtc().domain([x0, x1]).range([ml, W - mr]);
+      const y = d3.scaleLinear().domain([0, ymax]).nice().range([H - mb, mt]);
+      const svg = d3.select(panel).append('svg').attr('width', '100%').attr('viewBox', `0 0 ${W} ${H}`)
+        .attr('role', 'img').attr('aria-label', `${nombre}: ${mcMetricas[m]} por mes${ej ? ' (ejemplo, no real)' : ''}`);
+      svg.append('g').attr('transform', `translate(0,${H - mb})`).call(d3.axisBottom(x).ticks(W < 300 ? 3 : 5).tickFormat(d3.utcFormat('%b %y'))).call((g) => g.select('.domain').style('stroke', 'var(--cds-chart-axis)')).call((g) => g.selectAll('line').style('stroke', 'var(--cds-chart-axis)'));
+      svg.append('g').attr('transform', `translate(${ml},0)`).call(d3.axisLeft(y).ticks(4).tickFormat((v) => (v >= 1e6 ? mcFmt1.format(v / 1e6) + ' M' : v >= 1e3 ? mcFmt.format(v / 1e3) + ' k' : mcFmt.format(v))))
+        .call((g) => g.select('.domain').remove()).call((g) => g.selectAll('line').attr('x2', W - ml - mr).style('stroke', 'var(--cds-chart-grid)'));
+      if (ej) svg.append('text').attr('class', 'mc-wm').attr('x', W / 2).attr('y', H / 2).attr('text-anchor', 'middle').text('EJEMPLO, NO REAL');
+      const pts = filas.map((r) => ({ d: new Date(r.mes + '-01T00:00:00Z'), v: r.valor, mes: r.mes }));
+      svg.append('path').datum(pts).attr('fill', 'none').style('stroke', dash.colors[0]).attr('stroke-width', 2).attr('d', d3.line().x((p) => x(p.d)).y((p) => y(p.v)));
+      const tip = mcTip(panel);
+      svg.append('g').selectAll('circle').data(pts).join('circle').attr('cx', (p) => x(p.d)).attr('cy', (p) => y(p.v)).attr('r', 6).style('fill', 'transparent')
+        .on('pointerenter pointermove', (ev, p) => tip.show(ev, [nombre + ' · ' + p.mes, mcMetricas[m] + ': ' + (m === 'conversion_pct' ? mcFmt1.format(p.v) + ' %' : mcFmt.format(p.v)), ej ? 'EJEMPLO, NO REAL' : 'Dato real']))
+        .on('pointerleave', () => tip.hide());
+    }
+  });
+
+  // Embudo
+  dash.draw('embudo-chart', (el) => {
+    if (!mcStatus(el, ['embudo_vista'])) return;
+    const rows = (dash.data('embudo_vista').data || []).map((r) => ({ orden: +r.orden, etapa: r.etapa, v: mcNum(r.valor) })).sort((a, b) => d3.ascending(a.orden, b.orden));
+    const ej = dash.params().ejemplo === 'si';
+    el.replaceChildren();
+    if (!rows.some((r) => r.v != null)) { const p = document.createElement('div'); p.className = 'mc-empty'; p.textContent = 'Sin datos: el embudo se llena al conectar APIs de pauta, GA4 y GAMMA OS. Etapas: ' + rows.map((r) => r.etapa).join(' → ') + '.'; el.appendChild(p); return; }
+    const W = Math.max(280, el.clientWidth), rowH = 36, top = 6, H = top + rows.length * rowH + 6;
+    const labW = Math.min(240, W * 0.42);
+    const x = d3.scaleLog().domain([1, d3.max(rows, (r) => r.v)]).range([labW, W - 70]);
+    const svg = d3.select(el).append('svg').attr('width', '100%').attr('viewBox', `0 0 ${W} ${H}`).attr('role', 'img').attr('aria-label', 'Embudo de conversión' + (ej ? ' (ejemplo, no real)' : ''));
+    if (ej) svg.append('text').attr('class', 'mc-wm').attr('x', W / 2).attr('y', H / 2).attr('text-anchor', 'middle').text('EJEMPLO, NO REAL');
+    const tip = mcTip(el);
+    const g = svg.selectAll('g.r').data(rows).join('g').attr('transform', (r, i) => `translate(0,${top + i * rowH})`);
+    g.append('text').attr('class', 'mc-lab').attr('x', 0).attr('y', 18).text((r) => r.etapa.length > 34 ? r.etapa.slice(0, 33) + '…' : r.etapa);
+    g.append('rect').attr('x', labW).attr('y', 6).attr('height', 18).attr('rx', 3).attr('width', (r) => Math.max(2, x(Math.max(1, r.v)) - labW)).style('fill', dash.colors[0]);
+    g.append('text').attr('x', (r) => x(Math.max(1, r.v)) + 6).attr('y', 19).text((r, i) => mcFmt.format(r.v) + (i ? ' · ' + mcFmt1.format((r.v / rows[i - 1].v) * 100) + ' %' : ''));
+    g.append('rect').attr('width', W).attr('height', rowH).style('fill', 'transparent')
+      .on('pointerenter pointermove', (ev, r) => { const i = rows.indexOf(r); tip.show(ev, [r.etapa, 'Valor: ' + mcFmt.format(r.v), i ? 'Pasa de la etapa anterior: ' + mcFmt1.format((r.v / rows[i - 1].v) * 100) + ' %' : 'Etapa inicial', ej ? 'EJEMPLO, NO REAL' : 'Dato real']); })
+      .on('pointerleave', () => tip.hide());
+  });
+</script>
+
+<script>
+  // Mapa esquemático del sureste
+  dash.draw('mapa-chart', (el) => {
+    if (!mcStatus(el, ['geo_estados', 'geo_sedes', 'geo_ciudades'])) return;
+    const estados = dash.data('geo_estados').data.map((r) => ({ ...r, lat: +r.lat, lon: +r.lon, pob: +r.poblacion_2020 }));
+    const sedes = dash.data('geo_sedes').data.map((r) => ({ ...r, lat: +r.lat, lon: +r.lon }));
+    const ciudades = dash.data('geo_ciudades').data.map((r) => ({ ...r, lat: +r.lat, lon: +r.lon }));
+    el.replaceChildren();
+    const W = Math.max(300, el.clientWidth), H = Math.round(Math.min(520, Math.max(320, W * 0.62)));
+    const pts = { type: 'MultiPoint', coordinates: [...estados, ...ciudades].map((p) => [p.lon, p.lat]) };
+    const proj = d3.geoMercator().fitExtent([[30, 30], [W - 30, H - 30]], pts);
+    const path = d3.geoPath(proj);
+    const svg = d3.select(el).append('svg').attr('width', '100%').attr('viewBox', `0 0 ${W} ${H}`)
+      .attr('role', 'img').attr('aria-label', 'Esquema del sureste de México con las sedes GAMMA, anillos de 150 y 300 km y capitales estatales dimensionadas por población 2020');
+    const col = { OAX: dash.colors[0], VSA: dash.colors[1], MID: dash.colors[2], TOL: dash.colors[3] };
+    svg.append('path').datum(d3.geoGraticule().step([2, 2])()).attr('d', path).attr('fill', 'none').style('stroke', 'var(--cds-chart-grid)');
+    const op = sedes.filter((s) => s.sede !== 'CINO');
+    for (const s of op) for (const km of [300, 150]) {
+      svg.append('path').datum(d3.geoCircle().center([s.lon, s.lat]).radius(km / 111.2)()).attr('d', path)
+        .style('fill', col[s.sede] || 'var(--cds-chart-muted)').style('fill-opacity', km === 150 ? 0.10 : 0.05)
+        .style('stroke', col[s.sede] || 'var(--cds-chart-muted)').style('stroke-opacity', 0.5).attr('stroke-dasharray', km === 300 ? '4 4' : null);
+    }
+    const r = d3.scaleSqrt().domain([0, d3.max(estados, (e) => e.pob)]).range([0, 30]);
+    const tip = mcTip(el);
+    svg.append('g').selectAll('circle').data(estados).join('circle')
+      .attr('cx', (e) => proj([e.lon, e.lat])[0]).attr('cy', (e) => proj([e.lon, e.lat])[1]).attr('r', (e) => r(e.pob))
+      .style('fill', (e) => col[e.area_influencia] || 'var(--cds-chart-muted)').style('fill-opacity', 0.35).style('stroke', (e) => col[e.area_influencia] || 'var(--cds-chart-muted)')
+      .on('pointerenter pointermove', (ev, e) => tip.show(ev, [e.estado + ' (capital: ' + e.capital + ')', 'Población 2020: ' + mcFmt.format(e.pob), 'Mortalidad por tumores 2024: ' + mcFmt1.format(+e.tasa_mort_tumores_2024) + ' por 100 mil', 'Sede asignada (plan): ' + e.area_influencia, 'Oncólogos / endocrinólogos: sin datos']))
+      .on('pointerleave', () => tip.hide());
+    svg.append('g').selectAll('circle').data(ciudades).join('circle')
+      .attr('cx', (c) => proj([c.lon, c.lat])[0]).attr('cy', (c) => proj([c.lon, c.lat])[1]).attr('r', 2.5).style('fill', 'var(--color-fg-muted)')
+      .on('pointerenter pointermove', (ev, c) => tip.show(ev, [c.ciudad, c.estado]))
+      .on('pointerleave', () => tip.hide());
+    const sym = d3.symbol().type(d3.symbolDiamond).size(160);
+    const sg = svg.append('g').selectAll('g').data(sedes.filter((s) => s.sede !== 'CINO')).join('g').attr('transform', (s) => `translate(${proj([s.lon, s.lat])})`);
+    sg.append('path').attr('d', sym).style('fill', (s) => (s.estatus === 'Operando' ? col[s.sede] : 'var(--color-bg)')).style('stroke', (s) => col[s.sede]).attr('stroke-width', 2);
+    sg.append('text').attr('class', 'mc-lab').attr('x', 10).attr('y', -8).style('font-weight', 600).text((s) => s.nombre.replace('GAMMA ', '') + (s.sede === 'VSA' ? ' + CINO' : ''));
+    sg.append('path').attr('d', d3.symbol().type(d3.symbolCircle).size(500)()).style('fill', 'transparent')
+      .on('pointerenter pointermove', (ev, s) => tip.show(ev, [s.nombre + (s.sede === 'VSA' ? ' y CINO (pre-licencia)' : ''), 'Estatus: ' + s.estatus, 'Municipio ' + s.ciudad + ': ' + mcFmt.format(+s.municipio_pob_2020) + ' hab. (2020)']))
+      .on('pointerleave', () => tip.hide());
+    svg.append('text').attr('x', W - 8).attr('y', H - 8).attr('text-anchor', 'end').text('Anillos: 150 km (continuo) y 300 km (punteado) en línea recta');
+  });
+</script>
+
+<script>
+  // Calendario de congresos
+  dash.draw('congresos-chart', (el) => {
+    if (!mcStatus(el, ['congresos'])) return;
+    const all = dash.data('congresos').data;
+    const d0 = new Date('2026-11-01T00:00:00Z'), d1 = new Date('2028-01-01T00:00:00Z');
+    const rows = all.map((r) => {
+      if (r.inicio) return { ...r, a: new Date(r.inicio + 'T00:00:00Z'), b: d3.utcDay.offset(new Date((r.fin || r.inicio) + 'T00:00:00Z'), 1), est: false };
+      if (r.mes_estimado) { const a = new Date(r.mes_estimado + '-01T00:00:00Z'); return { ...r, a, b: d3.utcMonth.offset(a, 1), est: true }; }
+      return null;
+    }).filter((r) => r && r.b > d0 && r.a < d1).sort((x, y) => d3.ascending(x.a, y.a));
+    el.replaceChildren();
+    const W = Math.max(300, el.clientWidth), rowH = 26, top = 24, labW = Math.min(250, W * 0.45), H = top + rows.length * rowH + 10;
+    const x = d3.scaleUtc().domain([d0, d1]).range([labW, W - 10]);
+    const svg = d3.select(el).append('svg').attr('width', '100%').attr('viewBox', `0 0 ${W} ${H}`).attr('role', 'img').attr('aria-label', 'Calendario de congresos de noviembre 2026 a diciembre 2027');
+    svg.append('g').attr('transform', `translate(0,${top - 6})`).call(d3.axisTop(x).ticks(W < 520 ? d3.utcMonth.every(3) : d3.utcMonth.every(1)).tickFormat(d3.utcFormat('%b %y')))
+      .call((g) => g.select('.domain').remove()).call((g) => g.selectAll('line').attr('y2', H - top).style('stroke', 'var(--cds-chart-grid)'));
+    const hoy = new Date();
+    if (hoy > d0 && hoy < d1) svg.append('line').attr('x1', x(hoy)).attr('x2', x(hoy)).attr('y1', top - 6).attr('y2', H).style('stroke', 'var(--cds-chart-reference)').attr('stroke-dasharray', '3 3');
+    const colAmb = { Nacional: dash.colors[0], Regional: dash.colors[1], 'Latinoamérica': dash.colors[2], Internacional: dash.colors[3] };
+    const tip = mcTip(el);
+    const g = svg.selectAll('g.r').data(rows).join('g').attr('transform', (r, i) => `translate(0,${top + i * rowH})`);
+    g.append('text').attr('class', 'mc-lab').attr('x', 0).attr('y', 16).text((r) => { const t = (r.prioridad === '1' ? '● ' : '') + r.congreso; const max = Math.floor(labW / 6.5); return t.length > max ? t.slice(0, max - 1) + '…' : t; });
+    g.append('rect').attr('x', (r) => x(r.a)).attr('y', 5).attr('height', 14).attr('rx', 3).attr('width', (r) => Math.max(5, x(r.b) - x(r.a)))
+      .style('fill', (r) => (r.est ? 'transparent' : colAmb[r.ambito] || dash.colors[0])).style('stroke', (r) => colAmb[r.ambito] || dash.colors[0]).attr('stroke-dasharray', (r) => (r.est ? '3 2' : null));
+    g.append('rect').attr('width', W).attr('height', rowH).style('fill', 'transparent')
+      .on('pointerenter pointermove', (ev, r) => tip.show(ev, [r.congreso, r.est ? 'Mes estimado † ' + r.mes_estimado : r.inicio + ' a ' + r.fin, 'Ciudad: ' + r.ciudad, 'Ámbito: ' + r.ambito + ' · prioridad ' + r.prioridad, 'Público: ' + r.publico, 'Verificado: ' + r.verificado]))
+      .on('pointerleave', () => tip.hide());
+    const amb = Object.keys(colAmb);
+    const lg = svg.append('g').attr('transform', `translate(0,${H + 4})`);
+    let lx = 0;
+    for (const a of amb) {
+      lg.append('rect').attr('x', lx).attr('y', 0).attr('width', 12).attr('height', 10).attr('rx', 2).style('fill', colAmb[a]);
+      const t = lg.append('text').attr('x', lx + 16).attr('y', 9).text(a);
+      lx += 22 + (t.node().getComputedTextLength() || a.length * 7);
+    }
+    lg.append('text').attr('x', lx).attr('y', 9).text('· hueco = mes estimado †  · ● prioridad 1');
+    svg.attr('viewBox', `0 0 ${W} ${H + 20}`);
+  });
+
+  // Presupuesto vs gasto
+  dash.draw('inversion', (el) => {
+    if (!mcStatus(el, ['presupuesto_canal'])) return;
+    const rows = dash.data('presupuesto_canal').data.map((r) => ({ canal: r.canal, partida: r.partida, bajo: +r.bajo_mxn_mes, alto: +r.alto_mxn_mes, real: mcNum(r.gasto_real_mxn_mes) }));
+    el.replaceChildren();
+    const W = Math.max(280, el.clientWidth);
+    const rowH = 40, top = 8, right = 16, left = 8, bottom = 28;
+    const H = top + rows.length * rowH + bottom;
+    const x = d3.scaleLinear().domain([0, d3.max(rows, (r) => Math.max(r.alto, r.real || 0)) * 1.05]).nice().range([left, W - right]);
+    const svg = d3.select(el).append('svg').attr('width', '100%').attr('viewBox', `0 0 ${W} ${H}`)
+      .attr('role', 'img').attr('aria-label', 'Rango de presupuesto mensual por canal en MXN; sin gasto real registrado');
+    svg.append('g').attr('transform', `translate(0,${H - bottom})`).call(d3.axisBottom(x).ticks(W < 480 ? 3 : 6).tickFormat((v) => mcFmt.format(v / 1000) + ' k'))
+      .call((g) => g.select('.domain').remove())
+      .call((g) => g.selectAll('line').attr('y1', -(H - bottom - top)).style('stroke', 'var(--cds-chart-grid)'));
+    const tip = mcTip(el);
+    const g = svg.append('g').selectAll('g').data(rows).join('g').attr('transform', (r, i) => `translate(0,${top + i * rowH})`);
+    g.append('text').attr('class', 'mc-lab').attr('x', left).attr('y', 12).text((r) => r.canal + (r.partida !== 'Pauta digital' ? ' · ' + r.partida : ''));
+    g.append('rect').attr('x', (r) => x(r.bajo)).attr('y', 18).attr('height', 12).attr('width', (r) => Math.max(3, x(r.alto) - x(r.bajo))).attr('rx', 3)
+      .style('fill', (r) => (r.partida === 'Pauta digital' ? dash.colors[0] : 'var(--cds-chart-muted)'));
+    g.filter((r) => r.real !== null).append('circle').attr('cx', (r) => x(r.real)).attr('cy', 24).attr('r', 5)
+      .style('fill', (r) => (r.real > r.alto ? 'var(--cds-chart-status-critical)' : 'var(--color-fg)'));
+    g.append('rect').attr('x', 0).attr('y', 0).attr('width', W).attr('height', rowH).style('fill', 'transparent')
+      .on('pointerenter pointermove', (ev, r) => tip.show(ev, [r.canal, 'Presupuesto: ' + mcFmt.format(r.bajo) + '–' + mcFmt.format(r.alto) + ' MXN/mes', 'Gasto real: ' + (r.real === null ? 'sin datos' : mcFmt.format(r.real) + ' MXN'), 'Partida: ' + r.partida]))
+      .on('pointerleave', () => tip.hide());
+  });
 </script>
