@@ -1,0 +1,19 @@
+{
+  "$id": "gamma/referencia@1",
+  "type": "object",
+  "required": ["referencia_id", "emitido_en", "sede", "referente_ref", "servicio", "canal", "estado"],
+  "properties": {
+    "referencia_id": {"type": "string", "format": "uuid"},
+    "emitido_en": {"type": "string", "format": "date-time"},
+    "sede": {"enum": ["OAX", "VSA", "MID", "TOL", "CINO"]},
+    "referente_ref": {"type": "string"},
+    "servicio": {"type": "string"},
+    "canal": {"enum": ["telefono", "portal", "formulario_web", "whatsapp_logistica", "presencial", "aseguradora", "institucion"]},
+    "estado": {"enum": ["recibida", "contactada", "agendada", "realizada", "informada", "cancelada", "no_contactable"]},
+    "paciente_ref": {"type": "string"},
+    "aseguradora_ref": {"type": ["string", "null"]},
+    "consentimiento_comunicaciones": {"type": "boolean"},
+    "atribucion": {"type": ["string", "null"]}
+  },
+  "additionalProperties": false
+}

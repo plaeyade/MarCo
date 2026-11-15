@@ -1,0 +1,16 @@
+{
+  "$id": "marco/metrica@1",
+  "description": "Fila de métrica del tablero MarCo. Valor nulo mientras no exista fuente conectada.",
+  "type": "object",
+  "required": ["kpi_id", "sede", "periodo", "valor", "fuente"],
+  "properties": {
+    "kpi_id": {"enum": ["referencias_mes", "referentes_activos", "conversion", "sla_respuesta", "nps_pacientes", "nps_referentes", "trafico_organico", "seo_localpack", "costo_paciente", "inversion_vs_presupuesto", "cumplimiento_piezas", "incidentes_privacidad", "convenios_aseguradoras"]},
+    "sede": {"enum": ["OAX", "VSA", "MID", "TOL", "CINO", "RED"]},
+    "periodo": {"type": "string", "pattern": "^[0-9]{4}-[0-9]{2}$"},
+    "valor": {"type": ["number", "null"]},
+    "n": {"type": ["integer", "null"], "description": "tamaño de la celda; se oculta si n < 5"},
+    "fuente": {"enum": ["google_ads", "meta", "tiktok", "linkedin", "gbp", "ga4", "seo", "gamma_os_crm", "nps", "registro_piezas", "privacidad"]},
+    "es_ejemplo": {"type": "boolean", "const": false}
+  },
+  "additionalProperties": false
+}

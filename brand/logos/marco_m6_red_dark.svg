@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="48" height="48" role="img" aria-label="MarCo — Red de referentes con nodo GAMMA">
+  <title>MarCo — Red de referentes con nodo GAMMA</title>
+  <circle cx="24" cy="24" r="5" fill="none" stroke="#9C9AF2" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="24.0" cy="7.0" r="3.2" fill="none" stroke="#9C9AF2" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M24.00 17.40 L24.00 11.80" fill="none" stroke="#9C9AF2" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="40.17" cy="18.75" r="3.2" fill="none" stroke="#9C9AF2" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M30.28 21.96 L35.60 20.23" fill="none" stroke="#9C9AF2" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="33.99" cy="37.75" r="3.2" fill="none" stroke="#9C9AF2" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M27.88 29.34 L31.17 33.87" fill="none" stroke="#9C9AF2" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="14.01" cy="37.75" r="3.2" fill="none" stroke="#9C9AF2" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M20.12 29.34 L16.83 33.87" fill="none" stroke="#9C9AF2" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="7.83" cy="18.75" r="3.2" fill="none" stroke="#9C9AF2" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M17.72 21.96 L12.40 20.23" fill="none" stroke="#9C9AF2" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>

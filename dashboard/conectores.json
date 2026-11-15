@@ -1,0 +1,12 @@
+[
+  {"fuente": "google_ads", "via": "Google Ads API", "metricas": ["gasto", "clics", "llamadas", "conversiones_neutras"], "restriccion": "sin audiencias de salud; sin eventos de cita"},
+  {"fuente": "meta", "via": "Meta Marketing API (Insights)", "metricas": ["gasto", "alcance", "clics"], "restriccion": "eventos neutros; categoría de dominio revisada"},
+  {"fuente": "tiktok", "via": "TikTok Marketing API (reporting)", "metricas": ["gasto", "reproducciones", "clics"], "restriccion": "píxel fuera de páginas de salud"},
+  {"fuente": "linkedin", "via": "LinkedIn Marketing API (ad analytics)", "metricas": ["gasto", "impresiones", "registros_evento", "leads_b2b"], "restriccion": "sin datos sensibles"},
+  {"fuente": "gbp", "via": "Business Profile Performance API", "metricas": ["llamadas", "rutas", "clics_sitio"], "restriccion": "agregados por sede"},
+  {"fuente": "ga4", "via": "Google Analytics Data API", "metricas": ["sesiones_organicas", "utm"], "restriccion": "IP anonimizada; consentimiento"},
+  {"fuente": "seo", "via": "API del proveedor SEO (por elegir)", "metricas": ["posicion_media", "local_pack"], "restriccion": "sin datos personales"},
+  {"fuente": "gamma_os_crm", "via": "contrato gamma/referencia@1 (agregados k >= 5)", "metricas": ["referencias", "referentes_activos", "conversion", "sla", "atribucion"], "restriccion": "sin datos clínicos; paciente_ref opaco"},
+  {"fuente": "nps", "via": "API de la herramienta NPS (por elegir)", "metricas": ["nps_pacientes", "nps_referentes"], "restriccion": "sin preguntas clínicas"},
+  {"fuente": "registro_piezas", "via": "compliance/registro_piezas.csv", "metricas": ["piezas", "checklist", "permiso"], "restriccion": "sin datos de pacientes"}
+]

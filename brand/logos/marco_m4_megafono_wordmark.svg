@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 64" width="300" height="64" role="img" aria-label="MarCo — GAMMA Marketing &amp; Communication">
+  <title>MarCo — GAMMA Marketing &amp; Communication</title>
+  <g transform="translate(4 8)">
+    <path d="M7 20 V28 H13 L27 36 V12 L13 20 Z" fill="none" stroke="#5250CC" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M13 28 L15.5 37 H19.5 L18 31" fill="none" stroke="#5250CC" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M38 13.5 Q38 24 46 24 Q38 24 38 34.5 Q38 24 30 24 Q38 24 38 13.5 Z" fill="none" stroke="#5250CC" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+  <text x="64" y="38" font-family="Inter, 'Source Sans 3', Arial, sans-serif" font-size="30" font-weight="600" fill="#5250CC">MarCo</text>
+  <text x="65" y="56" font-family="Inter, 'Source Sans 3', Arial, sans-serif" font-size="11.5" font-weight="500" letter-spacing="0.4" fill="#5250CC">GAMMA · Marketing &amp; Communication</text>
+</svg>

@@ -1,0 +1,17 @@
+{
+  "pieza_id": "MC-MID-google-202701-01",
+  "campana": "mid_estudios_202701",
+  "sede": "MID",
+  "canal": "google",
+  "formato": "search_rsa",
+  "publico": "pacientes_con_orden",
+  "copy": "Gammagrafía ósea en Mérida: preparación, horarios y cómo llegar",
+  "destino": "https://DOMINIO-POR-CONFIRMAR/sedes/merida?utm_source=google&utm_medium=cpc&utm_campaign=mid_estudios_202701&utm_content=MC-MID-google-202701-01",
+  "permiso_o_aviso": "",
+  "servicio_autorizado": true,
+  "contiene_datos_paciente": false,
+  "revision_medica": false,
+  "revision_radiologica": false,
+  "checklist_completo": false,
+  "estado": "borrador"
+}

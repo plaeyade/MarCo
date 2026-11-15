@@ -1,0 +1,259 @@
+<meta name="dash-one-writer">
+<style>
+  .mc { font-family: var(--font-anthropic-sans); color: var(--color-fg); }
+  .mc-title { font-family: var(--font-anthropic-serif); font-weight: 400; font-size: var(--cds-font-size-title); margin: 0 0 var(--cds-gap-xs); }
+  .mc-lead { color: var(--color-fg-muted); margin: 0 0 var(--cds-gap-lg); max-width: 70ch; }
+  .mc-banner { border: 1px solid var(--color-warn); border-radius: var(--cds-radius); padding: var(--cds-pad-md); margin-bottom: var(--cds-gap-lg); }
+  .mc-banner strong { color: var(--color-warn); }
+  .mc-tiles { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: var(--cds-gap-md); margin-bottom: var(--cds-gap-xl); }
+  .mc-card { background: var(--color-panel); border: 1px solid var(--color-border-line); border-radius: var(--cds-radius); padding: var(--cds-pad-lg); }
+  .mc-card h3 { font-size: var(--cds-font-size-caption); font-weight: var(--cds-font-weight-medium); color: var(--color-fg-muted); margin: 0 0 var(--cds-gap-xs); }
+  .mc-big { font-family: var(--font-anthropic-serif); font-weight: 400; font-size: 1.7rem; font-variant-numeric: tabular-nums; }
+  .mc-sub { font-size: var(--cds-font-size-caption); color: var(--color-fg-muted); margin-top: var(--cds-gap-xs); }
+  .mc h2 { font-size: var(--cds-font-size-heading); font-weight: var(--cds-font-weight-medium); margin: var(--cds-gap-xl) 0 var(--cds-gap-xs); }
+  .mc-note { font-size: var(--cds-font-size-caption); color: var(--color-fg-muted); margin: 0 0 var(--cds-gap-md); max-width: 75ch; }
+  .mc-chart { position: relative; min-height: 360px; }
+  .mc-chart svg text { font-size: var(--cds-font-size-caption); fill: var(--cds-text-secondary); }
+  .mc-chart svg .mc-lab { fill: var(--color-fg); }
+  .mc-tip { position: absolute; pointer-events: none; background: var(--cds-surface-popover); border: 1px solid var(--cds-border); box-shadow: var(--cds-shadow-popover); border-radius: var(--cds-radius); padding: var(--cds-pad-sm); font-size: var(--cds-font-size-caption); max-width: 260px; }
+  .mc-wrap { overflow-x: auto; }
+  .mc-table { border-collapse: collapse; width: 100%; font-size: var(--cds-font-size-caption); }
+  .mc-table th, .mc-table td { text-align: left; padding: 6px 8px; border-bottom: 1px solid var(--color-border-line); vertical-align: top; }
+  .mc-table th { color: var(--color-fg-muted); font-weight: var(--cds-font-weight-medium); }
+  .mc-table td.num, .mc-table th.num { text-align: right; font-variant-numeric: tabular-nums; }
+  .mc-empty { color: var(--color-fg-muted); font-style: italic; }
+  .mc-pill { display: inline-block; padding: 1px 8px; border-radius: 999px; border: 1px solid var(--color-border-line); }
+  .mc details { margin-top: var(--cds-gap-xl); font-size: var(--cds-font-size-caption); color: var(--color-fg-muted); }
+  [data-dash-source-state=refreshing] { opacity: .5; }
+</style>
+
+<div class="mc">
+  <h1 class="mc-title" id="titulo">MarCo Tablero</h1>
+  <p class="mc-lead">Tablero de marketing y comunicación de la red GAMMA y del CINO. Hoy muestra sólo presupuestos y metas del plan; las métricas de desempeño quedan vacías hasta conectar las fuentes reales.</p>
+
+  <div class="mc-banner" id="aviso">
+    <strong>Sin datos reales todavía.</strong> Ninguna cifra de desempeño en esta página es real ni de ejemplo: las celdas de valor dicen «sin datos». Los montos son rangos de planeación (MXN, IVA no incluido) tomados de <code>plan_gamma_marketing.md</code> § 5.2 y <code>plan_publicidad_multicanal.md</code> § 4.
+  </div>
+
+  <div class="mc-tiles" id="resumen">
+    <div class="mc-card" id="tile-pauta">
+      <h3>Pauta digital, presupuesto mensual</h3>
+      <div class="mc-big"><span data-draw="pauta-bajo" data-source="pauta_total" data-field="bajo" data-row="0">—</span>–<span data-draw="pauta-alto" data-source="pauta_total" data-field="alto" data-row="0">—</span></div>
+      <div class="mc-sub">MXN/mes · Google, Meta, LinkedIn, YouTube, TikTok, Waze y reserva</div>
+    </div>
+    <div class="mc-card" id="tile-anual">
+      <h3>Presupuesto anual del plan</h3>
+      <div class="mc-big"><span data-draw="anual-bajo" data-source="anual_total" data-field="bajo" data-row="0">—</span>–<span data-draw="anual-alto" data-source="anual_total" data-field="alto" data-row="0">—</span></div>
+      <div class="mc-sub">MXN/año · todas las partidas, incluida la contingencia</div>
+    </div>
+    <div class="mc-card" id="tile-piezas">
+      <h3>Piezas registradas (cumplimiento)</h3>
+      <div class="mc-big"><span data-draw="piezas" data-source="piezas_resumen" data-field="registradas" data-row="0">—</span></div>
+      <div class="mc-sub">Meta: 100 % con checklist y permiso/aviso COFEPRIS</div>
+    </div>
+    <div class="mc-card" id="tile-kpis">
+      <h3>KPIs con dato real</h3>
+      <div class="mc-big"><span data-draw="kpis-con-dato" data-source="kpis_resumen" data-field="con_dato" data-row="0">—</span> de <span data-draw="kpis-total" data-source="kpis_resumen" data-field="total" data-row="0">—</span></div>
+      <div class="mc-sub">Se llenan al conectar CRM, GA4 y APIs de pauta</div>
+    </div>
+  </div>
+
+  <h2 id="inversion">Inversión por canal frente al presupuesto mensual</h2>
+  <p class="mc-note">Cada barra es el rango mensual del plan (bajo–alto). El punto de gasto real aparecerá cuando se conecten las APIs de cada plataforma; hoy no hay gasto registrado.</p>
+  <div class="mc-chart" id="grafica-inversion" data-draw="inversion" data-source="presupuesto_canal"></div>
+
+  <h2 id="kpis">KPIs del plan</h2>
+  <p class="mc-note">Metas orientativas del plan base (§ 4.1 y § 5.4). «Fijar tras línea base» significa que la meta numérica se define tras 90 días de medición.</p>
+  <div class="mc-wrap">
+    <table class="mc-table" data-source="kpis" data-row-key="kpi_id" id="tabla-kpis">
+      <thead><tr>
+        <th data-field="kpi">KPI</th>
+        <th data-field="definicion">Definición</th>
+        <th data-field="meta_plan">Meta del plan</th>
+        <th data-field="valor_real">Valor real</th>
+        <th data-field="fuente_futura">Fuente</th>
+        <th data-field="frecuencia">Frecuencia</th>
+      </tr></thead>
+      <tbody data-draw="tabla-kpis"></tbody>
+    </table>
+  </div>
+
+  <h2 id="sedes">Referencias y desempeño por sede</h2>
+  <p class="mc-note">Estructura lista para el CRM de referencias de GAMMA OS (contrato <code>gamma/referencia@1</code>, agregados con k ≥ 5). El reparto de pauta local es la propuesta del plan multicanal.</p>
+  <div class="mc-wrap">
+    <table class="mc-table" data-source="sedes" data-row-key="sede" id="tabla-sedes">
+      <thead><tr>
+        <th data-field="nombre">Sede</th>
+        <th data-field="estado">Estado</th>
+        <th data-field="reparto_pauta_local">Reparto de pauta</th>
+        <th data-field="referencias_mes" class="num">Referencias/mes</th>
+        <th data-field="referentes_activos" class="num">Referentes activos</th>
+        <th data-field="conversion_pct" class="num">Conversión %</th>
+        <th data-field="nps" class="num">NPS</th>
+        <th data-field="sesiones_organicas" class="num">Sesiones orgánicas</th>
+        <th data-field="costo_paciente_mxn" class="num">Costo por paciente</th>
+      </tr></thead>
+      <tbody data-draw="tabla-sedes"></tbody>
+    </table>
+  </div>
+
+  <h2 id="cumplimiento">Cumplimiento COFEPRIS de piezas</h2>
+  <p class="mc-note">Cada pieza publicada se registra con su id (MC-sede-canal-aaaamm-nn), su permiso o aviso y la lista de verificación de 19 puntos. Hoy no hay piezas registradas.</p>
+  <div class="mc-wrap">
+    <table class="mc-table" data-source="cumplimiento_piezas" data-row-key="pieza_id" id="tabla-piezas">
+      <thead><tr>
+        <th data-field="pieza_id">Pieza</th>
+        <th data-field="sede">Sede</th>
+        <th data-field="canal">Canal</th>
+        <th data-field="mes">Mes</th>
+        <th data-field="permiso_o_aviso">Permiso/aviso</th>
+        <th data-field="checklist_completo">Checklist</th>
+        <th data-field="publicada">Publicada</th>
+      </tr></thead>
+      <tbody data-draw="tabla-piezas"></tbody>
+    </table>
+  </div>
+
+  <h2 id="anual">Presupuesto anual por partida</h2>
+  <div class="mc-wrap">
+    <table class="mc-table" data-source="presupuesto_anual" data-row-key="partida" id="tabla-anual">
+      <thead><tr>
+        <th data-field="partida">Partida</th>
+        <th data-field="bajo_mxn_anual" class="num">Bajo (MXN)</th>
+        <th data-field="alto_mxn_anual" class="num">Alto (MXN)</th>
+      </tr></thead>
+      <tbody data-draw="tabla-anual"></tbody>
+    </table>
+  </div>
+
+  <h2 id="fuentes">Fuentes futuras</h2>
+  <p class="mc-note">Conectores previstos. Ninguno envía a las plataformas datos de salud ni eventos de «cita agendada».</p>
+  <div class="mc-wrap">
+    <table class="mc-table" data-source="fuentes_futuras" data-row-key="fuente" id="tabla-fuentes">
+      <thead><tr>
+        <th data-field="fuente">Fuente</th>
+        <th data-field="via">Vía</th>
+        <th data-field="metricas">Métricas</th>
+        <th data-field="privacidad">Privacidad</th>
+        <th data-field="estado">Estado</th>
+      </tr></thead>
+      <tbody data-draw="tabla-fuentes"></tbody>
+    </table>
+  </div>
+
+  <details id="notas">
+    <summary>Definiciones y reglas del tablero</summary>
+    <p>Conversión de referencia: referencias que terminan en estudio realizado entre referencias recibidas. Costo por paciente (digital): gasto de pauta entre estudios agendados atribuidos por UTM dentro de GAMMA OS; el evento de cita nunca se envía a Meta, Google, TikTok ni LinkedIn. NPS: encuestas sin preguntas clínicas. Todo agregado por sede o referente se muestra sólo con k ≥ 5. No se nombran personas.</p>
+  </details>
+</div>
+
+<script>
+  window.mcFmt = new Intl.NumberFormat('es-MX', { maximumFractionDigits: 0 });
+  window.mcNum = (v) => (v === null || v === undefined || v === '' ? null : +v);
+
+  dash.calc('pauta_total', {
+    title: 'Pauta digital: suma del rango mensual',
+    description: 'Suma de los rangos bajo y alto de los canales de la partida Pauta digital.',
+    inputs: ['presupuesto_canal'],
+    fn: (canales) => {
+      const p = canales.filter((r) => r.partida === 'Pauta digital');
+      return [{ bajo: d3.sum(p, (r) => +r.bajo_mxn_mes), alto: d3.sum(p, (r) => +r.alto_mxn_mes) }];
+    },
+  });
+  dash.calc('anual_total', {
+    title: 'Presupuesto anual total',
+    description: 'Suma de todas las partidas anuales del plan base.',
+    inputs: ['presupuesto_anual'],
+    fn: (partidas) => [{ bajo: d3.sum(partidas, (r) => +r.bajo_mxn_anual), alto: d3.sum(partidas, (r) => +r.alto_mxn_anual) }],
+  });
+  dash.calc('piezas_resumen', {
+    title: 'Piezas registradas',
+    description: 'Número de piezas en el registro de cumplimiento y cuántas tienen checklist completo.',
+    inputs: ['cumplimiento_piezas'],
+    fn: (piezas) => [{ registradas: piezas.length, con_checklist: piezas.filter((r) => String(r.checklist_completo).toLowerCase() === 'si' || String(r.checklist_completo).toLowerCase() === 'sí').length }],
+  });
+  dash.calc('kpis_resumen', {
+    title: 'KPIs con dato real',
+    description: 'Cuántos KPIs del plan tienen ya un valor real cargado.',
+    inputs: ['kpis'],
+    fn: (kpis) => [{ total: kpis.length, con_dato: kpis.filter((r) => r.valor_real !== null && r.valor_real !== undefined && r.valor_real !== '').length }],
+  });
+
+  const mcCell = (id, field, fmt) => (el) => {
+    const d = dash.data(id);
+    if (d.status !== 'ok' || !d.data || !d.data.length) { el.textContent = '—'; return; }
+    const v = d.data[0][field];
+    el.textContent = fmt ? fmt(v) : String(v);
+  };
+  dash.draw('pauta-bajo', mcCell('pauta_total', 'bajo', (v) => mcFmt.format(v)));
+  dash.draw('pauta-alto', mcCell('pauta_total', 'alto', (v) => mcFmt.format(v)));
+  dash.draw('anual-bajo', mcCell('anual_total', 'bajo', (v) => mcFmt.format(v)));
+  dash.draw('anual-alto', mcCell('anual_total', 'alto', (v) => mcFmt.format(v)));
+  dash.draw('piezas', mcCell('piezas_resumen', 'registradas', (v) => mcFmt.format(v)));
+  dash.draw('kpis-con-dato', mcCell('kpis_resumen', 'con_dato', (v) => mcFmt.format(v)));
+  dash.draw('kpis-total', mcCell('kpis_resumen', 'total', (v) => mcFmt.format(v)));
+</script>
+
+<script>
+  dash.draw('inversion', (el) => {
+    const d = dash.data('presupuesto_canal');
+    if (d.status !== 'ok') { el.textContent = d.status === 'error' ? 'No se pudo cargar' : '—'; return; }
+    const rows = d.data.map((r) => ({ canal: r.canal, partida: r.partida, bajo: +r.bajo_mxn_mes, alto: +r.alto_mxn_mes, real: mcNum(r.gasto_real_mxn_mes) }));
+    el.replaceChildren();
+    const W = Math.max(280, el.clientWidth);
+    const rowH = 40, top = 8, right = 16, left = 8, bottom = 28;
+    const H = top + rows.length * rowH + bottom;
+    const x = d3.scaleLinear().domain([0, d3.max(rows, (r) => Math.max(r.alto, r.real || 0)) * 1.05]).nice().range([left, W - right]);
+    const svg = d3.select(el).append('svg').attr('width', '100%').attr('viewBox', `0 0 ${W} ${H}`)
+      .attr('role', 'img').attr('aria-label', 'Rango de presupuesto mensual por canal en MXN; sin gasto real registrado');
+    const ticks = W < 480 ? 3 : 6;
+    svg.append('g').attr('transform', `translate(0,${H - bottom})`).call(d3.axisBottom(x).ticks(ticks).tickFormat((v) => mcFmt.format(v / 1000) + ' k'))
+      .call((g) => g.select('.domain').remove())
+      .call((g) => g.selectAll('line').attr('y1', -(H - bottom - top)).style('stroke', 'var(--cds-chart-grid)'));
+    const tip = d3.select(el).append('div').attr('class', 'mc-tip').style('display', 'none');
+    const g = svg.append('g').selectAll('g').data(rows).join('g').attr('transform', (r, i) => `translate(0,${top + i * rowH})`);
+    g.append('text').attr('class', 'mc-lab').attr('x', left).attr('y', 12).text((r) => r.canal + (r.partida !== 'Pauta digital' ? ' · ' + r.partida : ''));
+    g.append('rect').attr('x', (r) => x(r.bajo)).attr('y', 18).attr('height', 12)
+      .attr('width', (r) => Math.max(3, x(r.alto) - x(r.bajo))).attr('rx', 3)
+      .style('fill', (r) => (r.partida === 'Pauta digital' ? dash.colors[0] : 'var(--cds-chart-muted)'));
+    g.filter((r) => r.real !== null).append('circle').attr('cx', (r) => x(r.real)).attr('cy', 24).attr('r', 5)
+      .style('fill', (r) => (r.real > r.alto ? 'var(--cds-chart-status-critical)' : 'var(--color-fg)'));
+    g.append('rect').attr('x', 0).attr('y', 0).attr('width', W).attr('height', rowH).style('fill', 'transparent')
+      .on('pointerenter pointermove', (ev, r) => {
+        const [mx, my] = d3.pointer(ev, el);
+        tip.style('display', null).style('left', Math.min(mx + 12, el.clientWidth - 270) + 'px').style('top', (my + 12) + 'px');
+        tip.selectAll('*').remove();
+        tip.append('div').style('font-weight', '600').text(r.canal);
+        tip.append('div').text('Presupuesto: ' + mcFmt.format(r.bajo) + '–' + mcFmt.format(r.alto) + ' MXN/mes');
+        tip.append('div').text('Gasto real: ' + (r.real === null ? 'sin datos' : mcFmt.format(r.real) + ' MXN'));
+        tip.append('div').text('Partida: ' + r.partida);
+      })
+      .on('pointerleave', () => tip.style('display', 'none'));
+  });
+
+  const mcTable = (id, cols, emptyText) => (tb) => {
+    const d = dash.data(id);
+    tb.replaceChildren();
+    if (d.status !== 'ok') return;
+    if (!d.data.length) {
+      const tr = tb.insertRow(); const td = tr.insertCell();
+      td.colSpan = cols.length; td.className = 'mc-empty'; td.textContent = emptyText;
+      return;
+    }
+    for (const r of d.data) {
+      const tr = tb.insertRow();
+      for (const c of cols) {
+        const td = tr.insertCell();
+        const v = r[c.f];
+        if (c.num) td.className = 'num';
+        if (v === null || v === undefined || v === '') { td.textContent = 'sin datos'; td.classList.add('mc-empty'); }
+        else td.textContent = c.fmt ? c.fmt(v) : String(v);
+      }
+    }
+  };
+  dash.draw('tabla-kpis', mcTable('kpis', [{ f: 'kpi' }, { f: 'definicion' }, { f: 'meta_plan' }, { f: 'valor_real' }, { f: 'fuente_futura' }, { f: 'frecuencia' }], 'Sin KPIs'));
+  dash.draw('tabla-sedes', mcTable('sedes', [{ f: 'nombre' }, { f: 'estado' }, { f: 'reparto_pauta_local' }, { f: 'referencias_mes', num: 1 }, { f: 'referentes_activos', num: 1 }, { f: 'conversion_pct', num: 1 }, { f: 'nps', num: 1 }, { f: 'sesiones_organicas', num: 1 }, { f: 'costo_paciente_mxn', num: 1 }], 'Sin sedes'));
+  dash.draw('tabla-piezas', mcTable('cumplimiento_piezas', [{ f: 'pieza_id' }, { f: 'sede' }, { f: 'canal' }, { f: 'mes' }, { f: 'permiso_o_aviso' }, { f: 'checklist_completo' }, { f: 'publicada' }], 'Aún no hay piezas registradas.'));
+  dash.draw('tabla-anual', mcTable('presupuesto_anual', [{ f: 'partida' }, { f: 'bajo_mxn_anual', num: 1, fmt: (v) => mcFmt.format(+v) }, { f: 'alto_mxn_anual', num: 1, fmt: (v) => mcFmt.format(+v) }], 'Sin partidas'));
+  dash.draw('tabla-fuentes', mcTable('fuentes_futuras', [{ f: 'fuente' }, { f: 'via' }, { f: 'metricas' }, { f: 'privacidad' }, { f: 'estado' }], 'Sin fuentes'));
+</script>
