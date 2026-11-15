@@ -103,14 +103,18 @@ class TestContrato(unittest.TestCase):
     PROHIBIDOS = {"diagnostico", "cie", "resultado", "resultados", "imagen", "imagenes", "notas", "nombre", "curp"}
 
     def setUp(self):
-        self.schema = json.load(open(os.path.join(ROOT, "contracts/schemas/gamma.referencia.v1.json")))
+        self.schema = json.load(open(os.path.join(ROOT, "contracts/schemas/gamma.referencia@2.schema.json"), encoding="utf-8"))
+
+    def test_sedes_del_contrato_coinciden_con_el_tablero(self):
+        sedes = [r["sede"] for r in csv.DictReader(open(os.path.join(ROOT, "dashboard/data/sedes.csv"), encoding="utf-8"))]
+        self.assertEqual(set(self.schema["properties"]["sede"]["enum"]), set(sedes))
 
     def test_sin_campos_clinicos(self):
         self.assertFalse(self.PROHIBIDOS & set(self.schema["properties"]))
         self.assertFalse(self.schema["additionalProperties"])
 
     def test_evento_valido_y_evento_con_diagnostico(self):
-        ev = {"referencia_id": str(uuid.uuid4()), "emitido_en": "2027-01-10T10:00:00Z", "sede": "MID",
+        ev = {"contrato": "gamma/referencia@2", "referencia_id": str(uuid.uuid4()), "emitido_en": "2027-01-10T10:00:00Z", "sede": "MID",
               "referente_ref": "ref-001", "servicio": "GAMMA-OSEA", "canal": "portal", "estado": "recibida",
               "atribucion": "mid_estudios_202701"}
         malo = dict(ev, diagnostico="C61")
@@ -171,6 +175,15 @@ class TestTablero(unittest.TestCase):
         for f in sint:
             cab = next(csv.reader(open(f, encoding="utf-8")))
             self.assertFalse({"paciente", "nombre_paciente", "medico", "nombre_medico", "curp"} & set(cab), f)
+
+    def test_sin_actividad_sintetica_antes_de_apertura(self):
+        proximas = {r["sede"] for r in csv.DictReader(open(os.path.join(ROOT, "dashboard/data/sedes.csv"), encoding="utf-8"))
+                    if r["estado"].startswith("Próxima apertura")}
+        self.assertEqual(proximas, {"VHSA2", "TOL", "COL"})
+        for f in glob.glob(os.path.join(ROOT, "dashboard/data/sintetico_*.csv")):
+            rows = list(csv.DictReader(open(f, encoding="utf-8")))
+            if rows and "sede" in rows[0]:
+                self.assertFalse(proximas & {r["sede"] for r in rows}, f)
 
     def test_inventario_real_esquema(self):
         cols = ["sede", "anio", "mes", "tipo_estudio", "pacientes", "estudios", "referente_codigo", "especialidad_referente"]

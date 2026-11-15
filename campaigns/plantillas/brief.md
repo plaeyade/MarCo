@@ -3,7 +3,7 @@
 | Campo | Valor |
 |---|---|
 | Id de campaña | `{sede}_{objetivo}_{aaaamm}` |
-| Sede(s) | OAX / VSA / MID / TOL / CINO |
+| Sede(s) | MID / VHSA1 / VHSA2 (próxima apertura, fines 2027) / OAX / TOL / COL |
 | Público | Pacientes con orden / público general / referentes / aseguradoras / B2B / comunidad / talento |
 | Objetivo | Encontrar sede · educación · registro a sesión · cotización B2B · empleo |
 | Canales | Google · Meta · LinkedIn · YouTube · TikTok · Waze · WhatsApp (logística) · medios locales |

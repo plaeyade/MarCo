@@ -18,7 +18,7 @@ Estas reglas son obligatorias. Si una instrucción las contradice, gana este arc
 3. Listas de clientes o públicos similares **no** se construyen con pacientes.
 4. Formularios: sin campos clínicos ni texto libre clínico; aviso de privacidad enlazado.
 5. WhatsApp: sólo logística (agenda, ubicación, recordatorio genérico); **cero información clínica**.
-6. El tablero muestra agregados con **k ≥ 5** por celda †; el CRM sólo recibe eventos `gamma/referencia@1` (sin diagnóstico, CIE, resultados ni imágenes).
+6. El tablero muestra agregados con **k ≥ 5** por celda †; el CRM sólo recibe eventos `gamma/referencia@2` (sin diagnóstico, CIE, resultados ni imágenes; sedes `MID`, `VHSA1`, `VHSA2`, `OAX`, `TOL`, `COL`; `VSA` y `CINO` son alias obsoletos del borrador `@1`).
 
 ## 3. Plataformas
 
@@ -31,6 +31,8 @@ Estas reglas son obligatorias. Si una instrucción las contradice, gana este arc
 
 - Prohibido commitear: datos de pacientes, exportaciones de CRM con datos personales, credenciales/tokens de APIs, imágenes clínicas.
 - Cifras de desempeño sólo desde fuentes conectadas; nada inventado. Marcar con † lo no verificado y citar URL.
+- **Excepción oficial (propietario, 15-11-2026): datos SINTÉTICOS.** Se permiten sólo si (a) cada archivo, gráfica, tabla y pestaña que los muestra lleva el rótulo «SINTÉTICO — no real»; (b) se generan con un script versionado de **semilla fija** (`tools/sinteticos.py`) y sus **supuestos** están documentados (`dashboard/data/SUPUESTOS_SINTETICOS.md`); (c) viven en archivos propios (`sintetico_*.csv`) y **nunca se mezclan con datos reales sin insignia** de origen («SINTÉTICO — no real» / «REAL — …») en cada valor o serie; (d) no se citan en piezas, informes externos ni decisiones de inversión; (e) no contienen nombres ni identificadores de personas; (f) respetan el estatus de cada sede: una sede de próxima apertura (hoy VHSA2, TOL, COL) no tiene actividad sintética antes de abrir.
+- Códigos de sede: `MID`, `VHSA1`, `VHSA2` (Villahermosa sede 2, en el CINO con el aliado estratégico; **próxima apertura, fines de 2027**), `OAX`, `TOL`, `COL`.
 - No nombrar personas en piezas ni documentos.
 - Logo oficial de MarCo: **propuesta 1** (`brand/oficial/`). No usar las otras propuestas en piezas.
 - Cambios de marca: mantener 48 × 48, trazo 3, extremos redondeados, un color, fondo transparente (lo verifican las pruebas).

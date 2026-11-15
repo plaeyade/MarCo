@@ -1,4 +1,4 @@
-# MarCo — Plan de publicidad multicanal (v1, 15-11-2026)
+# MarCo — Plan de publicidad multicanal (v1.1, 15-11-2026)
 
 > Línea **MarCo** (Marketing & Communication) del universo GAMMA. Desarrolla el capítulo 4 y la partida de pauta (§ 5.2) del plan base `plan_gamma_marketing.md`.
 > Convenciones: **†** = no verificado en fuente primaria o interpretación por validar con abogado regulatorio / la propia plataforma. Montos en **MXN al mes, IVA no incluido**; son **rangos de planeación**, no cotizaciones. No se nombran personas. **No hay cifras de desempeño**: todo resultado (CPC, CPL, conversiones, alcance) se medirá tras el lanzamiento; las columnas de metas sólo repiten las metas del plan base.
@@ -9,12 +9,12 @@
 |---|---|---|---|---|
 | MID | GAMMA Mérida | Operando | Gammagrafía; yodo-131 | Municipio 995,129 · Yucatán 2,320,898 |
 | VHSA1 | GAMMA Villahermosa sede 1 «GAMMA» | Operando | Gammagrafía; yodo-131 | Municipio Centro 683,607 · Tabasco 2,402,598 |
-| VHSA2 | GAMMA Villahermosa sede 2, en el CINO con el aliado estratégico | Operando | PET-CT, ciclotrón, gammagrafía, yodo-131, lutecio-177 | (misma ciudad) |
+| VHSA2 | GAMMA Villahermosa sede 2, en el CINO con el aliado estratégico | **Próxima apertura (fines 2027)** | Previstos al abrir: PET-CT, ciclotrón, gammagrafía, yodo-131, lutecio-177 | (misma ciudad) |
 | OAX | GAMMA Oaxaca | Operando | Gammagrafía; yodo-131 | Municipio 270,955 · Oaxaca 4,132,148 |
 | TOL | GAMMA Toluca | Próxima apertura | Por definir | Municipio 910,608 ([DataMéxico](https://www.economia.gob.mx/datamexico/es/profile/geo/toluca)) · Estado de México 16,992,418 ([INEGI](https://www.inegi.org.mx/contenidos/saladeprensa/boletines/2021/EstSociodemo/ResultCenso2020_Nal.pdf)) |
 | COL | GAMMA Colima | Próxima apertura | Por definir | Municipio 157,048 · Colima 731,391 ([INEGI, presentación de resultados Colima](https://www.inegi.org.mx/contenidos/programas/ccpv/2020/doc/cpv2020_pres_res_col.pdf)) |
 
-Toluca y Colima: 0 % de pauta hasta su apertura; Perfil de Empresa sólo con domicilio operativo. PET-CT y lutecio-177 de VHSA2 se anuncian sólo con licencias sanitaria y CNSNS vigentes y permiso de publicidad (AGENTS.md § 1.4). El reparto local de Villahermosa (30 %) se divide entre sede 1 y sede 2 †. Mortalidad por tumores 2024 (tasa estandarizada, INEGI): Colima 84.5, Estado de México 70.0 por 100 mil.
+VHSA2 (sede 2 en el CINO), Toluca y Colima: 0 % de pauta y ninguna actividad comercial hasta su apertura; Perfil de Empresa sólo con domicilio operativo. VHSA2 abre a **fines de 2027** (decisión del propietario, 15-11-2026); sus servicios (PET-CT, lutecio-177, etc.) se anuncian sólo al cumplir la puerta de la § 5 (licencias sanitaria y CNSNS vigentes y permiso de publicidad; AGENTS.md § 1.4). Hasta entonces, el 30 % local de Villahermosa va íntegro a la sede 1; tras la apertura se divide entre sede 1 y sede 2 †. Códigos de sede en todo el plan y en el contrato `gamma/referencia@2`: MID, VHSA1, VHSA2, OAX, TOL, COL. Mortalidad por tumores 2024 (tasa estandarizada, INEGI): Colima 84.5, Estado de México 70.0 por 100 mil.
 
 ---
 
@@ -24,7 +24,7 @@ Toluca y Colima: 0 % de pauta hasta su apertura; Perfil de Empresa sólo con dom
 2. **Presupuesto de pauta digital:** **50–120 mil MXN/mes** (la misma bolsa del plan base, 600 k–1.44 M/año) repartida así: Google (Search + Performance Max + Perfil de Empresa) 24–45 k; Meta 12–28 k; LinkedIn 8–20 k; YouTube 4–12 k; TikTok 0–6 k (piloto); Waze 2–5 k; pruebas 0–4 k. **Fuera de la bolsa de pauta**: WhatsApp Business (partida de herramientas) 2–4 k; medios tradicionales locales 0–15 k/mes de mantenimiento y una ola de lanzamiento del CINO de 150–450 k en total (partida de PR y lanzamiento del CINO).
 3. **Ninguna pieza sale sin permiso o aviso de publicidad COFEPRIS** cuando aplique ([RLGSMP art. 79](https://mley.mx/Reg_LGS_MP/articulo/79/); [Acuerdo de simplificación 2025](https://sidof.segob.gob.mx/notas/docFuente/5756000)) y sin la lista de verificación de la § 9.
 4. **El CINO no se anuncia como servicio disponible** (PET/CT, Lu-177, radiofarmacia) hasta tener licencia sanitaria, licencia CNSNS y, si aplica, CBPF. Antes de eso sólo hay comunicación institucional ("en construcción", empleo, ciencia).
-5. **Medición sin datos de salud:** UTM en todo; píxel y API de conversiones sólo con consentimiento y sólo con eventos neutros; ningún evento de "estudio agendado" ni de página de padecimiento sale hacia Meta, Google, TikTok o LinkedIn; la atribución fina se hace dentro de GAMMA OS con el contrato `gamma/referencia@1`.
+5. **Medición sin datos de salud:** UTM en todo; píxel y API de conversiones sólo con consentimiento y sólo con eventos neutros; ningún evento de "estudio agendado" ni de página de padecimiento sale hacia Meta, Google, TikTok o LinkedIn; la atribución fina se hace dentro de GAMMA OS con el contrato `gamma/referencia@2` (códigos de sede MID, VHSA1, VHSA2, OAX, TOL, COL; `@1` usaba VSA y CINO, hoy alias obsoletos).
 
 ---
 
@@ -225,7 +225,7 @@ Disponibilidad y precios de Waze Ads en México por verificar con la plataforma 
 | Medios tradicionales locales (mantenimiento) | 0 | 15 000 | — | PR / contingencia |
 | Ola de lanzamiento del CINO (3 meses, total) | 150 000 | 450 000 | — | PR y lanzamiento del CINO |
 
-**Reparto por sede (orientativo †):** OAX 30 %, Villahermosa 30 % (sede 1 y sede 2 · CINO), MID 40 % de la pauta local (Mérida tiene competencia PET directa y mayor costo por clic esperado †); Toluca y Colima 0 % hasta su apertura; el CINO 0 % antes de licencias, y tras ellas hasta 35 % de la bolsa durante 3 meses tomando monto de las tres sedes.
+**Reparto por sede (orientativo †):** OAX 30 %, Villahermosa 30 % (VHSA1 íntegro hasta la apertura de VHSA2; después VHSA1 y VHSA2), MID 40 % de la pauta local (Mérida tiene competencia PET directa y mayor costo por clic esperado †); TOL y COL 0 % hasta su apertura; VHSA2 (CINO) 0 % antes de su apertura (fines de 2027) y de cumplir la puerta de la § 5, y tras ella hasta 35 % de la bolsa durante 3 meses tomando monto de las tres sedes operando.
 
 **Reglas de reasignación:** mensual, con el tablero; sólo se mueve dinero entre canales de la misma partida; cualquier canal sin piezas aprobadas en el mes queda en 0.
 
@@ -233,7 +233,7 @@ Disponibilidad y precios de Waze Ads en México por verificar con la plataforma 
 
 ## 5. Calendario de lanzamiento
 
-| Mes | OAX | VSA | MID | TOL | CINO | Canales |
+| Mes | OAX | VHSA1 | MID | TOL | VHSA2 (CINO) | Canales |
 |---|---|---|---|---|---|---|
 | Dic-2026 | Perfil de Empresa, permisos en trámite | Ídem | Ídem | — | Comunicación institucional (obra, empleo) | GBP, LinkedIn orgánico |
 | Ene-2027 | Search de marca y estudios (al recibir permiso) | Ídem | Ídem | — | Ídem | Google, WhatsApp (plantillas) |
@@ -241,9 +241,10 @@ Disponibilidad y precios de Waze Ads en México por verificar con la plataforma 
 | Mar-2027 | LinkedIn referentes + sesión académica | Ídem | Ídem | Estudio de mercado | — | LinkedIn, YouTube |
 | Abr–May 2027 | YouTube preparación; Waze | Ídem | Ídem | — | — | YouTube, Waze |
 | Jun–Ago 2027 | Mantenimiento; piloto TikTok en 1 sede † | Mantenimiento | Mantenimiento | GBP si hay sede | Prensa de avance de obra; vecinos | TikTok, prensa |
-| Sep–Nov 2027 | Mantenimiento | Mantenimiento | Mantenimiento | Apertura digital (si procede) | **Sólo tras licencias:** inauguración, ola de medios, Search/Meta/YouTube/Waze del CINO | Todos |
+| Sep–Nov 2027 | Mantenimiento | Mantenimiento | Mantenimiento | Apertura digital (si procede) | Preapertura: comunicación institucional; permiso de publicidad de la ola en trámite; sin anunciar servicios | Prensa, LinkedIn orgánico |
+| Dic-2027 (apertura prevista †) | Mantenimiento | Mantenimiento | Mantenimiento | — | **Sólo con la puerta cumplida:** inauguración, ola de medios, Search/Meta/YouTube/Waze de VHSA2 | Todos |
 
-**Puerta del CINO (todas deben estar en "sí"):** licencia sanitaria; licencia de operación CNSNS de la instalación y del ciclotrón; CBPF si se distribuirán radiofármacos; permiso de publicidad de la campaña; simulacro de crisis realizado; autorización del hospital anfitrión y de proveedores para mencionarlos.
+**Puerta de VHSA2 · CINO (apertura prevista a fines de 2027; todas deben estar en "sí"):** fecha de apertura confirmada por el propietario; licencia sanitaria; licencia de operación CNSNS de la instalación y del ciclotrón; CBPF si se distribuirán radiofármacos; permiso de publicidad de la campaña; simulacro de crisis realizado; autorización del aliado estratégico (hospital anfitrión) y de proveedores para mencionarlos; estatus de VHSA2 cambiado a «Operando» en `dashboard/data/sedes.csv` y `geo_sedes.csv`. Antes de eso VHSA2 no tiene pauta, piezas de servicio ni actividad en el tablero (ni siquiera sintética).
 
 ---
 
@@ -256,7 +257,7 @@ Disponibilidad y precios de Waze Ads en México por verificar con la plataforma 
 | Píxel/API de conversiones | Sólo tras consentimiento; eventos neutros: `PageView` en inicio y sedes, `Contact` (clic a llamar), `FindLocation` (clic a ruta), `Lead` sólo en empleo/B2B/eventos; sin parámetros personalizados; sin eventos de "cita agendada" |
 | Llamadas | Números de seguimiento por canal/sede †; grabación sólo con aviso; el registro no guarda motivo clínico |
 | Formularios | Nombre, teléfono/correo, sede, estudio solicitado de una lista (sin diagnóstico ni texto libre clínico), casillas de consentimiento separadas |
-| Atribución fina | Dentro de GAMMA OS: el campo `atribucion` del evento `gamma/referencia@1` guarda la campaña (UTM) sin datos personales; agregados con k ≥ 5 † |
+| Atribución fina | Dentro de GAMMA OS: el campo `atribucion` del evento `gamma/referencia@2` guarda la campaña (UTM) sin datos personales; agregados con k ≥ 5 † |
 | Periodicidad | Semanal (pauta), mensual (tablero MarCo), trimestral (reasignación) |
 | Metas | Sólo las del plan base (§ 4.1); los objetivos por canal se fijan tras 90 días de línea base |
 
@@ -311,7 +312,7 @@ Cada pieza obtiene un id (`MC-{sede}-{canal}-{aaaamm}-{nn}`) y se registra con e
 | 16 | Sin comparaciones denigrantes ni ofertas para atraer pacientes de otros médicos | Todas | Firma |
 | 17 | Si menciona software/IA (HEVESY, GAMMA OS): "herramienta de investigación/apoyo", sin afirmaciones diagnósticas | Las que aplique | Firma |
 | 18 | Accesibilidad: subtítulos, contraste, lenguaje claro; lengua indígena cuando aplique † | Todas | Revisión |
-| 19 | Para el CINO: puerta de lanzamiento (§ 5) cumplida | CINO | Lista firmada |
+| 19 | Para VHSA2 (CINO): puerta de lanzamiento (§ 5) cumplida; apertura prevista fines de 2027 | VHSA2 | Lista firmada |
 
 ---
 

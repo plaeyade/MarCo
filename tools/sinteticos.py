@@ -21,18 +21,21 @@ MESES = [f"{a}-{m:02d}" for a in (2025, 2026) for m in range(1, 13)][:22]  # 202
 TIPOS = ["gammagrafia_osea", "tiroidea", "renal", "rastreo_i131", "terapia_i131", "lu177",
          "perfusion_miocardica", "paratiroides", "otras"]
 
-# Estudios al mes en la base (enero 2025, ya en régimen) por sede y tipo. «otras» en VHSA2 incluye PET-CT.
+# Sedes sin actividad antes de su apertura (decisión del propietario, 15-nov-2026): no generan filas.
+# VHSA2 (Villahermosa sede 2, en el CINO con el aliado estratégico) abre a fines de 2027; TOL y COL, próxima apertura.
+PROXIMA_APERTURA = {"VHSA2": "fines 2027", "TOL": "por definir", "COL": "por definir"}
+
+# Estudios al mes en la base (enero 2025, ya en régimen) por sede operando y tipo. Lu-177 y PET-CT no se
+# ofrecen en ninguna sede operando, así que no aparecen en la muestra.
 BASE = {
     "MID":   {"gammagrafia_osea": 110, "tiroidea": 45, "renal": 40, "rastreo_i131": 14, "terapia_i131": 10, "lu177": 0, "perfusion_miocardica": 45, "paratiroides": 12, "otras": 25},
     "VHSA1": {"gammagrafia_osea": 85, "tiroidea": 40, "renal": 30, "rastreo_i131": 12, "terapia_i131": 9, "lu177": 0, "perfusion_miocardica": 30, "paratiroides": 10, "otras": 18},
-    "VHSA2": {"gammagrafia_osea": 45, "tiroidea": 15, "renal": 12, "rastreo_i131": 8, "terapia_i131": 6, "lu177": 7, "perfusion_miocardica": 20, "paratiroides": 6, "otras": 120},
     "OAX":   {"gammagrafia_osea": 70, "tiroidea": 35, "renal": 25, "rastreo_i131": 10, "terapia_i131": 8, "lu177": 0, "perfusion_miocardica": 18, "paratiroides": 8, "otras": 15},
 }
-CRECIMIENTO = {"MID": 0.012, "VHSA1": 0.010, "VHSA2": 0.015, "OAX": 0.009}  # mensual compuesto
+CRECIMIENTO = {"MID": 0.012, "VHSA1": 0.010, "OAX": 0.009}  # mensual compuesto
 ESTACIONAL = {1: 0.95, 4: 0.92, 7: 0.95, 12: 0.88}  # enero, Semana Santa, vacaciones, diciembre
 TARIFA = {"gammagrafia_osea": 5200, "tiroidea": 3800, "renal": 4500, "rastreo_i131": 7500, "terapia_i131": 42000,
           "lu177": 145000, "perfusion_miocardica": 9500, "paratiroides": 5500, "otras": 4500}
-TARIFA_OTRAS_VHSA2 = 17500  # mezcla con PET-CT
 SIN_REFERENTE = {"otras": 0.25}  # fracción de pacientes sin referente registrado; resto 0.12
 
 ESPECIALIDADES = {
@@ -49,8 +52,8 @@ ESPECIALIDADES = {
 PESO_ESP = {"Oncología médica": 9, "Cirugía oncológica": 6, "Endocrinología": 9, "Urología": 7, "Cardiología": 6,
             "Nefrología": 3, "Medicina interna": 10, "Ortopedia": 4, "Pediatría": 3, "Medicina familiar": 6,
             "Hematología": 2, "Neurología": 2}
-POOL = {"MID": 70, "VHSA1": 55, "VHSA2": 20, "OAX": 45}  # referentes propios; VHSA2 comparte 25 con VHSA1
-COMPARTIDOS_VHSA = 25
+POOL = {"MID": 70, "VHSA1": 55, "OAX": 45}  # referentes propios por sede
+assert not set(BASE) & set(PROXIMA_APERTURA), "una sede de próxima apertura no tiene actividad"
 
 
 def w(path, cols, rows):
@@ -79,26 +82,24 @@ def multinomial(n, pesos):
 esp_nombres = list(PESO_ESP)
 codigo = 0
 referentes = {}  # sede -> list of (codigo, especialidad, peso)
-for sede in ("MID", "VHSA1", "VHSA2", "OAX"):
+for sede in BASE:
     lista = []
     for _ in range(POOL[sede]):
         codigo += 1
         esp = rng.choices(esp_nombres, weights=[PESO_ESP[e] for e in esp_nombres])[0]
         lista.append((f"R-{codigo:03d}", esp, 1 / ((rng.randint(1, POOL[sede]) + 3) ** 0.8)))
     referentes[sede] = lista
-referentes["VHSA2"] = referentes["VHSA2"] + rng.sample(referentes["VHSA1"], COMPARTIDOS_VHSA)
 
 # ---------- inventario sintético (mismo esquema que real_inventario.csv) ----------
 inv = []
 for sede, base in BASE.items():
     for i, mes in enumerate(MESES):
         m = int(mes[5:])
-        rampa = min(1.0, 0.5 + i * 0.5 / 11) if sede == "VHSA2" else 1.0  # VHSA2 madura en 12 meses
         for tipo in TIPOS:
             b = base[tipo]
             if not b:
                 continue
-            est = b * (1 + CRECIMIENTO[sede]) ** i * ESTACIONAL.get(m, 1.0) * rampa * rng.gauss(1, 0.08)
+            est = b * (1 + CRECIMIENTO[sede]) ** i * ESTACIONAL.get(m, 1.0) * rng.gauss(1, 0.08)
             est = max(0, round(est))
             if not est:
                 continue
@@ -131,7 +132,7 @@ for sede in BASE:
         filas = [r for r in inv if r[0] == sede and f"{r[1]}-{int(r[2]):02d}" == mes]
         refer = sum(r[4] for r in filas if r[6])
         conv = min(92.0, max(65.0, rng.gauss(79, 4)))
-        ingresos = sum(r[5] * (TARIFA_OTRAS_VHSA2 if (sede == "VHSA2" and r[3] == "otras") else TARIFA[r[3]]) for r in filas)
+        ingresos = sum(r[5] * TARIFA[r[3]] for r in filas)
         plazas.append({"sede": sede, "mes": mes, "referencias_recibidas": round(refer / (conv / 100)),
                        "conversion_pct": round(conv, 1), "ingresos_mxn": int(round(ingresos * rng.gauss(1, 0.03), -3))})
 w("sintetico_plazas_mensual.csv", ["sede", "mes", "referencias_recibidas", "conversion_pct", "ingresos_mxn"], plazas)
@@ -170,7 +171,7 @@ w("sintetico_canales_mensual.csv", ["mes", "canal", "alcance", "impresiones", "c
 
 # ---------- reseñas, NPS y SEO por sede ----------
 RES = {"MID": ("GAMMA Mérida", 380, 4.7), "VHSA1": ("GAMMA Villahermosa sede 1", 260, 4.6),
-       "VHSA2": ("GAMMA Villahermosa sede 2 · CINO", 90, 4.8), "OAX": ("GAMMA Oaxaca", 190, 4.5)}
+       "OAX": ("GAMMA Oaxaca", 190, 4.5)}
 res = []
 for sede, (nombre, n, cal) in RES.items():
     pos = round(rng.uniform(2.4, 7.0), 1)
@@ -199,12 +200,12 @@ pauta = sum(r["gasto_mxn"] for r in can_u if r["canal"] != "WhatsApp Business")
 kp = {
     "referencias_mes": f"{sum(r[4] for r in inv_u if r[6])} (red, {ult})",
     "referentes_activos": f"{len({r[6] for r in inv_u if r[6]})} (red, {ult})",
-    "conversion": f"{round(sum(p['conversion_pct'] for p in plazas if p['mes'] == ult) / 4, 1)} %",
+    "conversion": f"{round(sum(p['conversion_pct'] for p in plazas if p['mes'] == ult) / len(BASE), 1)} %",
     "sla_respuesta": f"{rng.randint(78, 90)} %",
-    "nps_pacientes": str(round(sum(r["nps_pacientes"] for r in res) / 4)),
-    "nps_referentes": str(round(sum(r["nps_referentes"] for r in res) / 4)),
+    "nps_pacientes": str(round(sum(r["nps_pacientes"] for r in res) / len(res))),
+    "nps_referentes": str(round(sum(r["nps_referentes"] for r in res) / len(res))),
     "trafico_organico": f"{rng.randint(8500, 12500)} sesiones (red, {ult})",
-    "seo_localpack": f"{sum(r['local_pack_top3'] == 'Sí' for r in res)} de 4 sedes",
+    "seo_localpack": f"{sum(r['local_pack_top3'] == 'Sí' for r in res)} de {len(res)} sedes operando",
     "costo_paciente": f"{round(pauta / max(1, sum(r['pacientes'] for r in can_u if r['canal'] != 'WhatsApp Business')))} MXN",
     "inversion_vs_presupuesto": f"{round(pauta / 1000)} k MXN/mes",
     "convenios_aseguradoras": str(rng.randint(3, 6)),

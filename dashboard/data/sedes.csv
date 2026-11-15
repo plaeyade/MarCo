@@ -1,7 +1,7 @@
 sede,nombre,estado,reparto_pauta_local,referencias_mes,referentes_activos,conversion_pct,nps,sesiones_organicas,costo_paciente_mxn
 MID,GAMMA Mérida,Operando,40 %,,,,,,
-VHSA1,GAMMA Villahermosa sede 1,Operando,30 % Villahermosa (repartir entre sede 1 y sede 2) †,,,,,,
-VHSA2,GAMMA Villahermosa sede 2 · CINO,Operando,incluido en el 30 % de Villahermosa †,,,,,,
+VHSA1,GAMMA Villahermosa sede 1,Operando,30 % Villahermosa (todo a sede 1 hasta abrir sede 2) †,,,,,,
+VHSA2,GAMMA Villahermosa sede 2 · CINO,Próxima apertura (fines 2027),0 % hasta apertura (fines 2027); después dentro del 30 % de Villahermosa †,,,,,,
 OAX,GAMMA Oaxaca,Operando,30 %,,,,,,
 TOL,GAMMA Toluca,Próxima apertura,0 % hasta apertura,,,,,,
 COL,GAMMA Colima,Próxima apertura,0 % hasta apertura,,,,,,

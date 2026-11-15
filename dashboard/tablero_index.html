@@ -93,7 +93,7 @@
       <div class="mc-card" id="tile-terapias">
         <h3>Terapias (I-131 y Lu-177), último mes</h3>
         <div class="mc-big"><span data-draw="red-terapias" data-source="red_resumen" data-field="terapias" data-row="0">—</span></div>
-        <div class="mc-sub">Lu-177 sólo en Villahermosa sede 2 (CINO)</div>
+        <div class="mc-sub">Lu-177 previsto en Villahermosa sede 2 (CINO), próxima apertura fines 2027: hoy sin terapias Lu-177</div>
       </div>
       <div class="mc-card" id="tile-ingresos">
         <h3>Ingresos de plantilla, último mes</h3>
@@ -164,7 +164,7 @@
   <section id="plazas" class="mc-sec" hidden>
     <p class="mc-tag" id="tag-plazas">SINTÉTICO — no real · salvo sedes y métricas con inventario real (ver «Origen»)</p>
     <h2>Por plaza: tendencia mensual</h2>
-    <p class="mc-note">Una gráfica por sede: Mérida, Villahermosa sede 1 (GAMMA: gammagrafía y yodo-131), Villahermosa sede 2 en el CINO con el aliado estratégico (PET-CT, ciclotrón, gammagrafía, yodo-131 y lutecio-177), Oaxaca, y Toluca y Colima como próxima apertura. Pacientes, estudios, terapias, referencias y referentes activos salen del inventario de expedientes cuando existe y, mientras tanto, del inventario sintético; conversión e ingresos son sintéticos.</p>
+    <p class="mc-note">Una gráfica por sede: Mérida, Villahermosa sede 1 (GAMMA: gammagrafía y yodo-131), Oaxaca, y como próxima apertura Villahermosa sede 2 en el CINO con el aliado estratégico (PET-CT, ciclotrón, gammagrafía, yodo-131 y lutecio-177; fines de 2027), Toluca y Colima. Ninguna sede tiene actividad antes de abrir. Pacientes, estudios, terapias, referencias y referentes activos salen del inventario de expedientes cuando existe y, mientras tanto, del inventario sintético; conversión e ingresos son sintéticos.</p>
     <div class="mc-row">
       <label for="mc-metrica">Métrica</label>
       <select class="dash-select" id="mc-metrica" aria-label="Métrica">
@@ -200,11 +200,11 @@
   <section id="estudios" class="mc-sec" hidden>
     <p class="mc-tag" id="tag-estudios" data-draw="insignia-inv" data-source="inventario_origen" data-field="insignia" data-row="0">—</p>
     <h2>Estudios por tipo y sede, últimos 12 meses</h2>
-    <p class="mc-note">Periodo: <span data-draw="periodo-desde" data-source="inv_periodo" data-field="desde" data-row="0">—</span> a <span data-draw="periodo-hasta" data-source="inv_periodo" data-field="hasta" data-row="0">—</span>. Vocabulario del inventario de expedientes (HEVESY); en Villahermosa sede 2, «Otras» incluye PET-CT. Celdas de 1 a 4 se muestran como «< 5».</p>
+    <p class="mc-note">Periodo: <span data-draw="periodo-desde" data-source="inv_periodo" data-field="desde" data-row="0">—</span> a <span data-draw="periodo-hasta" data-source="inv_periodo" data-field="hasta" data-row="0">—</span>. Vocabulario del inventario de expedientes (HEVESY); Villahermosa sede 2 (CINO) abre a fines de 2027: sin estudios en el periodo; al abrir, su PET-CT irá en «Otras». Celdas de 1 a 4 se muestran como «< 5».</p>
     <div class="mc-legend" id="leyenda-tipos">
       <span><span class="mc-sw" data-col="0"></span>Mérida</span>
       <span><span class="mc-sw" data-col="1"></span>Villahermosa sede 1</span>
-      <span><span class="mc-sw" data-col="2"></span>Villahermosa sede 2 · CINO</span>
+      <span><span class="mc-sw" data-col="2"></span>Villahermosa sede 2 · CINO (próx. apertura)</span>
       <span><span class="mc-sw" data-col="3"></span>Oaxaca</span>
       <span><span class="mc-sw" data-col="4"></span>Toluca</span>
       <span><span class="mc-sw" data-col="5"></span>Colima</span>
@@ -216,7 +216,7 @@
           <th data-field="estudio">Tipo de estudio</th>
           <th data-field="MID" class="num">Mérida</th>
           <th data-field="VHSA1" class="num">VHSA sede 1</th>
-          <th data-field="VHSA2" class="num">VHSA sede 2 · CINO</th>
+          <th data-field="VHSA2" class="num">VHSA sede 2 · CINO (próx.)</th>
           <th data-field="OAX" class="num">Oaxaca</th>
           <th data-field="TOL" class="num">Toluca</th>
           <th data-field="COL" class="num">Colima</th>
@@ -235,7 +235,7 @@
         <option value="todas">Todas las sedes</option>
         <option value="MID">Mérida</option>
         <option value="VHSA1">Villahermosa sede 1</option>
-        <option value="VHSA2">Villahermosa sede 2 · CINO</option>
+        <option value="VHSA2">Villahermosa sede 2 · CINO (próxima apertura)</option>
         <option value="OAX">Oaxaca</option>
         <option value="TOL">Toluca</option>
         <option value="COL">Colima</option>
@@ -352,7 +352,7 @@
   <section id="mapa" class="mc-sec" hidden>
     <p class="mc-tag publico" id="tag-mapa">Datos públicos reales con fuente (INEGI). Esta pestaña no tiene cifras SINTÉTICAS.</p>
     <h2>Sedes y áreas de influencia</h2>
-    <p class="mc-note">Esquema sin límites estatales: cada burbuja es la capital de un estado, con tamaño según su población (INEGI 2020) y color según la sede que la atiende en el plan. Villahermosa tiene dos sedes en la misma ciudad (sede 1 GAMMA y sede 2 en el CINO). Toluca y Colima son próxima apertura. Los anillos marcan 150 y 300 km en línea recta desde cada sede; no son tiempos de manejo.</p>
+    <p class="mc-note">Esquema sin límites estatales: cada burbuja es la capital de un estado, con tamaño según su población (INEGI 2020) y color según la sede que la atiende en el plan. Villahermosa tiene dos sedes en la misma ciudad: sede 1 GAMMA (operando) y sede 2 en el CINO (próxima apertura, fines de 2027). Toluca y Colima son próxima apertura. Los anillos marcan 150 y 300 km en línea recta desde cada sede; no son tiempos de manejo.</p>
     <div class="mc-legend" id="leyenda-mapa">
       <span><span class="mc-sw" style="background: var(--cds-chart-muted)"></span>Área asignada por el plan (supuesto, no dato)</span>
       <span>◆ sede operando · ◇ próxima apertura</span>
@@ -598,7 +598,8 @@
   window.mcSINT = 'SINTÉTICO — no real';
   window.mcREAL = 'REAL — inventario expedientes';
   window.mcSedes = [['MID', 'GAMMA Mérida'], ['VHSA1', 'GAMMA Villahermosa sede 1'], ['VHSA2', 'GAMMA Villahermosa sede 2 · CINO'], ['OAX', 'GAMMA Oaxaca'], ['TOL', 'GAMMA Toluca'], ['COL', 'GAMMA Colima']];
-  window.mcProximas = ['TOL', 'COL'];
+  window.mcProximas = ['VHSA2', 'TOL', 'COL'];
+  window.mcEsProxima = (e) => String(e || '').startsWith('Próxima apertura');
   window.mcMetricas = { estudios: 'Estudios', pacientes: 'Pacientes', terapias: 'Terapias', referencias: 'Pacientes referidos', referentes_activos: 'Referentes activos', conversion_pct: 'Conversión %', ingresos_mxn: 'Ingresos MXN' };
   window.mcCanales = ['Meta (Facebook/Instagram)', 'Google (Search/PMax)', 'TikTok', 'LinkedIn', 'YouTube', 'WhatsApp Business'];
 
@@ -690,13 +691,13 @@
     inputs: ['plazas_vista'],
     fn: (serie) => {
       const m = dash.params().metrica || 'estudios';
-      const sedes = [['MID', 'GAMMA Mérida', 'Operando'], ['VHSA1', 'GAMMA Villahermosa sede 1', 'Operando'], ['VHSA2', 'GAMMA Villahermosa sede 2 · CINO', 'Operando'], ['OAX', 'GAMMA Oaxaca', 'Operando'], ['TOL', 'GAMMA Toluca', 'Próxima apertura'], ['COL', 'GAMMA Colima', 'Próxima apertura']];
+      const sedes = [['MID', 'GAMMA Mérida', 'Operando'], ['VHSA1', 'GAMMA Villahermosa sede 1', 'Operando'], ['VHSA2', 'GAMMA Villahermosa sede 2 · CINO', 'Próxima apertura (fines 2027)'], ['OAX', 'GAMMA Oaxaca', 'Operando'], ['TOL', 'GAMMA Toluca', 'Próxima apertura'], ['COL', 'GAMMA Colima', 'Próxima apertura']];
       const etiquetas = { estudios: 'Estudios', pacientes: 'Pacientes', terapias: 'Terapias', referencias: 'Pacientes referidos', referentes_activos: 'Referentes activos', conversion_pct: 'Conversión %', ingresos_mxn: 'Ingresos MXN' };
       const pct = (a, b) => (a == null || b == null || b === 0 ? null : Math.round((a / b - 1) * 1000) / 10);
       return sedes.map(([s, nombre, estatus]) => {
         const filas = (serie || []).filter((r) => r.sede === s && r.valor != null).sort((a, b) => d3.ascending(a.mes, b.mes));
         const u = filas[filas.length - 1];
-        if (!u) return { sede: s, nombre, estatus, metrica: etiquetas[m], ultimo_mes: null, valor: null, mom_pct: null, yoy_pct: null, acumulado: null, origen: estatus === 'Próxima apertura' ? 'Próxima apertura: sin datos' : 'Sin datos' };
+        if (!u) return { sede: s, nombre, estatus, metrica: etiquetas[m], ultimo_mes: null, valor: null, mom_pct: null, yoy_pct: null, acumulado: null, origen: mcEsProxima(estatus) ? 'Próxima apertura: sin datos' : 'Sin datos' };
         const prev = filas.find((r) => r.mes === d3.utcFormat('%Y-%m')(d3.utcMonth.offset(new Date(u.mes + '-01T00:00:00Z'), -1)));
         const ya = filas.find((r) => r.mes === (+u.mes.slice(0, 4) - 1) + u.mes.slice(4));
         const anio = filas.filter((r) => r.mes.slice(0, 4) === u.mes.slice(0, 4));
@@ -925,7 +926,7 @@
     inputs: ['geo_sedes'],
     fn: (sedes) => [{
       operando: sedes.filter((s) => s.estatus === 'Operando').length, total: sedes.length,
-      proximas: sedes.filter((s) => s.estatus === 'Próxima apertura').map((s) => s.ciudad).join(' y '),
+      proximas: (() => { const n = sedes.filter((s) => mcEsProxima(s.estatus)).map((s) => s.sede === 'VHSA2' ? 'Villahermosa sede 2 · CINO (fines 2027)' : s.ciudad); return n.length > 1 ? n.slice(0, -1).join(', ') + ' y ' + n[n.length - 1] : n.join(''); })(),
     }],
   });
   dash.calc('area_resumen', {
@@ -969,7 +970,7 @@
       return ciudades.map((c) => {
         const p = { lat: +c.lat, lon: +c.lon };
         const best = op.map((s) => ({ s, d: km(p, { lat: +s.lat, lon: +s.lon }) })).sort((a, b) => a.d - b.d)[0];
-        const nombre = best.s.sede === 'VHSA1' ? 'GAMMA Villahermosa (sedes 1 y 2)' : best.s.nombre;
+        const nombre = best.s.nombre;
         return { ciudad: c.ciudad, estado: c.estado, sede_cercana: nombre, km_linea_recta: Math.round(best.d), tiempo_carretera: null };
       }).sort((a, b) => a.km_linea_recta - b.km_linea_recta);
     },
@@ -1175,7 +1176,7 @@
       el.appendChild(panel);
       if (!filas.length) {
         const p = document.createElement('div'); p.className = 'mc-empty';
-        p.textContent = mcProximas.includes(s) ? 'Próxima apertura: sin datos.' : 'Sin datos.';
+        p.textContent = s === 'VHSA2' ? 'Próxima apertura (fines 2027): sin actividad antes de abrir.' : mcProximas.includes(s) ? 'Próxima apertura: sin datos.' : 'Sin datos.';
         panel.appendChild(p); continue;
       }
       const origen = filas[filas.length - 1].origen;
@@ -1341,7 +1342,7 @@
     const sg = svg.append('g').selectAll('g').data(unicas).join('g').attr('transform', (s) => `translate(${proj([s.lon, s.lat])})`);
     sg.append('path').attr('d', sym).style('fill', (s) => (s.estatus === 'Operando' ? col[area(s.sede)] : 'var(--color-bg)')).style('stroke', (s) => col[area(s.sede)]).attr('stroke-width', 2);
     sg.append('text').attr('class', 'mc-lab').attr('x', 10).attr('y', -8).style('font-weight', 600)
-      .text((s) => (s.sede === 'VHSA1' ? 'Villahermosa (2 sedes)' : s.ciudad) + (s.estatus === 'Operando' ? '' : ' · próxima apertura'));
+      .text((s) => (s.sede === 'VHSA1' ? 'Villahermosa (sede 1; sede 2 fines 2027)' : s.ciudad) + (s.estatus === 'Operando' ? '' : ' · próxima apertura'));
     sg.append('path').attr('d', d3.symbol().type(d3.symbolCircle).size(500)()).style('fill', 'transparent')
       .on('pointerenter pointermove', (ev, s) => {
         const lineas = s.sede === 'VHSA1'

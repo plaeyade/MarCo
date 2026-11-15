@@ -1,0 +1,96 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "gamma/referencia@2",
+  "title": "gamma/referencia@2",
+  "description": "Evento de referencia de un paciente por un médico, de GAMMA OS (CRM) hacia el tablero MarCo, que sólo muestra agregados k ≥ 5. Sin diagnóstico, CIE, resultados, imágenes ni notas clínicas. Códigos de sede por plaza (ADR-0002).",
+  "type": "object",
+  "required": [
+    "contrato",
+    "referencia_id",
+    "emitido_en",
+    "sede",
+    "referente_ref",
+    "servicio",
+    "canal",
+    "estado"
+  ],
+  "properties": {
+    "contrato": {
+      "const": "gamma/referencia@2"
+    },
+    "sede": {
+      "enum": [
+        "MID",
+        "VHSA1",
+        "VHSA2",
+        "OAX",
+        "TOL",
+        "COL"
+      ],
+      "description": "MID Mérida · VHSA1 Villahermosa sede 1 · VHSA2 Villahermosa sede 2, en el CINO con el aliado estratégico (próxima apertura, fines de 2027) · OAX Oaxaca · TOL Toluca y COL Colima (próxima apertura). Alias obsoletos del borrador @1: VSA = VHSA1, CINO = VHSA2 (no se aceptan aquí; ver migrar_referencia_1_a_2)."
+    },
+    "referencia_id": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "emitido_en": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "referente_ref": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Seudónimo del médico referente; la correspondencia vive fuera de este contrato."
+    },
+    "servicio": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Código del servicio del catálogo (p. ej. GAMMA-OSEA); nunca diagnóstico."
+    },
+    "canal": {
+      "enum": [
+        "llamada_telefonica",
+        "portal",
+        "formulario_web",
+        "whatsapp_logistica",
+        "presencial",
+        "aseguradora",
+        "institucion"
+      ],
+      "description": "Canal de entrada de la referencia. El borrador @1 llamaba «telefono» a «llamada_telefonica»."
+    },
+    "estado": {
+      "enum": [
+        "recibida",
+        "contactada",
+        "agendada",
+        "realizada",
+        "informada",
+        "cancelada",
+        "no_contactable"
+      ]
+    },
+    "paciente_ref": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Seudónimo; nunca nombre, CURP ni expediente."
+    },
+    "aseguradora_ref": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "consentimiento_comunicaciones": {
+      "type": "boolean"
+    },
+    "atribucion": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "Campaña (utm_campaign) sin términos de salud."
+    }
+  },
+  "additionalProperties": false
+}

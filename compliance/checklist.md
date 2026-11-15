@@ -22,7 +22,7 @@ Id de pieza: `MC-{SEDE}-{canal}-{aaaamm}-{nn}`. Un "no" en un punto ● bloquea 
 | 16 | Sin comparaciones denigrantes ni ofertas para atraer pacientes de otros médicos | Todas | Firma |
 | 17 | Software/IA: "herramienta de investigación/apoyo", sin afirmaciones diagnósticas | Si aplica | Firma |
 | 18 | Accesibilidad (subtítulos, contraste, lenguaje claro; lengua indígena †) | Todas | Revisión |
-| ● 19 | CINO: puerta de lanzamiento cumplida (licencias, permiso, simulacro, autorizaciones de terceros) | CINO | Lista firmada |
+| ● 19 | VHSA2 (CINO): puerta de lanzamiento cumplida (apertura confirmada —prevista fines 2027—, licencias, permiso, simulacro, autorizaciones de terceros) | VHSA2 | Lista firmada |
 
 Fuentes: LGS art. 306 (https://mley.mx/LGS/articulo/306/); RLGSMP arts. 18, 79, 80 (https://mley.mx/Reg_LGS_MP/articulo/79/); LFPDPPP 2025 (https://www.diputados.gob.mx/LeyesBiblio/pdf/LFPDPPP.pdf); NOM-004-SSA3-2012 (https://www.gob.mx/cms/uploads/attachment/file/512094/NOM-004-SSA3-2012.pdf); políticas de plataformas en `docs/plan_publicidad_multicanal.md`.
 

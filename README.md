@@ -13,7 +13,7 @@ Contiene la marca, las plantillas de campaña, el circuito de cumplimiento COFEP
 | `campaigns/` | Plantillas de brief, ficha de pieza (JSON) y convención de UTM |
 | `compliance/` | Lista de verificación por pieza (COFEPRIS + plataformas) y registro de piezas |
 | `dashboard/` | Esquema de métricas, conectores previstos y datos del plan (presupuestos y metas; sin datos reales) |
-| `contracts/` | Referencia al contrato `gamma/referencia@1` de `gamma-contracts` (copia de lectura del borrador) |
+| `contracts/` | Copia de lectura de `gamma/referencia@2` de `gamma-contracts` (y del borrador `@1`, obsoleto) |
 | `docs/` | Plan de publicidad multicanal; `congresos_2026_2027.md`; `legal/` (registro de marca IMPI y aviso COFEPRIS 02-002-A) |
 | `tools/` | Generadores de logos y lámina |
 | `tests/` | Pruebas mínimas (marca, cumplimiento, contrato, tablero) |
@@ -38,7 +38,7 @@ El tablero «MarCo Tablero» (artifact Data, https://claude.ai/artifact/Rr3smpN4
 - **SINTÉTICOS — no reales:** `sintetico_*.csv`, generados por `tools/sinteticos.py` con semilla fija 20261115; supuestos en `dashboard/data/SUPUESTOS_SINTETICOS.md`. Se rotulan «SINTÉTICO — no real» en cada pestaña y en el pie. No se citan ni se usan para decidir.
 - **Reales por llegar:** `real_inventario.csv` (inventario de expedientes HEVESY, agregado y sin nombres; hoy vacío). Cuando tenga filas de una sede, el tablero muestra para esa sede pacientes, estudios por tipo y referencias como «REAL — inventario expedientes». Las plantillas `plazas_mensual.csv`, `canales.csv`, `embudo.csv` y `resenas_seo.csv` siguen vacías hasta conectar sus fuentes (`dashboard/conectores.json`).
 
-Plazas: MID, VHSA1 (Villahermosa sede 1), VHSA2 (Villahermosa sede 2 en el CINO), OAX; próxima apertura TOL y COL.
+Plazas operando: MID, VHSA1 (Villahermosa sede 1), OAX. Próxima apertura: VHSA2 (Villahermosa sede 2 en el CINO, fines de 2027), TOL y COL. Las sedes de próxima apertura no tienen actividad en el tablero, ni siquiera sintética.
 
 ## Documentos relacionados
 

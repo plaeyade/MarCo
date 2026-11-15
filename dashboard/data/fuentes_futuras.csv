@@ -6,6 +6,6 @@ LinkedIn,LinkedIn Marketing API (ad analytics),Gasto · impresiones · registros
 Perfil de Empresa de Google,Business Profile Performance API,Llamadas · rutas · clics al sitio por sede,Agregados,Pendiente de conectar
 GA4,Google Analytics Data API,Sesiones orgánicas por sede · UTM,IP anonimizada; consentimiento,Pendiente de conectar
 Herramienta SEO,API del proveedor elegido,Posición media de 40 términos · local pack,Sin datos personales,Por elegir
-CRM de referencias GAMMA OS,Contrato gamma/referencia@1 (agregados k ≥ 5),Referencias · referentes activos · conversión · SLA · atribución UTM,Sin datos clínicos; paciente_ref opaco,Contrato en borrador (ADR)
+CRM de referencias GAMMA OS,Contrato gamma/referencia@2 (agregados k ≥ 5),Referencias · referentes activos · conversión · SLA · atribución UTM,Sin datos clínicos; paciente_ref opaco,Contrato en borrador (ADR)
 Encuestas NPS,API de la herramienta NPS,NPS pacientes y referentes,Sin preguntas clínicas,Por elegir
 Registro de piezas MarCo,Repositorio MarCo (compliance/registro),Piezas · permiso/aviso · checklist,Sin datos de pacientes,Plantilla lista

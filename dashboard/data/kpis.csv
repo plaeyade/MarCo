@@ -1,5 +1,5 @@
 kpi_id,kpi,definicion,fuente_futura,frecuencia,meta_plan,valor_real
-referencias_mes,Referencias por mes y sede,Referencias recibidas por sede en el mes,CRM GAMMA OS (gamma/referencia@1),Semanal,+20–30 % sobre línea base,
+referencias_mes,Referencias por mes y sede,Referencias recibidas por sede en el mes,CRM GAMMA OS (gamma/referencia@2),Semanal,+20–30 % sobre línea base,
 referentes_activos,Referentes activos,Médicos con ≥ 1 referencia en 90 días,CRM GAMMA OS,Mensual,+25 %,
 conversion,Conversión de referencia,Referencias con estudio realizado / referencias recibidas,CRM + agenda,Semanal,Fijar tras línea base,
 sla_respuesta,SLA de respuesta,% de referencias contestadas en ≤ 2 h hábiles,CRM,Semanal,Fijar tras línea base,
