@@ -32,8 +32,13 @@ Logo oficial: **propuesta 1**. Guía de uso: `brand/GUIA_MARCA.md`. Registro ant
 
 ## Tablero
 
-El tablero «MarCo Tablero» (artifact Data, https://claude.ai/artifact/Rr3smpN4rNWtNsHGrCCTAK) lee los CSV de `dashboard/data/`: presupuestos del plan y datos públicos con fuente (INEGI, GLOBOCAN, congresos) como cifras reales; plantillas vacías de desempeño por plaza y canal; y archivos `ejemplo_*.csv` con cifras **de ejemplo, no reales**, que sólo se muestran al activar «Ver ejemplo». Las fuentes futuras están en `dashboard/conectores.json`.
-Hasta conectar APIs, todas las métricas de desempeño quedan vacías.
+El tablero «MarCo Tablero» (artifact Data, https://claude.ai/artifact/Rr3smpN4rNWtNsHGrCCTAK) lee los CSV de `dashboard/data/`:
+
+- **Reales con fuente:** presupuestos del plan y datos públicos (INEGI 2020, mortalidad INEGI 2024, GLOBOCAN, congresos, IMPI).
+- **SINTÉTICOS — no reales:** `sintetico_*.csv`, generados por `tools/sinteticos.py` con semilla fija 20261115; supuestos en `dashboard/data/SUPUESTOS_SINTETICOS.md`. Se rotulan «SINTÉTICO — no real» en cada pestaña y en el pie. No se citan ni se usan para decidir.
+- **Reales por llegar:** `real_inventario.csv` (inventario de expedientes HEVESY, agregado y sin nombres; hoy vacío). Cuando tenga filas de una sede, el tablero muestra para esa sede pacientes, estudios por tipo y referencias como «REAL — inventario expedientes». Las plantillas `plazas_mensual.csv`, `canales.csv`, `embudo.csv` y `resenas_seo.csv` siguen vacías hasta conectar sus fuentes (`dashboard/conectores.json`).
+
+Plazas: MID, VHSA1 (Villahermosa sede 1), VHSA2 (Villahermosa sede 2 en el CINO), OAX; próxima apertura TOL y COL.
 
 ## Documentos relacionados
 

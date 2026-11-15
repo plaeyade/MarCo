@@ -1,6 +1,7 @@
-sede,nombre,estatus,ciudad,estado,municipio_pob_2020,lat,lon,fuente_pob
-OAX,GAMMA Oaxaca,Operando,Oaxaca de Juárez,Oaxaca,270955,17.0654,-96.7237,https://www.inegi.org.mx/contenidos/saladeprensa/boletines/2021/EstSociodemo/ResultCenso2020_Oax.pdf
-VSA,GAMMA Villahermosa,Operando,Villahermosa (Centro),Tabasco,683607,17.9869,-92.9303,https://www.inegi.org.mx/contenidos/saladeprensa/boletines/2021/EstSociodemo/ResultCenso2020_Tab.pdf
-MID,GAMMA Mérida,Operando,Mérida,Yucatán,995129,20.9674,-89.6237,https://inegi.org.mx/contenidos/saladeprensa/boletines/2021/EstSociodemo/ResultCenso2020_Yuc.pdf
-TOL,GAMMA Toluca,Proyecto,Toluca,México,910608,19.2826,-99.6557,https://www.economia.gob.mx/datamexico/es/profile/geo/toluca
-CINO,CINO (Zumaya),Pre-licencia,Villahermosa (Centro),Tabasco,683607,17.9869,-92.9303,https://www.inegi.org.mx/contenidos/saladeprensa/boletines/2021/EstSociodemo/ResultCenso2020_Tab.pdf
+sede,nombre,estatus,ciudad,estado,municipio_pob_2020,lat,lon,fuente_pob,servicios
+MID,GAMMA Mérida,Operando,Mérida,Yucatán,995129,20.9674,-89.6237,https://inegi.org.mx/contenidos/saladeprensa/boletines/2021/EstSociodemo/ResultCenso2020_Yuc.pdf,Gammagrafía; yodo-131
+VHSA1,GAMMA Villahermosa sede 1,Operando,Villahermosa (Centro),Tabasco,683607,17.9869,-92.9303,https://www.inegi.org.mx/contenidos/saladeprensa/boletines/2021/EstSociodemo/ResultCenso2020_Tab.pdf,Gammagrafía; yodo-131
+VHSA2,GAMMA Villahermosa sede 2 · CINO (aliado estratégico),Operando,Villahermosa (Centro),Tabasco,683607,17.9869,-92.9303,https://www.inegi.org.mx/contenidos/saladeprensa/boletines/2021/EstSociodemo/ResultCenso2020_Tab.pdf,PET-CT; ciclotrón; gammagrafía; yodo-131; lutecio-177 (anunciar sólo con licencias vigentes)
+OAX,GAMMA Oaxaca,Operando,Oaxaca de Juárez,Oaxaca,270955,17.0654,-96.7237,https://www.inegi.org.mx/contenidos/saladeprensa/boletines/2021/EstSociodemo/ResultCenso2020_Oax.pdf,Gammagrafía; yodo-131
+TOL,GAMMA Toluca,Próxima apertura,Toluca,México,910608,19.2826,-99.6557,https://www.economia.gob.mx/datamexico/es/profile/geo/toluca,Por definir
+COL,GAMMA Colima,Próxima apertura,Colima,Colima,157048,19.2433,-103.725,https://www.inegi.org.mx/contenidos/programas/ccpv/2020/doc/cpv2020_pres_res_col.pdf,Por definir

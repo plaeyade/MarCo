@@ -1,6 +1,7 @@
 sede,nombre,estado,reparto_pauta_local,referencias_mes,referentes_activos,conversion_pct,nps,sesiones_organicas,costo_paciente_mxn
-OAX,GAMMA Oaxaca,Operando,30 %,,,,,,
-VSA,GAMMA Villahermosa,Operando,30 %,,,,,,
 MID,GAMMA Mérida,Operando,40 %,,,,,,
-TOL,GAMMA Toluca,Proyecto,0 % hasta apertura,,,,,,
-CINO,CINO (Zumaya),Pre-licencia,0 % antes de licencias,,,,,,
+VHSA1,GAMMA Villahermosa sede 1,Operando,30 % Villahermosa (repartir entre sede 1 y sede 2) †,,,,,,
+VHSA2,GAMMA Villahermosa sede 2 · CINO,Operando,incluido en el 30 % de Villahermosa †,,,,,,
+OAX,GAMMA Oaxaca,Operando,30 %,,,,,,
+TOL,GAMMA Toluca,Próxima apertura,0 % hasta apertura,,,,,,
+COL,GAMMA Colima,Próxima apertura,0 % hasta apertura,,,,,,

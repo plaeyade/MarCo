@@ -160,11 +160,32 @@ class TestTablero(unittest.TestCase):
                 for k in campos:
                     self.assertEqual(r[k], "", (f, k))
 
-    def test_ejemplos_marcados(self):
-        for f in glob.glob(os.path.join(ROOT, "dashboard/data/*.csv")):
-            nombre = os.path.basename(f)
-            if nombre.startswith("ejemplo_"):
-                self.assertTrue(os.path.exists(os.path.join(ROOT, "dashboard/data", nombre[len("ejemplo_"):])), nombre)
+    def test_sinteticos_documentados(self):
+        sup = open(os.path.join(ROOT, "dashboard/data/SUPUESTOS_SINTETICOS.md"), encoding="utf-8").read()
+        self.assertIn("SINTÉTICO — no real", sup)
+        self.assertIn("20261115", sup)
+        self.assertIn("SEMILLA = 20261115", open(os.path.join(ROOT, "tools/sinteticos.py"), encoding="utf-8").read())
+        sint = glob.glob(os.path.join(ROOT, "dashboard/data/sintetico_*.csv"))
+        self.assertGreaterEqual(len(sint), 6)
+        self.assertFalse(glob.glob(os.path.join(ROOT, "dashboard/data/ejemplo_*.csv")))
+        for f in sint:
+            cab = next(csv.reader(open(f, encoding="utf-8")))
+            self.assertFalse({"paciente", "nombre_paciente", "medico", "nombre_medico", "curp"} & set(cab), f)
+
+    def test_inventario_real_esquema(self):
+        cols = ["sede", "anio", "mes", "tipo_estudio", "pacientes", "estudios", "referente_codigo", "especialidad_referente"]
+        tipos = {"gammagrafia_osea", "tiroidea", "renal", "rastreo_i131", "terapia_i131", "lu177",
+                 "perfusion_miocardica", "paratiroides", "otras"}
+        sedes = {"MID", "VHSA1", "VHSA2", "OAX", "TOL", "COL"}
+        for nombre in ("real_inventario.csv", "sintetico_inventario.csv"):
+            rows = list(csv.reader(open(os.path.join(ROOT, "dashboard/data", nombre), encoding="utf-8")))
+            self.assertEqual(rows[0], cols, nombre)
+            for r in rows[1:]:
+                d = dict(zip(cols, r))
+                self.assertIn(d["sede"], sedes)
+                self.assertIn(d["tipo_estudio"], tipos)
+                self.assertRegex(d["referente_codigo"], r"^(R-\d{3,})?$")
+                self.assertTrue(int(d["estudios"]) >= 0 and int(d["pacientes"]) >= 0)
 
     def test_datos_publicos_con_fuente(self):
         for r in csv.DictReader(open(os.path.join(ROOT, "dashboard/data/geo_estados.csv"))):

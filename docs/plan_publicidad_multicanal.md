@@ -3,6 +3,19 @@
 > Línea **MarCo** (Marketing & Communication) del universo GAMMA. Desarrolla el capítulo 4 y la partida de pauta (§ 5.2) del plan base `plan_gamma_marketing.md`.
 > Convenciones: **†** = no verificado en fuente primaria o interpretación por validar con abogado regulatorio / la propia plataforma. Montos en **MXN al mes, IVA no incluido**; son **rangos de planeación**, no cotizaciones. No se nombran personas. **No hay cifras de desempeño**: todo resultado (CPC, CPL, conversiones, alcance) se medirá tras el lanzamiento; las columnas de metas sólo repiten las metas del plan base.
 
+## Plazas (actualización 15-11-2026)
+
+| Código | Plaza | Estatus | Servicios | Población 2020 (INEGI) |
+|---|---|---|---|---|
+| MID | GAMMA Mérida | Operando | Gammagrafía; yodo-131 | Municipio 995,129 · Yucatán 2,320,898 |
+| VHSA1 | GAMMA Villahermosa sede 1 «GAMMA» | Operando | Gammagrafía; yodo-131 | Municipio Centro 683,607 · Tabasco 2,402,598 |
+| VHSA2 | GAMMA Villahermosa sede 2, en el CINO con el aliado estratégico | Operando | PET-CT, ciclotrón, gammagrafía, yodo-131, lutecio-177 | (misma ciudad) |
+| OAX | GAMMA Oaxaca | Operando | Gammagrafía; yodo-131 | Municipio 270,955 · Oaxaca 4,132,148 |
+| TOL | GAMMA Toluca | Próxima apertura | Por definir | Municipio 910,608 ([DataMéxico](https://www.economia.gob.mx/datamexico/es/profile/geo/toluca)) · Estado de México 16,992,418 ([INEGI](https://www.inegi.org.mx/contenidos/saladeprensa/boletines/2021/EstSociodemo/ResultCenso2020_Nal.pdf)) |
+| COL | GAMMA Colima | Próxima apertura | Por definir | Municipio 157,048 · Colima 731,391 ([INEGI, presentación de resultados Colima](https://www.inegi.org.mx/contenidos/programas/ccpv/2020/doc/cpv2020_pres_res_col.pdf)) |
+
+Toluca y Colima: 0 % de pauta hasta su apertura; Perfil de Empresa sólo con domicilio operativo. PET-CT y lutecio-177 de VHSA2 se anuncian sólo con licencias sanitaria y CNSNS vigentes y permiso de publicidad (AGENTS.md § 1.4). El reparto local de Villahermosa (30 %) se divide entre sede 1 y sede 2 †. Mortalidad por tumores 2024 (tasa estandarizada, INEGI): Colima 84.5, Estado de México 70.0 por 100 mil.
+
 ---
 
 ## 0. Resumen
@@ -112,6 +125,7 @@
 | GAMMA Villahermosa | Ídem | Ídem | Ídem |
 | GAMMA Mérida | Ídem | Ídem | Ídem |
 | GAMMA Toluca | — | Sólo cuando la sede tenga domicilio operativo y atienda | Apertura |
+| GAMMA Colima | — | Sólo cuando la sede tenga domicilio operativo y atienda | Apertura |
 | CINO | Centro médico † | "Próximamente" no es un estado de GBP: crear el perfil sólo al abrir †(posible fecha de apertura en GBP; validar) | Licencias |
 
 Respuestas a reseñas: agradecer sin confirmar que la persona es paciente ni mencionar su estudio †(práctica recomendada en salud; consistente con NOM-004 5.5).
@@ -211,7 +225,7 @@ Disponibilidad y precios de Waze Ads en México por verificar con la plataforma 
 | Medios tradicionales locales (mantenimiento) | 0 | 15 000 | — | PR / contingencia |
 | Ola de lanzamiento del CINO (3 meses, total) | 150 000 | 450 000 | — | PR y lanzamiento del CINO |
 
-**Reparto por sede (orientativo †):** OAX 30 %, VSA 30 %, MID 40 % de la pauta local (Mérida tiene competencia PET directa y mayor costo por clic esperado †); Toluca 0 % hasta su apertura; el CINO 0 % antes de licencias, y tras ellas hasta 35 % de la bolsa durante 3 meses tomando monto de las tres sedes.
+**Reparto por sede (orientativo †):** OAX 30 %, Villahermosa 30 % (sede 1 y sede 2 · CINO), MID 40 % de la pauta local (Mérida tiene competencia PET directa y mayor costo por clic esperado †); Toluca y Colima 0 % hasta su apertura; el CINO 0 % antes de licencias, y tras ellas hasta 35 % de la bolsa durante 3 meses tomando monto de las tres sedes.
 
 **Reglas de reasignación:** mensual, con el tablero; sólo se mueve dinero entre canales de la misma partida; cualquier canal sin piezas aprobadas en el mes queda en 0.
 

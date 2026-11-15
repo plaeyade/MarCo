@@ -42,48 +42,78 @@
   .mc details { margin-top: var(--cds-gap-xl); font-size: var(--cds-font-size-caption); color: var(--color-fg-muted); }
   [data-dash-source-state=refreshing] { opacity: .5; }
 </style>
+<style>
+  .mc-tag { display: inline-block; font-size: var(--cds-font-size-caption); font-weight: var(--cds-font-weight-medium); border: 1px solid var(--color-warn); color: var(--color-warn); border-radius: 999px; padding: 2px 10px; margin: 0 0 var(--cds-gap-sm); }
+  .mc-tag.real { border-color: var(--color-ok); color: var(--color-ok); }
+  .mc-tag.publico { border-color: var(--color-border-line); color: var(--color-fg-muted); }
+  .mc-real { color: var(--color-ok); font-weight: var(--cds-font-weight-medium); }
+  .mc-foot { margin-top: var(--cds-gap-xl); padding-top: var(--cds-gap-md); border-top: 1px solid var(--color-border-line); font-size: var(--cds-font-size-caption); color: var(--color-fg-muted); }
+  .mc-foot strong { color: var(--color-warn); }
+  .mc-chart.mid { min-height: 260px; }
+</style>
 
 <div class="mc">
   <h1 class="mc-title" id="titulo">MarCo Tablero</h1>
-  <p class="mc-lead">Marketing y comunicación de la red GAMMA (Oaxaca, Villahermosa y Mérida), del proyecto Toluca y del CINO en Villahermosa. Hoy no hay métricas de desempeño conectadas: las cifras reales son los presupuestos del plan y datos públicos con fuente (INEGI, GLOBOCAN, calendarios de congresos, tarifas IMPI).</p>
+  <p class="mc-lead" id="lead">En <span data-draw="lead-mes" data-source="red_resumen" data-field="mes" data-row="0">—</span> la red registró <span data-draw="lead-estudios" data-source="red_resumen" data-field="estudios" data-row="0">—</span> estudios en <span data-draw="lead-sedes" data-source="sedes_resumen" data-field="operando" data-row="0">—</span> sedes operando (<span data-draw="lead-mom" data-source="red_resumen" data-field="estudios_mom_pct" data-row="0">—</span> contra el mes anterior). Origen de estas cifras: <span data-draw="lead-origen" data-source="red_resumen" data-field="origen" data-row="0">—</span>.</p>
 
   <div class="mc-banner" id="aviso">
-    <strong>Sin datos de desempeño reales.</strong> Las celdas de desempeño dicen «sin datos». El interruptor «Ver ejemplo» muestra cifras inventadas para ver cómo se leerá cada gráfica; van marcadas <strong>EJEMPLO, NO REAL</strong> y nunca deben citarse.
+    <strong>SINTÉTICO — no real.</strong> Las métricas de desempeño (estudios, terapias, referencias, conversión, ingresos, canales, embudo, CPL/CPA, NPS, reseñas, SEO y resultados de congresos) son datos sintéticos generados con semilla fija 20261115; supuestos en <code>dashboard/data/SUPUESTOS_SINTETICOS.md</code>. No se citan ni se usan para decidir. Son reales, con fuente: población (INEGI 2020), mortalidad (INEGI 2024), GLOBOCAN, calendario de congresos, tarifas IMPI y presupuestos del plan. Cuando el inventario de expedientes tenga filas, pacientes, estudios por tipo y referencias aparecerán como <strong>REAL — inventario expedientes</strong>.
   </div>
 
   <div class="mc-bar">
     <nav class="mc-tabs" id="pestanas" role="tablist">
       <button class="mc-tab" role="tab" data-tab="resumen" aria-selected="true">Resumen</button>
       <button class="mc-tab" role="tab" data-tab="plazas" aria-selected="false">Plazas</button>
+      <button class="mc-tab" role="tab" data-tab="estudios" aria-selected="false">Estudios y referencias</button>
       <button class="mc-tab" role="tab" data-tab="audiencia" aria-selected="false">Audiencia y medición</button>
-      <button class="mc-tab" role="tab" data-tab="mapa" aria-selected="false">Mapa del sureste</button>
+      <button class="mc-tab" role="tab" data-tab="mapa" aria-selected="false">Mapa de sedes</button>
       <button class="mc-tab" role="tab" data-tab="congresos" aria-selected="false">Congresos</button>
       <button class="mc-tab" role="tab" data-tab="cumplimiento" aria-selected="false">COFEPRIS</button>
       <button class="mc-tab" role="tab" data-tab="presupuesto" aria-selected="false">Presupuesto</button>
       <button class="mc-tab" role="tab" data-tab="marca" aria-selected="false">Marca e IMPI</button>
       <button class="mc-tab" role="tab" data-tab="fuentes" aria-selected="false">KPIs y fuentes</button>
     </nav>
-    <label class="mc-toggle" id="interruptor-ejemplo"><input type="checkbox" id="mc-ejemplo"> Ver ejemplo (no real)</label>
   </div>
 
   <!-- ===================== RESUMEN ===================== -->
   <section id="resumen" class="mc-sec">
+    <p class="mc-tag" id="tag-resumen">SINTÉTICO — no real · estudios, pacientes, referencias e ingresos (salvo sedes con inventario real)</p>
     <h2>Resumen ejecutivo</h2>
     <div class="mc-tiles" id="resumen-tiles">
+      <div class="mc-card" id="tile-estudios">
+        <h3>Estudios de la red, último mes</h3>
+        <div class="mc-big"><span data-draw="red-estudios" data-source="red_resumen" data-field="estudios" data-row="0">—</span></div>
+        <div class="mc-sub"><span data-draw="red-mom" data-source="red_resumen" data-field="estudios_mom_pct" data-row="0">—</span> vs mes anterior · <span data-draw="red-origen" data-source="red_resumen" data-field="origen" data-row="0">—</span></div>
+      </div>
+      <div class="mc-card" id="tile-pacientes">
+        <h3>Pacientes de la red, último mes</h3>
+        <div class="mc-big"><span data-draw="red-pacientes" data-source="red_resumen" data-field="pacientes" data-row="0">—</span></div>
+        <div class="mc-sub">Referidos por un médico: <span data-draw="red-referencias" data-source="red_resumen" data-field="referencias" data-row="0">—</span></div>
+      </div>
+      <div class="mc-card" id="tile-terapias">
+        <h3>Terapias (I-131 y Lu-177), último mes</h3>
+        <div class="mc-big"><span data-draw="red-terapias" data-source="red_resumen" data-field="terapias" data-row="0">—</span></div>
+        <div class="mc-sub">Lu-177 sólo en Villahermosa sede 2 (CINO)</div>
+      </div>
+      <div class="mc-card" id="tile-ingresos">
+        <h3>Ingresos de plantilla, último mes</h3>
+        <div class="mc-big"><span data-draw="red-ingresos" data-source="red_resumen" data-field="ingresos_mxn" data-row="0">—</span></div>
+        <div class="mc-sub">MXN · SINTÉTICO — no real (tarifas supuestas)</div>
+      </div>
       <div class="mc-card" id="tile-sedes">
         <h3>Sedes operando</h3>
         <div class="mc-big"><span data-draw="sedes-operando" data-source="sedes_resumen" data-field="operando" data-row="0">—</span> de <span data-draw="sedes-total" data-source="sedes_resumen" data-field="total" data-row="0">—</span></div>
-        <div class="mc-sub">Toluca en proyecto; CINO en pre-licencia</div>
+        <div class="mc-sub">Próxima apertura: <span data-draw="sedes-proximas" data-source="sedes_resumen" data-field="proximas" data-row="0">—</span></div>
       </div>
       <div class="mc-card" id="tile-poblacion">
-        <h3>Población de los estados asignados por el plan a las 3 sedes</h3>
+        <h3>Población de los estados que atienden las sedes operando</h3>
         <div class="mc-big"><span data-draw="pob-area" data-source="area_resumen" data-field="poblacion" data-row="0">—</span></div>
-        <div class="mc-sub">INEGI, Censo 2020 · <span data-draw="pob-estados" data-source="area_resumen" data-field="estados" data-row="0">—</span> estados</div>
+        <div class="mc-sub">INEGI, Censo 2020 · <span data-draw="pob-estados" data-source="area_resumen" data-field="estados" data-row="0">—</span> estados · próximas aperturas: <span data-draw="pob-proximas" data-source="area_resumen" data-field="poblacion_proximas" data-row="0">—</span> hab.</div>
       </div>
       <div class="mc-card" id="tile-pauta">
         <h3>Pauta digital, presupuesto mensual</h3>
         <div class="mc-big"><span data-draw="pauta-bajo" data-source="pauta_total" data-field="bajo" data-row="0">—</span>–<span data-draw="pauta-alto" data-source="pauta_total" data-field="alto" data-row="0">—</span></div>
-        <div class="mc-sub">MXN/mes, sin IVA · gasto real: sin datos</div>
+        <div class="mc-sub">MXN/mes sin IVA · gasto del último mes: <span data-draw="pauta-sint" data-source="pauta_total" data-field="gasto_sintetico" data-row="0">—</span> (SINTÉTICO — no real)</div>
       </div>
       <div class="mc-card" id="tile-anual">
         <h3>Presupuesto anual del plan</h3>
@@ -103,20 +133,21 @@
       <div class="mc-card" id="tile-piezas">
         <h3>Piezas registradas (COFEPRIS)</h3>
         <div class="mc-big"><span data-draw="piezas" data-source="piezas_resumen" data-field="registradas" data-row="0">—</span></div>
-        <div class="mc-sub">Meta: todas con permiso/aviso y checklist</div>
+        <div class="mc-sub">Dato real: registro de piezas</div>
       </div>
       <div class="mc-card" id="tile-kpis">
         <h3>KPIs con dato real</h3>
         <div class="mc-big"><span data-draw="kpis-con-dato" data-source="kpis_resumen" data-field="con_dato" data-row="0">—</span> de <span data-draw="kpis-total" data-source="kpis_resumen" data-field="total" data-row="0">—</span></div>
-        <div class="mc-sub">Se llenan al conectar CRM, GA4 y APIs de pauta</div>
+        <div class="mc-sub">El resto muestra un valor sintético en «KPIs y fuentes»</div>
       </div>
     </div>
     <h2 id="resumen-plazas">Plazas de un vistazo</h2>
-    <p class="mc-note">Último mes con dato por sede para la métrica elegida en «Plazas». Sin fuentes conectadas, todo dice «sin datos».</p>
+    <p class="mc-note">Último mes con dato por sede para la métrica elegida en «Plazas». La columna «Origen» dice si la cifra es sintética o real.</p>
     <div class="mc-wrap">
       <table class="mc-table" data-source="plazas_resumen" data-row-key="sede" id="tabla-resumen-plazas">
         <thead><tr>
           <th data-field="nombre">Sede</th>
+          <th data-field="estatus">Estatus</th>
           <th data-field="metrica">Métrica</th>
           <th data-field="ultimo_mes">Último mes</th>
           <th data-field="valor" class="num">Valor</th>
@@ -131,15 +162,17 @@
 
   <!-- ===================== PLAZAS ===================== -->
   <section id="plazas" class="mc-sec" hidden>
+    <p class="mc-tag" id="tag-plazas">SINTÉTICO — no real · salvo sedes y métricas con inventario real (ver «Origen»)</p>
     <h2>Por plaza: tendencia mensual</h2>
-    <p class="mc-note">Una gráfica por sede (Oaxaca, Villahermosa, Mérida, Toluca y CINO). Estudios y terapias desde la agenda de GAMMA OS; referencias, referentes activos y conversión desde el CRM (contrato <code>gamma/referencia@1</code>, agregados k ≥ 5); ingresos desde la plantilla financiera. Crecimiento mes a mes y año a año en la tabla del Resumen.</p>
+    <p class="mc-note">Una gráfica por sede: Mérida, Villahermosa sede 1 (GAMMA: gammagrafía y yodo-131), Villahermosa sede 2 en el CINO con el aliado estratégico (PET-CT, ciclotrón, gammagrafía, yodo-131 y lutecio-177), Oaxaca, y Toluca y Colima como próxima apertura. Pacientes, estudios, terapias, referencias y referentes activos salen del inventario de expedientes cuando existe y, mientras tanto, del inventario sintético; conversión e ingresos son sintéticos.</p>
     <div class="mc-row">
       <label for="mc-metrica">Métrica</label>
       <select class="dash-select" id="mc-metrica" aria-label="Métrica">
         <option value="estudios">Estudios</option>
-        <option value="terapias">Terapias</option>
-        <option value="referencias">Referencias recibidas</option>
-        <option value="referentes_activos">Médicos referentes activos</option>
+        <option value="pacientes">Pacientes</option>
+        <option value="terapias">Terapias (I-131 y Lu-177)</option>
+        <option value="referencias">Pacientes referidos</option>
+        <option value="referentes_activos">Médicos referentes activos en el mes</option>
         <option value="conversion_pct">Conversión de referencia (%)</option>
         <option value="ingresos_mxn">Ingresos (MXN, plantilla)</option>
       </select>
@@ -163,10 +196,96 @@
     </div>
   </section>
 
+  <!-- ===================== ESTUDIOS Y REFERENCIAS ===================== -->
+  <section id="estudios" class="mc-sec" hidden>
+    <p class="mc-tag" id="tag-estudios" data-draw="insignia-inv" data-source="inventario_origen" data-field="insignia" data-row="0">—</p>
+    <h2>Estudios por tipo y sede, últimos 12 meses</h2>
+    <p class="mc-note">Periodo: <span data-draw="periodo-desde" data-source="inv_periodo" data-field="desde" data-row="0">—</span> a <span data-draw="periodo-hasta" data-source="inv_periodo" data-field="hasta" data-row="0">—</span>. Vocabulario del inventario de expedientes (HEVESY); en Villahermosa sede 2, «Otras» incluye PET-CT. Celdas de 1 a 4 se muestran como «< 5».</p>
+    <div class="mc-legend" id="leyenda-tipos">
+      <span><span class="mc-sw" data-col="0"></span>Mérida</span>
+      <span><span class="mc-sw" data-col="1"></span>Villahermosa sede 1</span>
+      <span><span class="mc-sw" data-col="2"></span>Villahermosa sede 2 · CINO</span>
+      <span><span class="mc-sw" data-col="3"></span>Oaxaca</span>
+      <span><span class="mc-sw" data-col="4"></span>Toluca</span>
+      <span><span class="mc-sw" data-col="5"></span>Colima</span>
+    </div>
+    <div class="mc-chart mid" id="grafica-tipos" data-draw="tipos-chart" data-source="tipo_matriz"></div>
+    <div class="mc-wrap">
+      <table class="mc-table" data-source="tipo_matriz" data-row-key="tipo_estudio" id="tabla-tipos">
+        <thead><tr>
+          <th data-field="estudio">Tipo de estudio</th>
+          <th data-field="MID" class="num">Mérida</th>
+          <th data-field="VHSA1" class="num">VHSA sede 1</th>
+          <th data-field="VHSA2" class="num">VHSA sede 2 · CINO</th>
+          <th data-field="OAX" class="num">Oaxaca</th>
+          <th data-field="TOL" class="num">Toluca</th>
+          <th data-field="COL" class="num">Colima</th>
+          <th data-field="total" class="num">Estudios</th>
+          <th data-field="pacientes" class="num">Pacientes</th>
+        </tr></thead>
+        <tbody data-draw="tabla-tipos"></tbody>
+      </table>
+    </div>
+
+    <h2 id="referentes">Médicos referentes, últimos 12 meses</h2>
+    <p class="mc-note">Sólo códigos de referente (R-001…), nunca nombres. Se listan los 15 con más pacientes y con al menos 5; los demás se suman en «Otros».</p>
+    <div class="mc-row">
+      <label for="mc-sede-ref">Sede</label>
+      <select class="dash-select" id="mc-sede-ref" aria-label="Sede de los referentes">
+        <option value="todas">Todas las sedes</option>
+        <option value="MID">Mérida</option>
+        <option value="VHSA1">Villahermosa sede 1</option>
+        <option value="VHSA2">Villahermosa sede 2 · CINO</option>
+        <option value="OAX">Oaxaca</option>
+        <option value="TOL">Toluca</option>
+        <option value="COL">Colima</option>
+      </select>
+    </div>
+    <h2 id="referentes-gamma">Referencias para gammagrafía</h2>
+    <p class="mc-note">Gammagrafía ósea, tiroidea, renal, perfusión miocárdica y paratiroides.</p>
+    <div class="mc-wrap">
+      <table class="mc-table" data-source="referentes" data-row-key="grupo,referente_codigo" id="tabla-ref-gamma">
+        <thead><tr>
+          <th data-field="rango" class="num">#</th>
+          <th data-field="referente_codigo">Referente</th>
+          <th data-field="especialidad">Especialidad</th>
+          <th data-field="sedes">Sedes</th>
+          <th data-field="pacientes" class="num">Pacientes</th>
+          <th data-field="estudios" class="num">Estudios</th>
+          <th data-field="origen">Origen</th>
+        </tr></thead>
+        <tbody data-draw="tabla-ref-gamma"></tbody>
+      </table>
+    </div>
+    <h2 id="referentes-yodo">Referencias para yodo-131</h2>
+    <p class="mc-note">Rastreo con I-131 y terapia con I-131.</p>
+    <div class="mc-wrap">
+      <table class="mc-table" data-source="referentes" data-row-key="grupo,referente_codigo" id="tabla-ref-yodo">
+        <thead><tr>
+          <th data-field="rango" class="num">#</th>
+          <th data-field="referente_codigo">Referente</th>
+          <th data-field="especialidad">Especialidad</th>
+          <th data-field="sedes">Sedes</th>
+          <th data-field="pacientes" class="num">Pacientes</th>
+          <th data-field="estudios" class="num">Estudios</th>
+          <th data-field="origen">Origen</th>
+        </tr></thead>
+        <tbody data-draw="tabla-ref-yodo"></tbody>
+      </table>
+    </div>
+    <h2 id="especialidades">Pacientes referidos por especialidad</h2>
+    <div class="mc-legend" id="leyenda-esp">
+      <span><span class="mc-sw" data-col="0"></span>Gammagrafía</span>
+      <span><span class="mc-sw" data-col="1"></span>Yodo-131</span>
+    </div>
+    <div class="mc-chart mid" id="grafica-especialidades" data-draw="esp-chart" data-source="especialidades"></div>
+  </section>
+
   <!-- ===================== AUDIENCIA ===================== -->
   <section id="audiencia" class="mc-sec" hidden>
-    <h2>Audiencia y conversión por canal</h2>
-    <p class="mc-note">CTR = clics ÷ impresiones; CPC = gasto ÷ clics; CPL = gasto ÷ leads (formulario, llamada o WhatsApp); costo por paciente = gasto ÷ estudios realizados atribuidos por UTM dentro de GAMMA OS. Ningún evento de cita ni dato de salud se envía a las plataformas.</p>
+    <p class="mc-tag" id="tag-audiencia">SINTÉTICO — no real · canales, embudo, CPL/CPA, NPS, reseñas y SEO</p>
+    <h2>Audiencia y conversión por canal, <span data-draw="canales-mes" data-source="canales_vista" data-field="mes" data-row="0">—</span></h2>
+    <p class="mc-note">CTR = clics ÷ impresiones; CPC = gasto ÷ clics; CPL = gasto ÷ leads (formulario, llamada o WhatsApp); CPA = gasto ÷ pacientes atribuidos por UTM. En WhatsApp, impresiones = mensajes entregados y clics = conversaciones (sólo logística). Ningún evento de cita ni dato de salud se envía a las plataformas.</p>
     <div class="mc-wrap">
       <table class="mc-table" data-source="canales_vista" data-row-key="canal" id="tabla-canales">
         <thead><tr>
@@ -179,19 +298,41 @@
           <th data-field="leads" class="num">Leads</th>
           <th data-field="cpl_mxn" class="num">CPL MXN</th>
           <th data-field="pacientes" class="num">Pacientes</th>
-          <th data-field="costo_paciente_mxn" class="num">Costo/paciente MXN</th>
+          <th data-field="costo_paciente_mxn" class="num">CPA MXN</th>
+          <th data-field="gasto_mxn" class="num">Gasto MXN</th>
           <th data-field="atribucion_ultimo_clic_pct" class="num">Atribución (último clic) %</th>
+          <th data-field="origen">Origen</th>
         </tr></thead>
         <tbody data-draw="tabla-canales"></tbody>
       </table>
     </div>
-    <h2 id="embudo">Embudo</h2>
-    <p class="mc-note">De impresiones a estudios realizados, con la caída entre etapas. Escala logarítmica para que se lean todas las etapas.</p>
+    <h2 id="canales-tendencia">Tendencia mensual por canal</h2>
+    <div class="mc-row">
+      <label for="mc-canal-metrica">Métrica</label>
+      <select class="dash-select" id="mc-canal-metrica" aria-label="Métrica por canal">
+        <option value="alcance">Alcance</option>
+        <option value="leads">Leads</option>
+        <option value="cpl_mxn">CPL (MXN)</option>
+        <option value="costo_paciente_mxn">CPA (MXN por paciente)</option>
+        <option value="gasto_mxn">Gasto (MXN)</option>
+      </select>
+    </div>
+    <div class="mc-legend" id="leyenda-canales">
+      <span><span class="mc-sw" data-col="0"></span>Meta</span>
+      <span><span class="mc-sw" data-col="1"></span>Google</span>
+      <span><span class="mc-sw" data-col="2"></span>TikTok</span>
+      <span><span class="mc-sw" data-col="3"></span>LinkedIn</span>
+      <span><span class="mc-sw" data-col="4"></span>YouTube</span>
+      <span><span class="mc-sw" data-col="5"></span>WhatsApp Business</span>
+    </div>
+    <div class="mc-chart" id="grafica-canales" data-draw="canales-chart" data-source="canales_serie"></div>
+    <h2 id="embudo">Embudo del último mes</h2>
+    <p class="mc-note">De impresiones a estudios realizados, con el paso entre etapas. Escala logarítmica para que se lean todas las etapas.</p>
     <div class="mc-chart short" id="grafica-embudo" data-draw="embudo-chart" data-source="embudo_vista"></div>
     <h2 id="resenas">Reseñas de Google, NPS y SEO por sede</h2>
-    <p class="mc-note">Reseñas y calificación desde el Perfil de Empresa; NPS de pacientes (encuesta sin preguntas clínicas) y de referentes; posición media en 40 búsquedas clave y si la sede aparece en el top 3 del mapa local.</p>
+    <p class="mc-note">Reseñas y calificación del Perfil de Empresa; NPS de pacientes (encuesta sin preguntas clínicas) y de referentes; posición media en 40 búsquedas clave y si la sede aparece en el top 3 del mapa local.</p>
     <div class="mc-wrap">
-      <table class="mc-table" data-source="resenas_seo" data-row-key="sede" id="tabla-resenas">
+      <table class="mc-table" data-source="resenas_vista" data-row-key="sede" id="tabla-resenas">
         <thead><tr>
           <th data-field="nombre">Sede</th>
           <th data-field="resenas_google" class="num">Reseñas Google</th>
@@ -200,6 +341,7 @@
           <th data-field="nps_referentes" class="num">NPS referentes</th>
           <th data-field="posicion_media_seo" class="num">Posición media SEO</th>
           <th data-field="local_pack_top3">Top 3 local</th>
+          <th data-field="origen">Origen</th>
         </tr></thead>
         <tbody data-draw="tabla-resenas"></tbody>
       </table>
@@ -208,13 +350,29 @@
 
   <!-- ===================== MAPA ===================== -->
   <section id="mapa" class="mc-sec" hidden>
-    <h2>Sedes y áreas de influencia en el sureste</h2>
-    <p class="mc-note">Esquema sin límites estatales: cada burbuja es la capital de un estado, con tamaño según su población (INEGI 2020) y color según la sede que la atiende en el plan. Los anillos marcan 150 y 300 km en línea recta desde cada sede; no son tiempos de manejo.</p>
+    <p class="mc-tag publico" id="tag-mapa">Datos públicos reales con fuente (INEGI). Esta pestaña no tiene cifras SINTÉTICAS.</p>
+    <h2>Sedes y áreas de influencia</h2>
+    <p class="mc-note">Esquema sin límites estatales: cada burbuja es la capital de un estado, con tamaño según su población (INEGI 2020) y color según la sede que la atiende en el plan. Villahermosa tiene dos sedes en la misma ciudad (sede 1 GAMMA y sede 2 en el CINO). Toluca y Colima son próxima apertura. Los anillos marcan 150 y 300 km en línea recta desde cada sede; no son tiempos de manejo.</p>
     <div class="mc-legend" id="leyenda-mapa">
       <span><span class="mc-sw" style="background: var(--cds-chart-muted)"></span>Área asignada por el plan (supuesto, no dato)</span>
-      <span>◆ sede operando · ◇ proyecto o pre-licencia</span>
+      <span>◆ sede operando · ◇ próxima apertura</span>
     </div>
     <div class="mc-chart" id="grafica-mapa" data-draw="mapa-chart" data-source="geo_estados geo_sedes geo_ciudades"></div>
+    <h2 id="sedes-tabla">Sedes y servicios</h2>
+    <div class="mc-wrap">
+      <table class="mc-table" data-source="geo_sedes" data-row-key="sede" id="tabla-sedes">
+        <thead><tr>
+          <th data-field="nombre">Sede</th>
+          <th data-field="estatus">Estatus</th>
+          <th data-field="ciudad">Municipio</th>
+          <th data-field="estado">Estado</th>
+          <th data-field="municipio_pob_2020" class="num">Población del municipio 2020</th>
+          <th data-field="servicios">Servicios</th>
+          <th data-field="fuente_pob">Fuente población</th>
+        </tr></thead>
+        <tbody data-draw="tabla-sedes"></tbody>
+      </table>
+    </div>
     <h2 id="estados">Estados del área de influencia</h2>
     <p class="mc-note">Población: INEGI, Censo de Población y Vivienda 2020. Mortalidad: defunciones por tumores malignos 2024, tasa estandarizada por 100 mil habitantes (INEGI, EDR 2024; nacional 73.1). No se encontró fuente pública por estado de oncólogos, endocrinólogos, cáncer de tiroides ni NET: esas celdas quedan en «sin datos».</p>
     <div class="mc-wrap">
@@ -262,11 +420,28 @@
 
   <!-- ===================== CONGRESOS ===================== -->
   <section id="congresos" class="mc-sec" hidden>
+    <p class="mc-tag" id="tag-congresos">SINTÉTICO — no real · sólo la tabla de resultados; el calendario es real con fuente</p>
     <h2>Calendario de congresos, noviembre 2026 a diciembre 2027</h2>
-    <p class="mc-note">Barras llenas: fechas confirmadas (sitio del organizador o agregador). Barras huecas: mes estimado por el patrón histórico (†). Los congresos sin fecha pública aparecen sólo en la tabla. Prioridad 1 = mayor retorno para las 3 sedes.</p>
+    <p class="mc-note">Barras llenas: fechas confirmadas (sitio del organizador o agregador). Barras huecas: mes estimado por el patrón histórico (†). Los congresos sin fecha pública aparecen sólo en la tabla. Prioridad 1 = mayor retorno para las sedes.</p>
     <div class="mc-chart" id="grafica-congresos" data-draw="congresos-chart" data-source="congresos"></div>
+    <h2 id="congresos-resultados">Resultados de congresos concluidos</h2>
+    <p class="mc-note">Contactos de médicos, referentes nuevos, referencias atribuidas y costo por referente nuevo. Sin incentivos a médicos.</p>
+    <div class="mc-wrap">
+      <table class="mc-table" data-source="congresos_resultados" data-row-key="congreso_id" id="tabla-congresos-resultados">
+        <thead><tr>
+          <th data-field="congreso">Congreso</th>
+          <th data-field="contactos" class="num">Contactos</th>
+          <th data-field="referentes_nuevos" class="num">Referentes nuevos</th>
+          <th data-field="referencias_atribuidas" class="num">Referencias atribuidas</th>
+          <th data-field="costo_mxn" class="num">Costo MXN</th>
+          <th data-field="costo_por_referente" class="num">Costo por referente nuevo MXN</th>
+          <th data-field="origen">Origen</th>
+        </tr></thead>
+        <tbody data-draw="tabla-congresos-resultados"></tbody>
+      </table>
+    </div>
     <h2 id="congresos-tabla">Detalle, participación y patrocinio</h2>
-    <p class="mc-note">Opciones: stand, simposio satélite, cartel o trabajo libre, conferencia, patrocinio de taller. Sin incentivos a médicos; cada impreso o video de stand con permiso COFEPRIS. Costos de stand: los organizadores no los publican; se piden por prospecto comercial. Partida anual de congresos del plan: <span data-draw="congresos-ppto" data-source="presupuesto_anual" data-field="bajo_mxn_anual" data-where="partida=Congresos">—</span>–<span data-draw="congresos-ppto-alto" data-source="presupuesto_anual" data-field="alto_mxn_anual" data-where="partida=Congresos">—</span> MXN.</p>
+    <p class="mc-note">Opciones: stand, simposio satélite, cartel o trabajo libre, conferencia, patrocinio de taller. Cada impreso o video de stand con permiso COFEPRIS. Costos de stand: los organizadores no los publican; se piden por prospecto comercial. Partida anual de congresos del plan: <span data-draw="congresos-ppto" data-source="presupuesto_anual" data-field="bajo_mxn_anual" data-where="partida=Congresos">—</span>–<span data-draw="congresos-ppto-alto" data-source="presupuesto_anual" data-field="alto_mxn_anual" data-where="partida=Congresos">—</span> MXN.</p>
     <div class="mc-wrap">
       <table class="mc-table" data-source="congresos" data-row-key="congreso_id" id="tabla-congresos">
         <thead><tr>
@@ -288,8 +463,9 @@
 
   <!-- ===================== COFEPRIS ===================== -->
   <section id="cumplimiento" class="mc-sec" hidden>
+    <p class="mc-tag publico" id="tag-cumplimiento">Normativa y registro real. Esta pestaña no tiene cifras SINTÉTICAS.</p>
     <h2>Qué trámite COFEPRIS lleva cada pieza</h2>
-    <p class="mc-note">Las sedes y el CINO anuncian servicios con <strong>permiso</strong> (02-001 modalidad A), también ante médicos. El médico como profesional individual usa el <strong>aviso</strong> 02-002 supuesto A: gratuito, al menos 5 días antes de difundir y con su cédula en el proyecto (acuerdo DOF 4-may-2026).</p>
+    <p class="mc-note">Las sedes y el CINO anuncian servicios con <strong>permiso</strong> (02-001 modalidad A), también ante médicos. El médico como profesional individual usa el <strong>aviso</strong> 02-002 supuesto A: gratuito, al menos 5 días antes de difundir y con su cédula en el proyecto (acuerdo DOF 4-may-2026). PET-CT y lutecio-177 se anuncian sólo con licencias vigentes.</p>
     <div class="mc-wrap">
       <table class="mc-table" data-source="tramites_cofepris" data-row-key="tipo_pieza" id="tabla-tramites">
         <thead><tr>
@@ -304,7 +480,7 @@
       </table>
     </div>
     <h2 id="piezas">Cumplimiento por pieza</h2>
-    <p class="mc-note">Cada pieza: id MC-sede-canal-aaaamm-nn, trámite, número de permiso o acuse de aviso y checklist de 19 puntos. Hoy no hay piezas registradas.</p>
+    <p class="mc-note">Cada pieza: id MC-sede-canal-aaaamm-nn, trámite, número de permiso o acuse de aviso y checklist de 19 puntos. Sin cifras sintéticas: sólo piezas reales registradas.</p>
     <div class="mc-wrap">
       <table class="mc-table" data-source="cumplimiento_piezas" data-row-key="pieza_id" id="tabla-piezas">
         <thead><tr>
@@ -324,9 +500,10 @@
 
   <!-- ===================== PRESUPUESTO ===================== -->
   <section id="presupuesto" class="mc-sec" hidden>
+    <p class="mc-tag" id="tag-presupuesto">SINTÉTICO — no real · sólo el punto hueco de gasto; los rangos son el plan real</p>
     <h2>Presupuesto mensual por canal frente al gasto</h2>
-    <p class="mc-note">Cada barra es el rango mensual del plan (bajo–alto). El punto de gasto real aparecerá al conectar las APIs de cada plataforma; hoy no hay gasto registrado.</p>
-    <div class="mc-chart" id="grafica-inversion" data-draw="inversion" data-source="presupuesto_canal"></div>
+    <p class="mc-note">Cada barra es el rango mensual del plan (bajo–alto). Punto lleno: gasto real (aparecerá al conectar las APIs de cada plataforma). Punto hueco: gasto SINTÉTICO del último mes.</p>
+    <div class="mc-chart" id="grafica-inversion" data-draw="inversion" data-source="gasto_vista"></div>
     <h2 id="anual">Presupuesto anual por partida</h2>
     <div class="mc-wrap">
       <table class="mc-table" data-source="presupuesto_anual" data-row-key="partida" id="tabla-anual">
@@ -342,6 +519,7 @@
 
   <!-- ===================== MARCA ===================== -->
   <section id="marca" class="mc-sec" hidden>
+    <p class="mc-tag publico" id="tag-marca">Tarifas IMPI reales. Esta pestaña no tiene cifras SINTÉTICAS.</p>
     <h2>Marca e IMPI</h2>
     <p class="mc-note">Logo oficial de MarCo: propuesta 1 (monograma M+C con arco de emisión). «GAMMA» sola es débil en medicina nuclear por descriptiva y por antecedentes de terceros: se registra como signo mixto con el logotipo. Derechos por clase según la tarifa IMPI vigente (2,695.18 MXN + IVA, art. 14 a); sin honorarios.</p>
     <div class="mc-wrap">
@@ -361,15 +539,17 @@
 
   <!-- ===================== FUENTES ===================== -->
   <section id="fuentes" class="mc-sec" hidden>
+    <p class="mc-tag" id="tag-fuentes">SINTÉTICO — no real · sólo la columna «Valor sintético»</p>
     <h2>KPIs del plan</h2>
-    <p class="mc-note">Metas orientativas del plan base. «Fijar tras línea base» significa que la meta se define tras 90 días de medición.</p>
+    <p class="mc-note">Metas orientativas del plan base. «Fijar tras línea base» significa que la meta se define tras 90 días de medición. Cumplimiento COFEPRIS e incidentes de privacidad no tienen valor sintético.</p>
     <div class="mc-wrap">
-      <table class="mc-table" data-source="kpis" data-row-key="kpi_id" id="tabla-kpis">
+      <table class="mc-table" data-source="kpis_vista" data-row-key="kpi_id" id="tabla-kpis">
         <thead><tr>
           <th data-field="kpi">KPI</th>
           <th data-field="definicion">Definición</th>
           <th data-field="meta_plan">Meta del plan</th>
           <th data-field="valor_real">Valor real</th>
+          <th data-field="valor_sintetico">Valor sintético (no real)</th>
           <th data-field="fuente_futura">Fuente</th>
           <th data-field="frecuencia">Frecuencia</th>
         </tr></thead>
@@ -377,7 +557,7 @@
       </table>
     </div>
     <h2 id="conectores">Fuentes por conectar</h2>
-    <p class="mc-note">Ninguna envía a las plataformas datos de salud ni eventos de «cita agendada».</p>
+    <p class="mc-note">Ninguna envía a las plataformas datos de salud ni eventos de «cita agendada». El inventario de expedientes (HEVESY) entra como archivo agregado sin nombres: sede, año, mes, tipo de estudio, pacientes, estudios, código de referente y especialidad.</p>
     <div class="mc-wrap">
       <table class="mc-table" data-source="fuentes_futuras" data-row-key="fuente" id="tabla-fuentes">
         <thead><tr>
@@ -394,9 +574,13 @@
 
   <details id="notas">
     <summary>Definiciones, reglas y fuentes</summary>
-    <p>Conversión de referencia: referencias con estudio realizado ÷ referencias recibidas. Costo por paciente: gasto de pauta ÷ estudios realizados atribuidos por UTM en GAMMA OS. Atribución: último clic no directo hasta tener suficiente volumen para un modelo basado en datos. NPS: encuestas sin preguntas clínicas. Agregados por sede o referente sólo con k ≥ 5; no se nombran personas.</p>
-    <p>Fuentes públicas: INEGI Censo 2020 (comunicados estatales de Oaxaca, Tabasco y Yucatán; DataMéxico para Toluca); INEGI, Estadísticas a propósito del Día Mundial contra el Cáncer 2026 (EDR 2024); GLOBOCAN, ficha de México (IARC); calendarios de congresos enlazados en la tabla; tarifa IMPI (DOF 12-may-2023); RLGSMP arts. 79, 80, 86, 87 y acuerdos de simplificación COFEPRIS 2025 y 2026.</p>
+    <p>Conversión de referencia: referencias con estudio realizado ÷ referencias recibidas. CPL: gasto ÷ leads. CPA: gasto de pauta ÷ pacientes atribuidos por UTM en GAMMA OS. Atribución: último clic no directo hasta tener volumen para un modelo basado en datos. NPS: encuestas sin preguntas clínicas. Agregados por sede o referente sólo con k ≥ 5; no se nombran pacientes ni médicos (los referentes son códigos).</p>
+    <p>Fuentes públicas: INEGI Censo 2020 (comunicados estatales de Oaxaca, Tabasco y Yucatán; presentación de resultados de Colima; DataMéxico para Toluca); INEGI, Estadísticas a propósito del Día Mundial contra el Cáncer 2026 (EDR 2024); GLOBOCAN, ficha de México (IARC); calendarios de congresos enlazados en la tabla; tarifa IMPI (DOF 12-may-2023); RLGSMP arts. 79, 80, 86, 87 y acuerdos de simplificación COFEPRIS 2025 y 2026.</p>
   </details>
+
+  <footer class="mc-foot" id="pie">
+    <strong>SINTÉTICO — no real:</strong> todas las métricas de desempeño de este tablero salvo las marcadas «REAL». Semilla 20261115 · <code>tools/sinteticos.py</code> · supuestos en <code>dashboard/data/SUPUESTOS_SINTETICOS.md</code>. Inventario de expedientes: <span data-draw="pie-inv" data-source="inventario_origen" data-field="insignia" data-row="0">—</span>.
+  </footer>
 </div>
 
 <script>
@@ -404,17 +588,317 @@
   window.mcFmt1 = new Intl.NumberFormat('es-MX', { maximumFractionDigits: 1 });
   window.mcFmt2 = new Intl.NumberFormat('es-MX', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
   window.mcNum = (v) => (v === null || v === undefined || v === '' ? null : +v);
-  window.mcEj = () => dash.params().ejemplo === 'si';
-  window.mcSedes = [['OAX', 'GAMMA Oaxaca'], ['VSA', 'GAMMA Villahermosa'], ['MID', 'GAMMA Mérida'], ['TOL', 'GAMMA Toluca'], ['CINO', 'CINO (Zumaya)']];
-  window.mcMetricas = { estudios: 'Estudios', terapias: 'Terapias', referencias: 'Referencias', referentes_activos: 'Referentes activos', conversion_pct: 'Conversión %', ingresos_mxn: 'Ingresos MXN' };
+  window.mcEs = d3.timeFormatLocale({
+    dateTime: '%A, %e de %B de %Y, %X', date: '%d/%m/%Y', time: '%H:%M:%S', periods: ['a. m.', 'p. m.'],
+    days: ['domingo', 'lunes', 'martes', 'miércoles', 'jueves', 'viernes', 'sábado'], shortDays: ['dom', 'lun', 'mar', 'mié', 'jue', 'vie', 'sáb'],
+    months: ['enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio', 'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre'],
+    shortMonths: ['ene', 'feb', 'mar', 'abr', 'may', 'jun', 'jul', 'ago', 'sep', 'oct', 'nov', 'dic'],
+  });
+  window.mcMes = (m) => (m ? mcEs.utcFormat('%B %Y')(new Date(m + '-01T00:00:00Z')) : '');
+  window.mcSINT = 'SINTÉTICO — no real';
+  window.mcREAL = 'REAL — inventario expedientes';
+  window.mcSedes = [['MID', 'GAMMA Mérida'], ['VHSA1', 'GAMMA Villahermosa sede 1'], ['VHSA2', 'GAMMA Villahermosa sede 2 · CINO'], ['OAX', 'GAMMA Oaxaca'], ['TOL', 'GAMMA Toluca'], ['COL', 'GAMMA Colima']];
+  window.mcProximas = ['TOL', 'COL'];
+  window.mcMetricas = { estudios: 'Estudios', pacientes: 'Pacientes', terapias: 'Terapias', referencias: 'Pacientes referidos', referentes_activos: 'Referentes activos', conversion_pct: 'Conversión %', ingresos_mxn: 'Ingresos MXN' };
+  window.mcCanales = ['Meta (Facebook/Instagram)', 'Google (Search/PMax)', 'TikTok', 'LinkedIn', 'YouTube', 'WhatsApp Business'];
 
+  // ---------- Inventario: real (HEVESY) por sede, sintético para las sedes sin filas reales ----------
+  dash.calc('inventario_vista', {
+    title: 'Inventario de estudios (real por sede si existe; si no, sintético)',
+    description: 'Une el inventario real de expedientes y el sintético: cada sede con filas reales usa sólo las reales.',
+    inputs: ['real_inventario', 'sintetico_inventario'],
+    fn: (real, sintetico) => {
+      const norm = (r, origen) => ({
+        sede: r.sede, mes: r.anio + '-' + String(r.mes).padStart(2, '0'), tipo_estudio: r.tipo_estudio,
+        pacientes: +r.pacientes || 0, estudios: +r.estudios || 0,
+        referente_codigo: r.referente_codigo || '', especialidad_referente: r.especialidad_referente || '', origen,
+      });
+      const sedesReales = new Set(real.map((r) => r.sede));
+      return [
+        ...real.map((r) => norm(r, 'REAL — inventario expedientes')),
+        ...sintetico.filter((r) => !sedesReales.has(r.sede)).map((r) => norm(r, 'SINTÉTICO — no real')),
+      ];
+    },
+  });
+  dash.calc('inventario_origen', {
+    title: 'Origen del inventario',
+    description: 'Dice si el inventario real de expedientes tiene filas y de qué sedes.',
+    inputs: ['real_inventario'],
+    fn: (real) => {
+      const sedes = Array.from(new Set(real.map((r) => r.sede))).sort();
+      const insignia = !real.length ? 'SINTÉTICO — no real' : sedes.length >= 6 ? 'REAL — inventario expedientes' : 'REAL — inventario expedientes (' + sedes.join(', ') + ') · SINTÉTICO — no real (resto de sedes)';
+      return [{ filas_reales: real.length, sedes_reales: sedes.join(', '), insignia }];
+    },
+  });
+  dash.calc('inv_periodo', {
+    title: 'Periodo de los últimos 12 meses del inventario',
+    description: 'Primer y último mes de la ventana de 12 meses usada en tipos de estudio y referentes.',
+    inputs: ['inventario_vista'],
+    fn: (inv) => {
+      const meses = Array.from(new Set(inv.map((r) => r.mes))).sort().slice(-12);
+      return [{ desde: meses[0] || '', hasta: meses[meses.length - 1] || '' }];
+    },
+  });
+
+  // ---------- Plazas ----------
+  dash.calc('plazas_base', {
+    title: 'Métricas por sede y mes',
+    description: 'Suma el inventario por sede y mes (pacientes, estudios, terapias, referidos, referentes activos) y añade conversión e ingresos (plantilla real si tiene valor; si no, sintéticos).',
+    inputs: ['inventario_vista', 'sintetico_plazas_mensual', 'plazas_mensual'],
+    fn: (inventario, sinteticoMensual, plantillaReal) => {
+      const val = (v) => (v === '' || v == null ? null : +v);
+      const fin = new Map(sinteticoMensual.map((r) => [r.sede + '|' + r.mes, r]));
+      const pl = new Map(plantillaReal.map((r) => [r.sede + '|' + r.mes, r]));
+      const out = [];
+      for (const [sede, meses] of d3.group(inventario, (r) => r.sede, (r) => r.mes)) {
+        for (const [mes, filas] of meses) {
+          const ref = filas.filter((r) => r.referente_codigo);
+          const p = pl.get(sede + '|' + mes) || {};
+          const f = fin.get(sede + '|' + mes) || {};
+          const conv = val(p.conversion_pct), ing = val(p.ingresos_mxn);
+          out.push({
+            sede, mes,
+            estudios: d3.sum(filas, (r) => r.estudios),
+            pacientes: d3.sum(filas, (r) => r.pacientes),
+            terapias: d3.sum(filas.filter((r) => r.tipo_estudio === 'terapia_i131' || r.tipo_estudio === 'lu177'), (r) => r.estudios),
+            referencias: d3.sum(ref, (r) => r.pacientes),
+            referentes_activos: new Set(ref.map((r) => r.referente_codigo)).size,
+            conversion_pct: conv ?? val(f.conversion_pct),
+            ingresos_mxn: ing ?? val(f.ingresos_mxn),
+            origen_inv: filas[0].origen,
+            origen_conv: conv != null ? 'REAL — GAMMA OS' : 'SINTÉTICO — no real',
+            origen_ing: ing != null ? 'REAL — plantilla financiera' : 'SINTÉTICO — no real',
+          });
+        }
+      }
+      return out.sort((a, b) => d3.ascending(a.sede, b.sede) || d3.ascending(a.mes, b.mes));
+    },
+  });
+  dash.calc('plazas_vista', {
+    title: 'Serie mensual por plaza, métrica elegida',
+    description: 'Valor por sede y mes de la métrica elegida en «Plazas», con su origen (real o sintético).',
+    inputs: ['plazas_base'],
+    fn: (base) => {
+      const m = dash.params().metrica || 'estudios';
+      const campoOrigen = m === 'conversion_pct' ? 'origen_conv' : m === 'ingresos_mxn' ? 'origen_ing' : 'origen_inv';
+      return base.map((r) => ({ sede: r.sede, mes: r.mes, valor: r[m], origen: r[campoOrigen] }));
+    },
+  });
+  dash.calc('plazas_resumen', {
+    title: 'Crecimiento por plaza',
+    description: 'Último mes con dato, variación mes a mes y año a año, y acumulado del año por sede para la métrica elegida.',
+    inputs: ['plazas_vista'],
+    fn: (serie) => {
+      const m = dash.params().metrica || 'estudios';
+      const sedes = [['MID', 'GAMMA Mérida', 'Operando'], ['VHSA1', 'GAMMA Villahermosa sede 1', 'Operando'], ['VHSA2', 'GAMMA Villahermosa sede 2 · CINO', 'Operando'], ['OAX', 'GAMMA Oaxaca', 'Operando'], ['TOL', 'GAMMA Toluca', 'Próxima apertura'], ['COL', 'GAMMA Colima', 'Próxima apertura']];
+      const etiquetas = { estudios: 'Estudios', pacientes: 'Pacientes', terapias: 'Terapias', referencias: 'Pacientes referidos', referentes_activos: 'Referentes activos', conversion_pct: 'Conversión %', ingresos_mxn: 'Ingresos MXN' };
+      const pct = (a, b) => (a == null || b == null || b === 0 ? null : Math.round((a / b - 1) * 1000) / 10);
+      return sedes.map(([s, nombre, estatus]) => {
+        const filas = (serie || []).filter((r) => r.sede === s && r.valor != null).sort((a, b) => d3.ascending(a.mes, b.mes));
+        const u = filas[filas.length - 1];
+        if (!u) return { sede: s, nombre, estatus, metrica: etiquetas[m], ultimo_mes: null, valor: null, mom_pct: null, yoy_pct: null, acumulado: null, origen: estatus === 'Próxima apertura' ? 'Próxima apertura: sin datos' : 'Sin datos' };
+        const prev = filas.find((r) => r.mes === d3.utcFormat('%Y-%m')(d3.utcMonth.offset(new Date(u.mes + '-01T00:00:00Z'), -1)));
+        const ya = filas.find((r) => r.mes === (+u.mes.slice(0, 4) - 1) + u.mes.slice(4));
+        const anio = filas.filter((r) => r.mes.slice(0, 4) === u.mes.slice(0, 4));
+        const acum = m === 'conversion_pct' || m === 'referentes_activos' ? null : d3.sum(anio, (r) => r.valor);
+        return { sede: s, nombre, estatus, metrica: etiquetas[m], ultimo_mes: u.mes, valor: u.valor, mom_pct: pct(u.valor, prev?.valor), yoy_pct: pct(u.valor, ya?.valor), acumulado: acum, origen: u.origen };
+      });
+    },
+  });
+  dash.calc('red_resumen', {
+    title: 'Red completa, último mes',
+    description: 'Totales de la red en el último mes con dato y variación de estudios contra el mes anterior.',
+    inputs: ['plazas_base'],
+    fn: (base) => {
+      const meses = Array.from(new Set(base.map((r) => r.mes))).sort();
+      const u = meses[meses.length - 1], p = meses[meses.length - 2];
+      const fu = base.filter((r) => r.mes === u), fp = base.filter((r) => r.mes === p);
+      const est = d3.sum(fu, (r) => r.estudios), estp = d3.sum(fp, (r) => r.estudios);
+      const origenes = Array.from(new Set(fu.map((r) => r.origen_inv)));
+      return [{
+        mes: u || null, estudios: est, pacientes: d3.sum(fu, (r) => r.pacientes), terapias: d3.sum(fu, (r) => r.terapias),
+        referencias: d3.sum(fu, (r) => r.referencias), ingresos_mxn: d3.sum(fu, (r) => r.ingresos_mxn),
+        estudios_mom_pct: estp ? Math.round((est / estp - 1) * 1000) / 10 : null,
+        origen: origenes.length === 1 ? origenes[0] : 'mixto: REAL en algunas sedes, SINTÉTICO — no real en otras',
+      }];
+    },
+  });
+
+  // ---------- Tipos de estudio y referentes ----------
+  dash.calc('tipo_matriz', {
+    title: 'Estudios por tipo y sede, últimos 12 meses',
+    description: 'Suma de estudios por tipo y sede en los últimos 12 meses del inventario; celdas de 1 a 4 se ocultan (k ≥ 5).',
+    inputs: ['inventario_vista'],
+    fn: (inventario) => {
+      const meses = new Set(Array.from(new Set(inventario.map((r) => r.mes))).sort().slice(-12));
+      const f = inventario.filter((r) => meses.has(r.mes));
+      const k5 = (v) => (v > 0 && v < 5 ? null : v);
+      const nombres = { gammagrafia_osea: 'Gammagrafía ósea', tiroidea: 'Gammagrafía tiroidea', renal: 'Gammagrafía renal', perfusion_miocardica: 'Perfusión miocárdica', paratiroides: 'Paratiroides', rastreo_i131: 'Rastreo con I-131', terapia_i131: 'Terapia con I-131', lu177: 'Terapia con Lu-177', otras: 'Otras (incluye PET-CT en VHSA sede 2)' };
+      return Object.keys(nombres).map((t) => {
+        const ft = f.filter((r) => r.tipo_estudio === t);
+        const fila = { tipo_estudio: t, estudio: nombres[t] };
+        for (const s of ['MID', 'VHSA1', 'VHSA2', 'OAX', 'TOL', 'COL']) fila[s] = k5(d3.sum(ft.filter((r) => r.sede === s), (r) => r.estudios));
+        fila.total = k5(d3.sum(ft, (r) => r.estudios));
+        fila.pacientes = k5(d3.sum(ft, (r) => r.pacientes));
+        return fila;
+      });
+    },
+  });
+  dash.calc('referentes', {
+    title: 'Referentes para gammagrafía y para yodo-131, últimos 12 meses',
+    description: 'Pacientes y estudios por código de referente (sin nombres) en la sede elegida; top 15 con al menos 5 pacientes y el resto sumado en «Otros».',
+    inputs: ['inventario_vista'],
+    fn: (inventario) => {
+      const sede = dash.params().sede_ref || 'todas';
+      const meses = new Set(Array.from(new Set(inventario.map((r) => r.mes))).sort().slice(-12));
+      const grupos = { gammagrafia: ['gammagrafia_osea', 'tiroidea', 'renal', 'perfusion_miocardica', 'paratiroides'], yodo: ['rastreo_i131', 'terapia_i131'] };
+      const out = [];
+      for (const [grupo, tipos] of Object.entries(grupos)) {
+        const f = inventario.filter((r) => meses.has(r.mes) && r.referente_codigo && tipos.includes(r.tipo_estudio) && (sede === 'todas' || r.sede === sede));
+        const por = d3.rollups(f, (v) => ({
+          especialidad: v[0].especialidad_referente, sedes: Array.from(new Set(v.map((r) => r.sede))).sort().join(', '),
+          pacientes: d3.sum(v, (r) => r.pacientes), estudios: d3.sum(v, (r) => r.estudios),
+          origen: Array.from(new Set(v.map((r) => r.origen))).join(' / '),
+        }), (r) => r.referente_codigo).map(([codigo, x]) => ({ grupo, referente_codigo: codigo, ...x })).sort((a, b) => b.pacientes - a.pacientes);
+        const top = por.filter((r) => r.pacientes >= 5).slice(0, 15);
+        const resto = por.filter((r) => !top.includes(r));
+        top.forEach((r, i) => out.push({ ...r, rango: i + 1 }));
+        if (resto.length) {
+          const pac = d3.sum(resto, (r) => r.pacientes), est = d3.sum(resto, (r) => r.estudios);
+          out.push({ grupo, referente_codigo: 'Otros', rango: null, especialidad: resto.length + ' referentes más', sedes: '', pacientes: pac < 5 ? null : pac, estudios: est < 5 ? null : est, origen: Array.from(new Set(resto.map((r) => r.origen))).join(' / ') });
+        }
+      }
+      return out;
+    },
+  });
+  dash.calc('especialidades', {
+    title: 'Pacientes referidos por especialidad',
+    description: 'Pacientes referidos para gammagrafía y para yodo-131 por especialidad del referente, últimos 12 meses, sede elegida; celdas de 1 a 4 se ocultan.',
+    inputs: ['inventario_vista'],
+    fn: (inventario) => {
+      const sede = dash.params().sede_ref || 'todas';
+      const meses = new Set(Array.from(new Set(inventario.map((r) => r.mes))).sort().slice(-12));
+      const gam = ['gammagrafia_osea', 'tiroidea', 'renal', 'perfusion_miocardica', 'paratiroides'], yod = ['rastreo_i131', 'terapia_i131'];
+      const f = inventario.filter((r) => meses.has(r.mes) && r.referente_codigo && (sede === 'todas' || r.sede === sede));
+      const k5 = (v) => (v > 0 && v < 5 ? null : v);
+      return d3.rollups(f, (v) => ({
+        gammagrafia: k5(d3.sum(v.filter((r) => gam.includes(r.tipo_estudio)), (r) => r.pacientes)),
+        yodo: k5(d3.sum(v.filter((r) => yod.includes(r.tipo_estudio)), (r) => r.pacientes)),
+      }), (r) => r.especialidad_referente || 'Sin especialidad').map(([especialidad, x]) => ({ especialidad, ...x }))
+        .filter((r) => r.gammagrafia !== 0 || r.yodo !== 0)
+        .sort((a, b) => (b.gammagrafia || 0) + (b.yodo || 0) - (a.gammagrafia || 0) - (a.yodo || 0));
+    },
+  });
+
+  // ---------- Canales, embudo, reseñas ----------
+  dash.calc('canales_vista', {
+    title: 'Canales del último mes (real si existe; si no, sintético)',
+    description: 'Audiencia, clics, leads, pacientes y gasto por canal del último mes, con CTR, CPC, CPL, CPA y participación en pacientes atribuidos.',
+    inputs: ['canales', 'sintetico_canales_mensual'],
+    fn: (real, sintetico) => {
+      if (real.some((r) => r.gasto_mxn !== '' && r.gasto_mxn != null)) return real.map((r) => ({ ...r, mes: null, origen: 'REAL — APIs de pauta' }));
+      const mes = d3.max(sintetico, (r) => r.mes);
+      const f = sintetico.filter((r) => r.mes === mes);
+      const totPac = d3.sum(f, (r) => +r.pacientes);
+      const r1 = (v) => Math.round(v * 10) / 10;
+      return f.map((r) => {
+        const g = +r.gasto_mxn, imp = +r.impresiones, cl = +r.clics, ld = +r.leads, pa = +r.pacientes;
+        return {
+          canal: r.canal, mes, alcance: +r.alcance, impresiones: imp, clics: cl, ctr_pct: imp ? r1((cl / imp) * 100) : null,
+          cpc_mxn: cl ? r1(g / cl) : null, leads: ld, cpl_mxn: ld ? Math.round(g / ld) : null, pacientes: pa,
+          costo_paciente_mxn: pa ? Math.round(g / pa) : null, gasto_mxn: g,
+          atribucion_ultimo_clic_pct: totPac ? r1((pa / totPac) * 100) : null, origen: 'SINTÉTICO — no real',
+        };
+      });
+    },
+  });
+  dash.calc('canales_serie', {
+    title: 'Serie mensual por canal, métrica elegida',
+    description: 'Valor mensual por canal (alcance, leads, CPL, CPA o gasto) de los datos sintéticos de canales.',
+    inputs: ['sintetico_canales_mensual'],
+    fn: (sintetico) => {
+      const m = dash.params().canal_metrica || 'leads';
+      return sintetico.map((r) => {
+        const g = +r.gasto_mxn, ld = +r.leads, pa = +r.pacientes;
+        const v = m === 'cpl_mxn' ? (ld ? Math.round(g / ld) : null) : m === 'costo_paciente_mxn' ? (pa ? Math.round(g / pa) : null) : +r[m];
+        return { mes: r.mes, canal: r.canal, valor: v, origen: 'SINTÉTICO — no real' };
+      });
+    },
+  });
+  dash.calc('embudo_vista', {
+    title: 'Embudo del último mes (real si existe; si no, sintético)',
+    description: 'Impresiones, clics, leads, citas y estudios del último mes, sumando todos los canales.',
+    inputs: ['embudo', 'sintetico_canales_mensual'],
+    fn: (real, sintetico) => {
+      if (real.some((r) => r.valor !== '' && r.valor != null)) return real.map((r) => ({ orden: +r.orden, etapa: r.etapa, valor: +r.valor, mes: null, origen: 'REAL' }));
+      const mes = d3.max(sintetico, (r) => r.mes);
+      const f = sintetico.filter((r) => r.mes === mes);
+      const s = (k) => d3.sum(f, (r) => +r[k]);
+      const vals = [s('impresiones'), s('clics'), s('leads'), s('citas'), s('pacientes')];
+      return real.map((r, i) => ({ orden: +r.orden, etapa: r.etapa, valor: vals[i] ?? null, mes, origen: 'SINTÉTICO — no real' }));
+    },
+  });
+  dash.calc('resenas_vista', {
+    title: 'Reseñas, NPS y SEO por sede (real si existe; si no, sintético)',
+    description: 'Por sede, la fila real si tiene algún valor; si no, la sintética.',
+    inputs: ['resenas_seo', 'sintetico_resenas_seo'],
+    fn: (real, sintetico) => {
+      const campos = ['resenas_google', 'calificacion_google', 'nps_pacientes', 'nps_referentes', 'posicion_media_seo', 'local_pack_top3'];
+      const sin = new Map(sintetico.map((r) => [r.sede, r]));
+      return real.map((r) => {
+        if (campos.some((c) => r[c] !== '' && r[c] != null)) return { ...r, origen: 'REAL — Perfil de Empresa / NPS / SEO' };
+        const s = sin.get(r.sede);
+        return s ? { ...s, nombre: r.nombre, origen: 'SINTÉTICO — no real' } : { ...r, origen: 'Próxima apertura: sin datos' };
+      });
+    },
+  });
+  dash.calc('congresos_resultados', {
+    title: 'Resultados de congresos concluidos',
+    description: 'Contactos, referentes nuevos, referencias atribuidas y costo por referente nuevo de cada congreso concluido.',
+    inputs: ['congresos', 'sintetico_congresos'],
+    fn: (congresos, sintetico) => {
+      const nom = new Map(congresos.map((r) => [r.congreso_id, r.congreso]));
+      return sintetico.map((r) => ({
+        congreso_id: r.congreso_id, congreso: nom.get(r.congreso_id) || r.congreso_id, contactos: +r.contactos,
+        referentes_nuevos: +r.referentes_nuevos, referencias_atribuidas: +r.referencias_atribuidas, costo_mxn: +r.costo_mxn,
+        costo_por_referente: +r.referentes_nuevos ? Math.round(+r.costo_mxn / +r.referentes_nuevos) : null, origen: 'SINTÉTICO — no real',
+      }));
+    },
+  });
+  dash.calc('kpis_vista', {
+    title: 'KPIs con valor real y sintético',
+    description: 'KPIs del plan con su valor real (vacío hasta conectar fuentes) y el valor sintético del último mes.',
+    inputs: ['kpis', 'sintetico_kpis'],
+    fn: (kpis, sintetico) => {
+      const s = new Map(sintetico.map((r) => [r.kpi_id, r.valor_sintetico]));
+      return kpis.map((r) => ({ ...r, valor_sintetico: s.get(r.kpi_id) ?? null }));
+    },
+  });
+  dash.calc('gasto_vista', {
+    title: 'Presupuesto por canal con gasto real y sintético',
+    description: 'Rango mensual del plan por canal, gasto real registrado y gasto sintético del último mes.',
+    inputs: ['presupuesto_canal', 'sintetico_canales_mensual'],
+    fn: (presupuesto, sintetico) => {
+      const mapa = { 'Google Search + PMax + Perfil de Empresa': 'Google (Search/PMax)', 'Meta (Facebook + Instagram)': 'Meta (Facebook/Instagram)', LinkedIn: 'LinkedIn', YouTube: 'YouTube', 'TikTok (piloto)': 'TikTok', 'WhatsApp Business': 'WhatsApp Business' };
+      const mes = d3.max(sintetico, (r) => r.mes);
+      const g = new Map(sintetico.filter((r) => r.mes === mes).map((r) => [r.canal, +r.gasto_mxn]));
+      return presupuesto.map((r) => ({
+        canal: r.canal, partida: r.partida, bajo: +r.bajo_mxn_mes, alto: +r.alto_mxn_mes,
+        real: r.gasto_real_mxn_mes === '' || r.gasto_real_mxn_mes == null ? null : +r.gasto_real_mxn_mes,
+        sintetico: mapa[r.canal] && g.has(mapa[r.canal]) ? g.get(mapa[r.canal]) : null, mes,
+      }));
+    },
+  });
+
+  // ---------- Plan, presupuesto y datos públicos ----------
   dash.calc('pauta_total', {
-    title: 'Pauta digital: suma del rango mensual',
-    description: 'Suma de los rangos bajo y alto de los canales de la partida Pauta digital.',
-    inputs: ['presupuesto_canal'],
-    fn: (canales) => {
+    title: 'Pauta digital: rango mensual y gasto sintético',
+    description: 'Suma de los rangos bajo y alto de la partida Pauta digital y gasto sintético del último mes (sin WhatsApp, que es herramienta).',
+    inputs: ['presupuesto_canal', 'sintetico_canales_mensual'],
+    fn: (canales, sintetico) => {
       const p = canales.filter((r) => r.partida === 'Pauta digital');
-      return [{ bajo: d3.sum(p, (r) => +r.bajo_mxn_mes), alto: d3.sum(p, (r) => +r.alto_mxn_mes) }];
+      const mes = d3.max(sintetico, (r) => r.mes);
+      return [{ bajo: d3.sum(p, (r) => +r.bajo_mxn_mes), alto: d3.sum(p, (r) => +r.alto_mxn_mes), gasto_sintetico: d3.sum(sintetico.filter((r) => r.mes === mes && r.canal !== 'WhatsApp Business'), (r) => +r.gasto_mxn) }];
     },
   });
   dash.calc('anual_total', {
@@ -436,18 +920,22 @@
     fn: (kpis) => [{ total: kpis.length, con_dato: kpis.filter((r) => r.valor_real !== null && r.valor_real !== undefined && r.valor_real !== '').length }],
   });
   dash.calc('sedes_resumen', {
-    title: 'Sedes operando',
-    description: 'Sedes con estatus Operando sobre el total de sedes y proyectos.',
+    title: 'Sedes operando y próximas aperturas',
+    description: 'Sedes con estatus Operando, total de sedes y nombres de las de próxima apertura.',
     inputs: ['geo_sedes'],
-    fn: (sedes) => [{ operando: sedes.filter((s) => s.estatus === 'Operando').length, total: sedes.length }],
+    fn: (sedes) => [{
+      operando: sedes.filter((s) => s.estatus === 'Operando').length, total: sedes.length,
+      proximas: sedes.filter((s) => s.estatus === 'Próxima apertura').map((s) => s.ciudad).join(' y '),
+    }],
   });
   dash.calc('area_resumen', {
-    title: 'Población del área de las 3 sedes',
-    description: 'Suma de la población 2020 de los estados asignados a Oaxaca, Villahermosa y Mérida.',
+    title: 'Población del área de las sedes',
+    description: 'Suma de la población 2020 de los estados asignados a las sedes operando (MID, VHSA, OAX) y a las próximas aperturas (TOL, COL).',
     inputs: ['geo_estados'],
     fn: (estados) => {
-      const e = estados.filter((r) => ['OAX', 'VSA', 'MID'].includes(r.area_influencia));
-      return [{ poblacion: d3.sum(e, (r) => +r.poblacion_2020), estados: e.length }];
+      const e = estados.filter((r) => ['OAX', 'VHSA', 'MID'].includes(r.area_influencia));
+      const p = estados.filter((r) => ['TOL', 'COL'].includes(r.area_influencia));
+      return [{ poblacion: d3.sum(e, (r) => +r.poblacion_2020), estados: e.length, poblacion_proximas: d3.sum(p, (r) => +r.poblacion_2020) }];
     },
   });
   dash.calc('marcas_total', {
@@ -466,57 +954,12 @@
       return c ? [{ proximo: c.congreso, fecha: c.inicio + ' a ' + c.fin, ciudad: c.ciudad }] : [{ proximo: 'Ninguno', fecha: '', ciudad: '' }];
     },
   });
-  dash.calc('plazas_vista', {
-    title: 'Serie mensual por plaza (real o ejemplo)',
-    description: 'Filas de la plantilla real o, con «Ver ejemplo», del archivo de ejemplo no real, para la métrica elegida.',
-    inputs: ['plazas_mensual', 'ejemplo_plazas_mensual'],
-    fn: (real, ejemplo) => {
-      const p = dash.params();
-      const ej = p.ejemplo === 'si';
-      const m = p.metrica || 'estudios';
-      return (ej ? ejemplo : real).map((r) => ({ sede: r.sede, mes: r.mes, valor: r[m] === '' || r[m] == null ? null : +r[m], origen: ej ? 'EJEMPLO, NO REAL' : 'real' }));
-    },
-  });
-  dash.calc('plazas_resumen', {
-    title: 'Crecimiento por plaza',
-    description: 'Último mes con dato, variación mes a mes y año a año, y acumulado del año por sede para la métrica elegida.',
-    inputs: ['plazas_vista'],
-    fn: (serie) => {
-      const m = dash.params().metrica || 'estudios';
-      const nombres = { OAX: 'GAMMA Oaxaca', VSA: 'GAMMA Villahermosa', MID: 'GAMMA Mérida', TOL: 'GAMMA Toluca', CINO: 'CINO (Zumaya)' };
-      const etiquetas = { estudios: 'Estudios', terapias: 'Terapias', referencias: 'Referencias', referentes_activos: 'Referentes activos', conversion_pct: 'Conversión %', ingresos_mxn: 'Ingresos MXN' };
-      const pct = (a, b) => (a == null || b == null || b === 0 ? null : Math.round((a / b - 1) * 1000) / 10);
-      return Object.keys(nombres).map((s) => {
-        const filas = (serie || []).filter((r) => r.sede === s && r.valor != null && !(r.valor === 0 && (s === 'TOL' || s === 'CINO'))).sort((a, b) => d3.ascending(a.mes, b.mes));
-        const u = filas[filas.length - 1];
-        const origen = (serie || []).find((r) => r.sede === s)?.origen || 'real';
-        if (!u) return { sede: s, nombre: nombres[s], metrica: etiquetas[m], ultimo_mes: null, valor: null, mom_pct: null, yoy_pct: null, acumulado: null, origen };
-        const prev = filas.find((r) => r.mes === d3.utcFormat('%Y-%m')(d3.utcMonth.offset(new Date(u.mes + '-01T00:00:00Z'), -1)));
-        const ya = filas.find((r) => r.mes === (+u.mes.slice(0, 4) - 1) + u.mes.slice(4));
-        const anio = filas.filter((r) => r.mes.slice(0, 4) === u.mes.slice(0, 4));
-        const acum = m === 'conversion_pct' ? null : d3.sum(anio, (r) => r.valor);
-        return { sede: s, nombre: nombres[s], metrica: etiquetas[m], ultimo_mes: u.mes, valor: u.valor, mom_pct: pct(u.valor, prev?.valor), yoy_pct: pct(u.valor, ya?.valor), acumulado: acum, origen };
-      });
-    },
-  });
-  dash.calc('canales_vista', {
-    title: 'Canales (real o ejemplo)',
-    description: 'Filas de la plantilla real de canales o, con «Ver ejemplo», del archivo de ejemplo no real.',
-    inputs: ['canales', 'ejemplo_canales'],
-    fn: (real, ejemplo) => (dash.params().ejemplo === 'si' ? ejemplo : real),
-  });
-  dash.calc('embudo_vista', {
-    title: 'Embudo (real o ejemplo)',
-    description: 'Etapas del embudo de la plantilla real o, con «Ver ejemplo», del archivo de ejemplo no real.',
-    inputs: ['embudo', 'ejemplo_embudo'],
-    fn: (real, ejemplo) => (dash.params().ejemplo === 'si' ? ejemplo : real),
-  });
   dash.calc('distancias', {
     title: 'Distancia a la sede operando más cercana',
     description: 'Distancia en línea recta (haversine, radio terrestre 6,371 km) de cada ciudad a la sede operando más cercana.',
     inputs: ['geo_ciudades', 'geo_sedes'],
     fn: (ciudades, sedes) => {
-      const op = sedes.filter((s) => s.estatus === 'Operando');
+      const op = sedes.filter((s) => s.estatus === 'Operando' && s.sede !== 'VHSA2');
       const rad = (d) => (d * Math.PI) / 180;
       const km = (a, b) => {
         const dLat = rad(b.lat - a.lat), dLon = rad(b.lon - a.lon);
@@ -526,11 +969,15 @@
       return ciudades.map((c) => {
         const p = { lat: +c.lat, lon: +c.lon };
         const best = op.map((s) => ({ s, d: km(p, { lat: +s.lat, lon: +s.lon }) })).sort((a, b) => a.d - b.d)[0];
-        return { ciudad: c.ciudad, estado: c.estado, sede_cercana: best.s.nombre, km_linea_recta: Math.round(best.d), tiempo_carretera: null };
+        const nombre = best.s.sede === 'VHSA1' ? 'GAMMA Villahermosa (sedes 1 y 2)' : best.s.nombre;
+        return { ciudad: c.ciudad, estado: c.estado, sede_cercana: nombre, km_linea_recta: Math.round(best.d), tiempo_carretera: null };
       }).sort((a, b) => a.km_linea_recta - b.km_linea_recta);
     },
   });
+</script>
 
+<script>
+  // Celdas sueltas
   const mcCell = (id, field, fmt) => (el) => {
     const d = dash.data(id);
     if (d.status !== 'ok' || !d.data || !d.data.length) { el.textContent = '—'; return; }
@@ -543,12 +990,29 @@
     el.textContent = r ? (fmt ? fmt(r[field]) : String(r[field])) : '—';
   };
   const f0 = (v) => mcFmt.format(+v);
+  const fs = (v) => ((+v > 0 ? '+' : '') + mcFmt1.format(+v) + ' %');
+  const fM = (v) => (+v >= 1e6 ? mcFmt1.format(+v / 1e6) + ' M' : mcFmt.format(+v));
+  dash.draw('lead-mes', mcCell('red_resumen', 'mes', mcMes));
+  dash.draw('lead-estudios', mcCell('red_resumen', 'estudios', f0));
+  dash.draw('lead-sedes', mcCell('sedes_resumen', 'operando', f0));
+  dash.draw('lead-mom', mcCell('red_resumen', 'estudios_mom_pct', fs));
+  dash.draw('lead-origen', mcCell('red_resumen', 'origen'));
+  dash.draw('red-estudios', mcCell('red_resumen', 'estudios', f0));
+  dash.draw('red-mom', mcCell('red_resumen', 'estudios_mom_pct', fs));
+  dash.draw('red-origen', mcCell('red_resumen', 'origen'));
+  dash.draw('red-pacientes', mcCell('red_resumen', 'pacientes', f0));
+  dash.draw('red-referencias', mcCell('red_resumen', 'referencias', f0));
+  dash.draw('red-terapias', mcCell('red_resumen', 'terapias', f0));
+  dash.draw('red-ingresos', mcCell('red_resumen', 'ingresos_mxn', fM));
   dash.draw('sedes-operando', mcCell('sedes_resumen', 'operando', f0));
   dash.draw('sedes-total', mcCell('sedes_resumen', 'total', f0));
+  dash.draw('sedes-proximas', mcCell('sedes_resumen', 'proximas'));
   dash.draw('pob-area', mcCell('area_resumen', 'poblacion', f0));
   dash.draw('pob-estados', mcCell('area_resumen', 'estados', f0));
+  dash.draw('pob-proximas', mcCell('area_resumen', 'poblacion_proximas', f0));
   dash.draw('pauta-bajo', mcCell('pauta_total', 'bajo', f0));
   dash.draw('pauta-alto', mcCell('pauta_total', 'alto', f0));
+  dash.draw('pauta-sint', mcCell('pauta_total', 'gasto_sintetico', f0));
   dash.draw('anual-bajo', mcCell('anual_total', 'bajo', f0));
   dash.draw('anual-alto', mcCell('anual_total', 'alto', f0));
   dash.draw('prox-congreso', mcCell('congresos_resumen', 'proximo'));
@@ -559,12 +1023,24 @@
   dash.draw('piezas', mcCell('piezas_resumen', 'registradas', f0));
   dash.draw('kpis-con-dato', mcCell('kpis_resumen', 'con_dato', f0));
   dash.draw('kpis-total', mcCell('kpis_resumen', 'total', f0));
+  dash.draw('periodo-desde', mcCell('inv_periodo', 'desde', mcMes));
+  dash.draw('periodo-hasta', mcCell('inv_periodo', 'hasta', mcMes));
+  dash.draw('canales-mes', mcCell('canales_vista', 'mes', mcMes));
   dash.draw('congresos-ppto', mcWhere('presupuesto_anual', 'partida', 'Congresos', 'bajo_mxn_anual', f0));
   dash.draw('congresos-ppto-alto', mcWhere('presupuesto_anual', 'partida', 'Congresos', 'alto_mxn_anual', f0));
+  const mcInsignia = (el) => {
+    const d = dash.data('inventario_origen');
+    if (d.status !== 'ok' || !d.data || !d.data.length) { el.textContent = '—'; return; }
+    const t = d.data[0].insignia;
+    el.textContent = t;
+    el.classList.toggle('real', t.startsWith('REAL') && !t.includes('SINTÉTICO'));
+  };
+  dash.draw('insignia-inv', mcInsignia);
+  dash.draw('pie-inv', mcInsignia);
 </script>
 
 <script>
-  // Pestañas, interruptor de ejemplo y selector de métrica (sólo atributos permitidos)
+  // Pestañas, selectores y colores de leyendas (sólo atributos permitidos)
   (function () {
     const tabs = Array.from(document.querySelectorAll('.mc-tab[data-tab]'));
     const show = (id) => {
@@ -578,41 +1054,46 @@
     for (const t of tabs) t.addEventListener('click', () => { const id = t.getAttribute('data-tab'); show(id); dash.setLink(id); });
     const h = (location.hash || '').replace('#', '');
     if (h && tabs.some((t) => t.getAttribute('data-tab') === h)) show(h);
-    for (const cb of document.querySelectorAll('#mc-ejemplo')) {
-      cb.checked = dash.params().ejemplo === 'si';
-      cb.addEventListener('change', () => dash.setParams({ ejemplo: cb.checked ? 'si' : 'no' }));
-    }
-    for (const sel of document.querySelectorAll('#mc-metrica')) {
-      sel.value = dash.params().metrica || 'estudios';
-      sel.addEventListener('change', () => dash.setParams({ metrica: sel.value }));
-    }
+    const sel = (id, param, def) => {
+      for (const s of document.querySelectorAll('#' + id)) {
+        s.value = dash.params()[param] || def;
+        s.addEventListener('change', () => dash.setParams({ [param]: s.value }));
+      }
+    };
+    sel('mc-metrica', 'metrica', 'estudios');
+    sel('mc-sede-ref', 'sede_ref', 'todas');
+    sel('mc-canal-metrica', 'canal_metrica', 'leads');
+    for (const sw of document.querySelectorAll('.mc-sw[data-col]')) sw.style.background = dash.colors[+sw.getAttribute('data-col') % dash.colors.length];
   })();
 </script>
 
 <script>
   // Tablas
-  window.mcTable = (id, cols, emptyText) => (tb) => {
+  window.mcTable = (id, cols, emptyText, filtro) => (tb) => {
     const d = dash.data(id);
     tb.replaceChildren();
     if (d.status !== 'ok' || !Array.isArray(d.data)) return;
-    if (!d.data.length) {
+    const filas = filtro ? d.data.filter(filtro) : d.data;
+    if (!filas.length) {
       const tr = tb.insertRow(); const td = tr.insertCell();
       td.colSpan = cols.length; td.className = 'mc-empty'; td.textContent = emptyText;
       return;
     }
-    for (const r of d.data) {
+    for (const r of filas) {
       const tr = tb.insertRow();
+      if (r.grupo) tr.setAttribute('data-key', encodeURIComponent(r.grupo) + ',' + encodeURIComponent(r.referente_codigo));
       for (const c of cols) {
         const td = tr.insertCell();
         const v = r[c.f];
         if (c.num) td.className = 'num';
-        if (v === null || v === undefined || v === '') { td.textContent = c.blank || 'sin datos'; td.classList.add('mc-empty'); }
+        if (v === null || v === undefined || v === '') { td.textContent = c.blank ?? 'sin datos'; td.classList.add('mc-empty'); }
         else if (c.link && /^https:\/\//.test(String(v))) {
           const a = document.createElement('a'); a.href = String(v); a.target = '_blank'; a.rel = 'noopener';
           a.textContent = (() => { try { return new URL(String(v)).hostname.replace('www.', ''); } catch (e) { return 'enlace'; } })();
           td.appendChild(a);
         } else td.textContent = c.fmt ? c.fmt(v) : String(v);
-        if (c.f === 'origen' && String(v).startsWith('EJEMPLO')) td.classList.add('mc-ex');
+        if (c.f === 'origen' && String(v).startsWith('SINTÉTICO')) td.classList.add('mc-ex');
+        if (c.f === 'origen' && String(v).startsWith('REAL')) td.classList.add('mc-real');
       }
     }
   };
@@ -620,19 +1101,26 @@
   const n1 = (v) => mcFmt1.format(+v);
   const sg = (v) => (v > 0 ? '+' : '') + mcFmt1.format(+v) + ' %';
   const vMet = (v) => (dash.params().metrica === 'conversion_pct' ? n1(v) + ' %' : n0(v));
-  dash.draw('tabla-resumen-plazas', mcTable('plazas_resumen', [{ f: 'nombre' }, { f: 'metrica' }, { f: 'ultimo_mes' }, { f: 'valor', num: 1, fmt: vMet }, { f: 'mom_pct', num: 1, fmt: sg }, { f: 'yoy_pct', num: 1, fmt: sg }, { f: 'origen' }], 'Sin sedes'));
-  dash.draw('tabla-plazas', mcTable('plazas_resumen', [{ f: 'nombre' }, { f: 'ultimo_mes' }, { f: 'valor', num: 1, fmt: vMet }, { f: 'mom_pct', num: 1, fmt: sg }, { f: 'yoy_pct', num: 1, fmt: sg }, { f: 'acumulado', num: 1, fmt: n0, blank: 'no aplica / sin datos' }, { f: 'origen' }], 'Sin sedes'));
-  dash.draw('tabla-canales', mcTable('canales_vista', [{ f: 'canal' }, { f: 'alcance', num: 1, fmt: n0 }, { f: 'impresiones', num: 1, fmt: n0 }, { f: 'clics', num: 1, fmt: n0 }, { f: 'ctr_pct', num: 1, fmt: n1 }, { f: 'cpc_mxn', num: 1, fmt: n1 }, { f: 'leads', num: 1, fmt: n0 }, { f: 'cpl_mxn', num: 1, fmt: n0 }, { f: 'pacientes', num: 1, fmt: n0 }, { f: 'costo_paciente_mxn', num: 1, fmt: n0 }, { f: 'atribucion_ultimo_clic_pct', num: 1, fmt: n1 }], 'Sin canales'));
-  dash.draw('tabla-resenas', mcTable('resenas_seo', [{ f: 'nombre' }, { f: 'resenas_google', num: 1, fmt: n0 }, { f: 'calificacion_google', num: 1, fmt: n1 }, { f: 'nps_pacientes', num: 1, fmt: n0 }, { f: 'nps_referentes', num: 1, fmt: n0 }, { f: 'posicion_media_seo', num: 1, fmt: n1 }, { f: 'local_pack_top3' }], 'Sin sedes'));
+  const k5 = { num: 1, fmt: n0, blank: '< 5' };
+  dash.draw('tabla-resumen-plazas', mcTable('plazas_resumen', [{ f: 'nombre' }, { f: 'estatus' }, { f: 'metrica' }, { f: 'ultimo_mes', fmt: mcMes, blank: '—' }, { f: 'valor', num: 1, fmt: vMet, blank: '—' }, { f: 'mom_pct', num: 1, fmt: sg, blank: '—' }, { f: 'yoy_pct', num: 1, fmt: sg, blank: '—' }, { f: 'origen' }], 'Sin sedes'));
+  dash.draw('tabla-plazas', mcTable('plazas_resumen', [{ f: 'nombre' }, { f: 'ultimo_mes', fmt: mcMes, blank: '—' }, { f: 'valor', num: 1, fmt: vMet, blank: '—' }, { f: 'mom_pct', num: 1, fmt: sg, blank: '—' }, { f: 'yoy_pct', num: 1, fmt: sg, blank: '—' }, { f: 'acumulado', num: 1, fmt: n0, blank: 'no aplica / sin datos' }, { f: 'origen' }], 'Sin sedes'));
+  dash.draw('tabla-tipos', mcTable('tipo_matriz', [{ f: 'estudio' }, { f: 'MID', ...k5 }, { f: 'VHSA1', ...k5 }, { f: 'VHSA2', ...k5 }, { f: 'OAX', ...k5 }, { f: 'TOL', ...k5 }, { f: 'COL', ...k5 }, { f: 'total', ...k5 }, { f: 'pacientes', ...k5 }], 'Sin estudios'));
+  const colsRef = [{ f: 'rango', num: 1, blank: '' }, { f: 'referente_codigo' }, { f: 'especialidad', blank: '' }, { f: 'sedes', blank: '' }, { f: 'pacientes', ...k5 }, { f: 'estudios', ...k5 }, { f: 'origen' }];
+  dash.draw('tabla-ref-gamma', mcTable('referentes', colsRef, 'Sin referencias para gammagrafía en esta sede.', (r) => r.grupo === 'gammagrafia'));
+  dash.draw('tabla-ref-yodo', mcTable('referentes', colsRef, 'Sin referencias para yodo-131 en esta sede.', (r) => r.grupo === 'yodo'));
+  dash.draw('tabla-canales', mcTable('canales_vista', [{ f: 'canal' }, { f: 'alcance', num: 1, fmt: n0 }, { f: 'impresiones', num: 1, fmt: n0 }, { f: 'clics', num: 1, fmt: n0 }, { f: 'ctr_pct', num: 1, fmt: n1 }, { f: 'cpc_mxn', num: 1, fmt: n1 }, { f: 'leads', num: 1, fmt: n0 }, { f: 'cpl_mxn', num: 1, fmt: n0 }, { f: 'pacientes', num: 1, fmt: n0 }, { f: 'costo_paciente_mxn', num: 1, fmt: n0 }, { f: 'gasto_mxn', num: 1, fmt: n0 }, { f: 'atribucion_ultimo_clic_pct', num: 1, fmt: n1 }, { f: 'origen' }], 'Sin canales'));
+  dash.draw('tabla-resenas', mcTable('resenas_vista', [{ f: 'nombre' }, { f: 'resenas_google', num: 1, fmt: n0 }, { f: 'calificacion_google', num: 1, fmt: n1 }, { f: 'nps_pacientes', num: 1, fmt: n0 }, { f: 'nps_referentes', num: 1, fmt: n0 }, { f: 'posicion_media_seo', num: 1, fmt: n1 }, { f: 'local_pack_top3' }, { f: 'origen' }], 'Sin sedes'));
+  dash.draw('tabla-sedes', mcTable('geo_sedes', [{ f: 'nombre' }, { f: 'estatus' }, { f: 'ciudad' }, { f: 'estado' }, { f: 'municipio_pob_2020', num: 1, fmt: n0 }, { f: 'servicios' }, { f: 'fuente_pob', link: 1 }], 'Sin sedes'));
   dash.draw('tabla-estados', mcTable('geo_estados', [{ f: 'estado' }, { f: 'poblacion_2020', num: 1, fmt: n0 }, { f: 'tasa_mort_tumores_2024', num: 1, fmt: n1 }, { f: 'area_influencia' }, { f: 'oncologos', num: 1, blank: 'sin datos (sin fuente pública)' }, { f: 'endocrinologos', num: 1, blank: 'sin datos (sin fuente pública)' }, { f: 'fuente_poblacion', link: 1 }], 'Sin estados'));
   dash.draw('tabla-distancias', mcTable('distancias', [{ f: 'ciudad' }, { f: 'estado' }, { f: 'sede_cercana' }, { f: 'km_linea_recta', num: 1, fmt: n0 }, { f: 'tiempo_carretera', blank: 'sin datos' }], 'Sin ciudades'));
   dash.draw('tabla-cancer', mcTable('cancer_mexico', [{ f: 'indicador' }, { f: 'valor', num: 1, fmt: (v) => (String(v).includes('.') ? n1(v) : n0(v)) }, { f: 'unidad', blank: '' }, { f: 'fuente' }], 'Sin indicadores'));
+  dash.draw('tabla-congresos-resultados', mcTable('congresos_resultados', [{ f: 'congreso' }, { f: 'contactos', num: 1, fmt: n0 }, { f: 'referentes_nuevos', num: 1, fmt: n0 }, { f: 'referencias_atribuidas', num: 1, fmt: n0 }, { f: 'costo_mxn', num: 1, fmt: n0 }, { f: 'costo_por_referente', num: 1, fmt: n0 }, { f: 'origen' }], 'Sin congresos concluidos'));
   dash.draw('tabla-congresos', mcTable('congresos', [{ f: 'prioridad', num: 1 }, { f: 'congreso' }, { f: 'inicio', blank: '†' }, { f: 'fin', blank: '†' }, { f: 'mes_estimado', blank: '' }, { f: 'ciudad' }, { f: 'verificado' }, { f: 'publico' }, { f: 'participacion_sugerida' }, { f: 'fuente', link: 1 }], 'Sin congresos'));
   dash.draw('tabla-tramites', mcTable('tramites_cofepris', [{ f: 'tipo_pieza' }, { f: 'ejemplo' }, { f: 'tramite' }, { f: 'fundamento' }, { f: 'cuando' }, { f: 'costo' }], 'Sin trámites'));
   dash.draw('tabla-piezas', mcTable('cumplimiento_piezas', [{ f: 'pieza_id' }, { f: 'sede' }, { f: 'canal' }, { f: 'mes' }, { f: 'tramite' }, { f: 'permiso_o_aviso' }, { f: 'checklist_completo' }, { f: 'publicada' }], 'Aún no hay piezas registradas.'));
   dash.draw('tabla-anual', mcTable('presupuesto_anual', [{ f: 'partida' }, { f: 'bajo_mxn_anual', num: 1, fmt: n0 }, { f: 'alto_mxn_anual', num: 1, fmt: n0 }], 'Sin partidas'));
   dash.draw('tabla-marcas', mcTable('marcas_impi', [{ f: 'signo' }, { f: 'clases' }, { f: 'n_clases', num: 1 }, { f: 'derechos_mxn_con_iva', num: 1, fmt: (v) => mcFmt2.format(+v) }, { f: 'estado' }, { f: 'riesgo' }], 'Sin signos'));
-  dash.draw('tabla-kpis', mcTable('kpis', [{ f: 'kpi' }, { f: 'definicion' }, { f: 'meta_plan' }, { f: 'valor_real' }, { f: 'fuente_futura' }, { f: 'frecuencia' }], 'Sin KPIs'));
+  dash.draw('tabla-kpis', mcTable('kpis_vista', [{ f: 'kpi' }, { f: 'definicion' }, { f: 'meta_plan' }, { f: 'valor_real' }, { f: 'valor_sintetico', blank: 'sólo dato real' }, { f: 'fuente_futura' }, { f: 'frecuencia' }], 'Sin KPIs'));
   dash.draw('tabla-fuentes', mcTable('fuentes_futuras', [{ f: 'fuente' }, { f: 'via' }, { f: 'metricas' }, { f: 'privacidad' }, { f: 'estado' }], 'Sin fuentes'));
 </script>
 
@@ -656,10 +1144,16 @@
   window.mcStatus = (el, ids) => {
     for (const id of ids) {
       const d = dash.data(id);
-      if (d.status !== 'ok') { el.replaceChildren(); el.textContent = d.status === 'error' ? 'No se pudo cargar' : '—'; return false; }
+      if (d.status !== 'ok' || d.data == null) { el.replaceChildren(); el.textContent = d.status === 'error' ? 'No se pudo cargar' : '—'; return false; }
     }
     return true;
   };
+  window.mcWm = (svg, W, H, texto) => {
+    if (!texto || !texto.startsWith('SINTÉTICO')) return;
+    svg.append('text').attr('class', 'mc-wm').attr('x', W / 2).attr('y', H / 2).attr('text-anchor', 'middle').attr('dominant-baseline', 'middle').text('SINTÉTICO — no real');
+  };
+  window.mcAxisNum = (v) => (v >= 1e6 ? mcFmt1.format(v / 1e6) + ' M' : v >= 1e3 ? mcFmt.format(v / 1e3) + ' k' : mcFmt.format(v));
+  window.mcSedeCol = (s) => dash.colors[['MID', 'VHSA1', 'VHSA2', 'OAX', 'TOL', 'COL'].indexOf(s) % dash.colors.length];
 </script>
 
 <script>
@@ -668,84 +1162,169 @@
     if (!mcStatus(el, ['plazas_vista'])) return;
     const serie = dash.data('plazas_vista').data || [];
     const m = dash.params().metrica || 'estudios';
-    const ej = dash.params().ejemplo === 'si';
     el.replaceChildren();
     const meses = Array.from(new Set(serie.map((r) => r.mes))).sort();
+    if (!meses.length) { el.textContent = 'Sin datos'; return; }
     const x0 = new Date(meses[0] + '-01T00:00:00Z'), x1 = new Date(meses[meses.length - 1] + '-01T00:00:00Z');
     const vals = serie.filter((r) => r.valor != null).map((r) => r.valor);
     const ymax = vals.length ? d3.max(vals) : 1;
     for (const [s, nombre] of mcSedes) {
-      const filas = serie.filter((r) => r.sede === s && r.valor != null && !(r.valor === 0 && (s === 'TOL' || s === 'CINO')));
+      const filas = serie.filter((r) => r.sede === s && r.valor != null);
       const panel = document.createElement('div'); panel.className = 'mc-panel';
       const h = document.createElement('h4'); h.textContent = nombre + ' · ' + mcMetricas[m]; panel.appendChild(h);
       el.appendChild(panel);
       if (!filas.length) {
         const p = document.createElement('div'); p.className = 'mc-empty';
-        p.textContent = s === 'TOL' ? 'Sin datos: sede en proyecto.' : s === 'CINO' ? 'Sin datos: CINO en pre-licencia.' : 'Sin datos: conectar agenda y CRM de GAMMA OS.';
+        p.textContent = mcProximas.includes(s) ? 'Próxima apertura: sin datos.' : 'Sin datos.';
         panel.appendChild(p); continue;
       }
-      const W = Math.max(220, panel.clientWidth - 8), H = 140, ml = 44, mr = 8, mt = 8, mb = 22;
+      const origen = filas[filas.length - 1].origen;
+      const W = Math.max(220, panel.clientWidth - 8), H = 150, ml = 44, mr = 8, mt = 8, mb = 22;
       const x = d3.scaleUtc().domain([x0, x1]).range([ml, W - mr]);
       const y = d3.scaleLinear().domain([0, ymax]).nice().range([H - mb, mt]);
       const svg = d3.select(panel).append('svg').attr('width', '100%').attr('viewBox', `0 0 ${W} ${H}`)
-        .attr('role', 'img').attr('aria-label', `${nombre}: ${mcMetricas[m]} por mes${ej ? ' (ejemplo, no real)' : ''}`);
-      svg.append('g').attr('transform', `translate(0,${H - mb})`).call(d3.axisBottom(x).ticks(W < 300 ? 3 : 5).tickFormat(d3.utcFormat('%b %y'))).call((g) => g.select('.domain').style('stroke', 'var(--cds-chart-axis)')).call((g) => g.selectAll('line').style('stroke', 'var(--cds-chart-axis)'));
-      svg.append('g').attr('transform', `translate(${ml},0)`).call(d3.axisLeft(y).ticks(4).tickFormat((v) => (v >= 1e6 ? mcFmt1.format(v / 1e6) + ' M' : v >= 1e3 ? mcFmt.format(v / 1e3) + ' k' : mcFmt.format(v))))
+        .attr('role', 'img').attr('aria-label', `${nombre}: ${mcMetricas[m]} por mes (${origen})`);
+      svg.append('g').attr('transform', `translate(0,${H - mb})`).call(d3.axisBottom(x).ticks(W < 300 ? 3 : 5).tickFormat(mcEs.utcFormat('%b %y'))).call((g) => g.select('.domain').style('stroke', 'var(--cds-chart-axis)')).call((g) => g.selectAll('line').style('stroke', 'var(--cds-chart-axis)'));
+      svg.append('g').attr('transform', `translate(${ml},0)`).call(d3.axisLeft(y).ticks(4).tickFormat(mcAxisNum))
         .call((g) => g.select('.domain').remove()).call((g) => g.selectAll('line').attr('x2', W - ml - mr).style('stroke', 'var(--cds-chart-grid)'));
-      if (ej) svg.append('text').attr('class', 'mc-wm').attr('x', W / 2).attr('y', H / 2).attr('text-anchor', 'middle').text('EJEMPLO, NO REAL');
-      const pts = filas.map((r) => ({ d: new Date(r.mes + '-01T00:00:00Z'), v: r.valor, mes: r.mes }));
-      svg.append('path').datum(pts).attr('fill', 'none').style('stroke', dash.colors[0]).attr('stroke-width', 2).attr('d', d3.line().x((p) => x(p.d)).y((p) => y(p.v)));
+      mcWm(svg, W, H - mb, origen);
+      const pts = filas.map((r) => ({ d: new Date(r.mes + '-01T00:00:00Z'), v: r.valor, mes: r.mes, origen: r.origen }));
+      svg.append('path').datum(pts).attr('fill', 'none').style('stroke', mcSedeCol(s)).attr('stroke-width', 2).attr('d', d3.line().x((p) => x(p.d)).y((p) => y(p.v)));
       const tip = mcTip(panel);
       svg.append('g').selectAll('circle').data(pts).join('circle').attr('cx', (p) => x(p.d)).attr('cy', (p) => y(p.v)).attr('r', 6).style('fill', 'transparent')
-        .on('pointerenter pointermove', (ev, p) => tip.show(ev, [nombre + ' · ' + p.mes, mcMetricas[m] + ': ' + (m === 'conversion_pct' ? mcFmt1.format(p.v) + ' %' : mcFmt.format(p.v)), ej ? 'EJEMPLO, NO REAL' : 'Dato real']))
+        .on('pointerenter pointermove', (ev, p) => tip.show(ev, [nombre + ' · ' + mcMes(p.mes), mcMetricas[m] + ': ' + (m === 'conversion_pct' ? mcFmt1.format(p.v) + ' %' : mcFmt.format(p.v)), p.origen]))
         .on('pointerleave', () => tip.hide());
     }
+  });
+
+  // Tipos de estudio: barras apiladas por sede
+  dash.draw('tipos-chart', (el) => {
+    if (!mcStatus(el, ['tipo_matriz', 'inventario_origen'])) return;
+    const rows = dash.data('tipo_matriz').data;
+    const origen = dash.data('inventario_origen').data[0]?.insignia || '';
+    const sedes = ['MID', 'VHSA1', 'VHSA2', 'OAX', 'TOL', 'COL'];
+    const nom = Object.fromEntries(mcSedes);
+    el.replaceChildren();
+    const W = Math.max(300, el.clientWidth), rowH = 26, top = 6, bottom = 24, labW = Math.min(230, W * 0.4), right = 56;
+    const H = top + rows.length * rowH + bottom;
+    const tot = (r) => d3.sum(sedes, (s) => r[s] || 0);
+    const x = d3.scaleLinear().domain([0, d3.max(rows, tot) || 1]).nice().range([labW, W - right]);
+    const svg = d3.select(el).append('svg').attr('width', '100%').attr('viewBox', `0 0 ${W} ${H}`).attr('role', 'img').attr('aria-label', 'Estudios por tipo, apilados por sede, últimos 12 meses (' + origen + ')');
+    svg.append('g').attr('transform', `translate(0,${H - bottom})`).call(d3.axisBottom(x).ticks(W < 480 ? 3 : 6).tickFormat(mcAxisNum))
+      .call((g) => g.select('.domain').remove()).call((g) => g.selectAll('line').attr('y1', -(H - bottom - top)).style('stroke', 'var(--cds-chart-grid)'));
+    mcWm(svg, W, H - bottom, origen);
+    const tip = mcTip(el);
+    const g = svg.append('g').selectAll('g').data(rows).join('g').attr('transform', (r, i) => `translate(0,${top + i * rowH})`);
+    g.append('text').attr('class', 'mc-lab').attr('x', 0).attr('y', 16).text((r) => { const max = Math.floor(labW / 6.3); return r.estudio.length > max ? r.estudio.slice(0, max - 1) + '…' : r.estudio; });
+    g.each(function (r) {
+      let acc = 0;
+      for (const s of sedes) {
+        const v = r[s] || 0; if (!v) continue;
+        d3.select(this).append('rect').attr('x', x(acc)).attr('y', 5).attr('height', 15).attr('width', Math.max(1, x(acc + v) - x(acc))).style('fill', mcSedeCol(s))
+          .on('pointerenter pointermove', (ev) => tip.show(ev, [r.estudio, nom[s] + ': ' + mcFmt.format(v) + ' estudios', 'Total: ' + mcFmt.format(tot(r)), origen]))
+          .on('pointerleave', () => tip.hide());
+        acc += v;
+      }
+      d3.select(this).append('text').attr('x', x(acc) + 6).attr('y', 17).text(mcFmt.format(acc));
+    });
+  });
+
+  // Especialidades: barras agrupadas
+  dash.draw('esp-chart', (el) => {
+    if (!mcStatus(el, ['especialidades', 'inventario_origen'])) return;
+    const rows = dash.data('especialidades').data;
+    const origen = dash.data('inventario_origen').data[0]?.insignia || '';
+    el.replaceChildren();
+    if (!rows.length) { const p = document.createElement('div'); p.className = 'mc-empty'; p.textContent = 'Sin referencias en esta sede.'; el.appendChild(p); return; }
+    const W = Math.max(300, el.clientWidth), rowH = 34, top = 6, bottom = 24, labW = Math.min(180, W * 0.36), right = 48;
+    const H = top + rows.length * rowH + bottom;
+    const x = d3.scaleLinear().domain([0, d3.max(rows, (r) => Math.max(r.gammagrafia || 0, r.yodo || 0)) || 1]).nice().range([labW, W - right]);
+    const svg = d3.select(el).append('svg').attr('width', '100%').attr('viewBox', `0 0 ${W} ${H}`).attr('role', 'img').attr('aria-label', 'Pacientes referidos para gammagrafía y para yodo-131 por especialidad (' + origen + ')');
+    svg.append('g').attr('transform', `translate(0,${H - bottom})`).call(d3.axisBottom(x).ticks(W < 480 ? 3 : 6).tickFormat(mcAxisNum))
+      .call((g) => g.select('.domain').remove()).call((g) => g.selectAll('line').attr('y1', -(H - bottom - top)).style('stroke', 'var(--cds-chart-grid)'));
+    mcWm(svg, W, H - bottom, origen);
+    const tip = mcTip(el);
+    const g = svg.append('g').selectAll('g').data(rows).join('g').attr('transform', (r, i) => `translate(0,${top + i * rowH})`);
+    g.append('text').attr('class', 'mc-lab').attr('x', 0).attr('y', 18).text((r) => r.especialidad);
+    [['gammagrafia', 0, 'Gammagrafía'], ['yodo', 1, 'Yodo-131']].forEach(([k, i, et]) => {
+      g.append('rect').attr('x', labW).attr('y', 4 + i * 13).attr('height', 11).attr('width', (r) => Math.max(0, x(r[k] || 0) - labW)).style('fill', dash.colors[i])
+        .on('pointerenter pointermove', (ev, r) => tip.show(ev, [r.especialidad, et + ': ' + (r[k] == null ? '< 5' : mcFmt.format(r[k])) + ' pacientes', origen]))
+        .on('pointerleave', () => tip.hide());
+      g.append('text').attr('x', (r) => x(r[k] || 0) + 4).attr('y', 13 + i * 13).text((r) => (r[k] == null ? '< 5' : r[k] ? mcFmt.format(r[k]) : ''));
+    });
+  });
+
+  // Canales: líneas por canal
+  dash.draw('canales-chart', (el) => {
+    if (!mcStatus(el, ['canales_serie'])) return;
+    const serie = dash.data('canales_serie').data.filter((r) => r.valor != null);
+    const m = dash.params().canal_metrica || 'leads';
+    const et = { alcance: 'Alcance', leads: 'Leads', cpl_mxn: 'CPL MXN', costo_paciente_mxn: 'CPA MXN', gasto_mxn: 'Gasto MXN' }[m];
+    el.replaceChildren();
+    if (!serie.length) { el.textContent = 'Sin datos'; return; }
+    const W = Math.max(300, el.clientWidth), H = 300, ml = 52, mr = 12, mt = 10, mb = 26;
+    const x = d3.scaleUtc().domain(d3.extent(serie, (r) => new Date(r.mes + '-01T00:00:00Z'))).range([ml, W - mr]);
+    const y = d3.scaleLinear().domain([0, d3.max(serie, (r) => r.valor)]).nice().range([H - mb, mt]);
+    const svg = d3.select(el).append('svg').attr('width', '100%').attr('viewBox', `0 0 ${W} ${H}`).attr('role', 'img').attr('aria-label', et + ' mensual por canal (SINTÉTICO — no real)');
+    svg.append('g').attr('transform', `translate(0,${H - mb})`).call(d3.axisBottom(x).ticks(W < 480 ? 4 : 8).tickFormat(mcEs.utcFormat('%b %y'))).call((g) => g.select('.domain').style('stroke', 'var(--cds-chart-axis)')).call((g) => g.selectAll('line').style('stroke', 'var(--cds-chart-axis)'));
+    svg.append('g').attr('transform', `translate(${ml},0)`).call(d3.axisLeft(y).ticks(5).tickFormat(mcAxisNum)).call((g) => g.select('.domain').remove()).call((g) => g.selectAll('line').attr('x2', W - ml - mr).style('stroke', 'var(--cds-chart-grid)'));
+    mcWm(svg, W, H - mb, 'SINTÉTICO');
+    const tip = mcTip(el);
+    mcCanales.forEach((c, i) => {
+      const pts = serie.filter((r) => r.canal === c).map((r) => ({ d: new Date(r.mes + '-01T00:00:00Z'), v: r.valor, mes: r.mes }));
+      if (!pts.length) return;
+      svg.append('path').datum(pts).attr('fill', 'none').style('stroke', dash.colors[i % dash.colors.length]).attr('stroke-width', 2).attr('d', d3.line().x((p) => x(p.d)).y((p) => y(p.v)));
+      svg.append('g').selectAll('circle').data(pts).join('circle').attr('cx', (p) => x(p.d)).attr('cy', (p) => y(p.v)).attr('r', 5).style('fill', 'transparent')
+        .on('pointerenter pointermove', (ev, p) => tip.show(ev, [c + ' · ' + mcMes(p.mes), et + ': ' + mcFmt.format(p.v), 'SINTÉTICO — no real']))
+        .on('pointerleave', () => tip.hide());
+    });
   });
 
   // Embudo
   dash.draw('embudo-chart', (el) => {
     if (!mcStatus(el, ['embudo_vista'])) return;
-    const rows = (dash.data('embudo_vista').data || []).map((r) => ({ orden: +r.orden, etapa: r.etapa, v: mcNum(r.valor) })).sort((a, b) => d3.ascending(a.orden, b.orden));
-    const ej = dash.params().ejemplo === 'si';
+    const rows = (dash.data('embudo_vista').data || []).map((r) => ({ orden: +r.orden, etapa: r.etapa, v: mcNum(r.valor), origen: r.origen, mes: r.mes })).sort((a, b) => d3.ascending(a.orden, b.orden));
     el.replaceChildren();
-    if (!rows.some((r) => r.v != null)) { const p = document.createElement('div'); p.className = 'mc-empty'; p.textContent = 'Sin datos: el embudo se llena al conectar APIs de pauta, GA4 y GAMMA OS. Etapas: ' + rows.map((r) => r.etapa).join(' → ') + '.'; el.appendChild(p); return; }
+    if (!rows.some((r) => r.v != null)) { const p = document.createElement('div'); p.className = 'mc-empty'; p.textContent = 'Sin datos.'; el.appendChild(p); return; }
+    const origen = rows[0].origen;
     const W = Math.max(280, el.clientWidth), rowH = 36, top = 6, H = top + rows.length * rowH + 6;
     const labW = Math.min(240, W * 0.42);
-    const x = d3.scaleLog().domain([1, d3.max(rows, (r) => r.v)]).range([labW, W - 70]);
-    const svg = d3.select(el).append('svg').attr('width', '100%').attr('viewBox', `0 0 ${W} ${H}`).attr('role', 'img').attr('aria-label', 'Embudo de conversión' + (ej ? ' (ejemplo, no real)' : ''));
-    if (ej) svg.append('text').attr('class', 'mc-wm').attr('x', W / 2).attr('y', H / 2).attr('text-anchor', 'middle').text('EJEMPLO, NO REAL');
+    const x = d3.scaleLog().domain([1, d3.max(rows, (r) => r.v)]).range([labW, W - 110]);
+    const svg = d3.select(el).append('svg').attr('width', '100%').attr('viewBox', `0 0 ${W} ${H}`).attr('role', 'img').attr('aria-label', 'Embudo de conversión del último mes (' + origen + ')');
+    mcWm(svg, W, H, origen);
     const tip = mcTip(el);
     const g = svg.selectAll('g.r').data(rows).join('g').attr('transform', (r, i) => `translate(0,${top + i * rowH})`);
-    g.append('text').attr('class', 'mc-lab').attr('x', 0).attr('y', 18).text((r) => r.etapa.length > 34 ? r.etapa.slice(0, 33) + '…' : r.etapa);
+    g.append('text').attr('class', 'mc-lab').attr('x', 0).attr('y', 18).text((r) => (r.etapa.length > 34 ? r.etapa.slice(0, 33) + '…' : r.etapa));
     g.append('rect').attr('x', labW).attr('y', 6).attr('height', 18).attr('rx', 3).attr('width', (r) => Math.max(2, x(Math.max(1, r.v)) - labW)).style('fill', dash.colors[0]);
     g.append('text').attr('x', (r) => x(Math.max(1, r.v)) + 6).attr('y', 19).text((r, i) => mcFmt.format(r.v) + (i ? ' · ' + mcFmt1.format((r.v / rows[i - 1].v) * 100) + ' %' : ''));
     g.append('rect').attr('width', W).attr('height', rowH).style('fill', 'transparent')
-      .on('pointerenter pointermove', (ev, r) => { const i = rows.indexOf(r); tip.show(ev, [r.etapa, 'Valor: ' + mcFmt.format(r.v), i ? 'Pasa de la etapa anterior: ' + mcFmt1.format((r.v / rows[i - 1].v) * 100) + ' %' : 'Etapa inicial', ej ? 'EJEMPLO, NO REAL' : 'Dato real']); })
+      .on('pointerenter pointermove', (ev, r) => { const i = rows.indexOf(r); tip.show(ev, [r.etapa + (r.mes ? ' · ' + mcMes(r.mes) : ''), 'Valor: ' + mcFmt.format(r.v), i ? 'Pasa de la etapa anterior: ' + mcFmt1.format((r.v / rows[i - 1].v) * 100) + ' %' : 'Etapa inicial', r.origen]); })
       .on('pointerleave', () => tip.hide());
   });
 </script>
 
 <script>
-  // Mapa esquemático del sureste
+  // Mapa esquemático de sedes
   dash.draw('mapa-chart', (el) => {
     if (!mcStatus(el, ['geo_estados', 'geo_sedes', 'geo_ciudades'])) return;
     const estados = dash.data('geo_estados').data.map((r) => ({ ...r, lat: +r.lat, lon: +r.lon, pob: +r.poblacion_2020 }));
     const sedes = dash.data('geo_sedes').data.map((r) => ({ ...r, lat: +r.lat, lon: +r.lon }));
     const ciudades = dash.data('geo_ciudades').data.map((r) => ({ ...r, lat: +r.lat, lon: +r.lon }));
     el.replaceChildren();
-    const W = Math.max(300, el.clientWidth), H = Math.round(Math.min(520, Math.max(320, W * 0.62)));
-    const pts = { type: 'MultiPoint', coordinates: [...estados, ...ciudades].map((p) => [p.lon, p.lat]) };
+    const W = Math.max(300, el.clientWidth), H = Math.round(Math.min(560, Math.max(320, W * 0.6)));
+    const pts = { type: 'MultiPoint', coordinates: [...estados, ...ciudades, ...sedes].map((p) => [p.lon, p.lat]) };
     const proj = d3.geoMercator().fitExtent([[30, 30], [W - 30, H - 30]], pts);
     const path = d3.geoPath(proj);
     const svg = d3.select(el).append('svg').attr('width', '100%').attr('viewBox', `0 0 ${W} ${H}`)
-      .attr('role', 'img').attr('aria-label', 'Esquema del sureste de México con las sedes GAMMA, anillos de 150 y 300 km y capitales estatales dimensionadas por población 2020');
-    const col = { OAX: dash.colors[0], VSA: dash.colors[1], MID: dash.colors[2], TOL: dash.colors[3] };
+      .attr('role', 'img').attr('aria-label', 'Esquema de México con las sedes GAMMA operando y de próxima apertura, anillos de 150 y 300 km y capitales estatales dimensionadas por población 2020');
+    const area = (c) => (c === 'VHSA1' || c === 'VHSA2' ? 'VHSA' : c);
+    const col = { MID: dash.colors[0], VHSA: dash.colors[1 % dash.colors.length], OAX: dash.colors[3 % dash.colors.length], TOL: dash.colors[4 % dash.colors.length], COL: dash.colors[5 % dash.colors.length] };
     svg.append('path').datum(d3.geoGraticule().step([2, 2])()).attr('d', path).attr('fill', 'none').style('stroke', 'var(--cds-chart-grid)');
-    const op = sedes.filter((s) => s.sede !== 'CINO');
-    for (const s of op) for (const km of [300, 150]) {
+    const unicas = sedes.filter((s) => s.sede !== 'VHSA2');
+    for (const s of unicas) for (const km of [300, 150]) {
+      const c = col[area(s.sede)] || 'var(--cds-chart-muted)';
       svg.append('path').datum(d3.geoCircle().center([s.lon, s.lat]).radius(km / 111.2)()).attr('d', path)
-        .style('fill', col[s.sede] || 'var(--cds-chart-muted)').style('fill-opacity', km === 150 ? 0.10 : 0.05)
-        .style('stroke', col[s.sede] || 'var(--cds-chart-muted)').style('stroke-opacity', 0.5).attr('stroke-dasharray', km === 300 ? '4 4' : null);
+        .style('fill', c).style('fill-opacity', km === 150 ? 0.10 : 0.05).style('stroke', c).style('stroke-opacity', 0.5).attr('stroke-dasharray', km === 300 ? '4 4' : null);
     }
     const r = d3.scaleSqrt().domain([0, d3.max(estados, (e) => e.pob)]).range([0, 30]);
     const tip = mcTip(el);
@@ -759,11 +1338,17 @@
       .on('pointerenter pointermove', (ev, c) => tip.show(ev, [c.ciudad, c.estado]))
       .on('pointerleave', () => tip.hide());
     const sym = d3.symbol().type(d3.symbolDiamond).size(160);
-    const sg = svg.append('g').selectAll('g').data(sedes.filter((s) => s.sede !== 'CINO')).join('g').attr('transform', (s) => `translate(${proj([s.lon, s.lat])})`);
-    sg.append('path').attr('d', sym).style('fill', (s) => (s.estatus === 'Operando' ? col[s.sede] : 'var(--color-bg)')).style('stroke', (s) => col[s.sede]).attr('stroke-width', 2);
-    sg.append('text').attr('class', 'mc-lab').attr('x', 10).attr('y', -8).style('font-weight', 600).text((s) => s.nombre.replace('GAMMA ', '') + (s.sede === 'VSA' ? ' + CINO' : ''));
+    const sg = svg.append('g').selectAll('g').data(unicas).join('g').attr('transform', (s) => `translate(${proj([s.lon, s.lat])})`);
+    sg.append('path').attr('d', sym).style('fill', (s) => (s.estatus === 'Operando' ? col[area(s.sede)] : 'var(--color-bg)')).style('stroke', (s) => col[area(s.sede)]).attr('stroke-width', 2);
+    sg.append('text').attr('class', 'mc-lab').attr('x', 10).attr('y', -8).style('font-weight', 600)
+      .text((s) => (s.sede === 'VHSA1' ? 'Villahermosa (2 sedes)' : s.ciudad) + (s.estatus === 'Operando' ? '' : ' · próxima apertura'));
     sg.append('path').attr('d', d3.symbol().type(d3.symbolCircle).size(500)()).style('fill', 'transparent')
-      .on('pointerenter pointermove', (ev, s) => tip.show(ev, [s.nombre + (s.sede === 'VSA' ? ' y CINO (pre-licencia)' : ''), 'Estatus: ' + s.estatus, 'Municipio ' + s.ciudad + ': ' + mcFmt.format(+s.municipio_pob_2020) + ' hab. (2020)']))
+      .on('pointerenter pointermove', (ev, s) => {
+        const lineas = s.sede === 'VHSA1'
+          ? sedes.filter((x) => area(x.sede) === 'VHSA').flatMap((x) => [x.nombre + ' · ' + x.estatus, 'Servicios: ' + x.servicios])
+          : [s.nombre, 'Estatus: ' + s.estatus, 'Servicios: ' + s.servicios];
+        tip.show(ev, [...lineas, 'Municipio ' + s.ciudad + ': ' + mcFmt.format(+s.municipio_pob_2020) + ' hab. (2020)']);
+      })
       .on('pointerleave', () => tip.hide());
     svg.append('text').attr('x', W - 8).attr('y', H - 8).attr('text-anchor', 'end').text('Anillos: 150 km (continuo) y 300 km (punteado) en línea recta');
   });
@@ -809,17 +1394,17 @@
     svg.attr('viewBox', `0 0 ${W} ${H + 20}`);
   });
 
-  // Presupuesto vs gasto
+  // Presupuesto vs gasto (real y sintético)
   dash.draw('inversion', (el) => {
-    if (!mcStatus(el, ['presupuesto_canal'])) return;
-    const rows = dash.data('presupuesto_canal').data.map((r) => ({ canal: r.canal, partida: r.partida, bajo: +r.bajo_mxn_mes, alto: +r.alto_mxn_mes, real: mcNum(r.gasto_real_mxn_mes) }));
+    if (!mcStatus(el, ['gasto_vista'])) return;
+    const rows = dash.data('gasto_vista').data;
     el.replaceChildren();
     const W = Math.max(280, el.clientWidth);
     const rowH = 40, top = 8, right = 16, left = 8, bottom = 28;
     const H = top + rows.length * rowH + bottom;
-    const x = d3.scaleLinear().domain([0, d3.max(rows, (r) => Math.max(r.alto, r.real || 0)) * 1.05]).nice().range([left, W - right]);
+    const x = d3.scaleLinear().domain([0, d3.max(rows, (r) => Math.max(r.alto, r.real || 0, r.sintetico || 0)) * 1.05]).nice().range([left, W - right]);
     const svg = d3.select(el).append('svg').attr('width', '100%').attr('viewBox', `0 0 ${W} ${H}`)
-      .attr('role', 'img').attr('aria-label', 'Rango de presupuesto mensual por canal en MXN; sin gasto real registrado');
+      .attr('role', 'img').attr('aria-label', 'Rango de presupuesto mensual por canal en MXN, con gasto sintético del último mes; sin gasto real registrado');
     svg.append('g').attr('transform', `translate(0,${H - bottom})`).call(d3.axisBottom(x).ticks(W < 480 ? 3 : 6).tickFormat((v) => mcFmt.format(v / 1000) + ' k'))
       .call((g) => g.select('.domain').remove())
       .call((g) => g.selectAll('line').attr('y1', -(H - bottom - top)).style('stroke', 'var(--cds-chart-grid)'));
@@ -828,10 +1413,12 @@
     g.append('text').attr('class', 'mc-lab').attr('x', left).attr('y', 12).text((r) => r.canal + (r.partida !== 'Pauta digital' ? ' · ' + r.partida : ''));
     g.append('rect').attr('x', (r) => x(r.bajo)).attr('y', 18).attr('height', 12).attr('width', (r) => Math.max(3, x(r.alto) - x(r.bajo))).attr('rx', 3)
       .style('fill', (r) => (r.partida === 'Pauta digital' ? dash.colors[0] : 'var(--cds-chart-muted)'));
+    g.filter((r) => r.sintetico !== null).append('circle').attr('cx', (r) => x(r.sintetico)).attr('cy', 24).attr('r', 5)
+      .style('fill', 'var(--color-bg)').style('stroke', 'var(--color-warn)').attr('stroke-width', 2);
     g.filter((r) => r.real !== null).append('circle').attr('cx', (r) => x(r.real)).attr('cy', 24).attr('r', 5)
       .style('fill', (r) => (r.real > r.alto ? 'var(--cds-chart-status-critical)' : 'var(--color-fg)'));
     g.append('rect').attr('x', 0).attr('y', 0).attr('width', W).attr('height', rowH).style('fill', 'transparent')
-      .on('pointerenter pointermove', (ev, r) => tip.show(ev, [r.canal, 'Presupuesto: ' + mcFmt.format(r.bajo) + '–' + mcFmt.format(r.alto) + ' MXN/mes', 'Gasto real: ' + (r.real === null ? 'sin datos' : mcFmt.format(r.real) + ' MXN'), 'Partida: ' + r.partida]))
+      .on('pointerenter pointermove', (ev, r) => tip.show(ev, [r.canal, 'Presupuesto: ' + mcFmt.format(r.bajo) + '–' + mcFmt.format(r.alto) + ' MXN/mes', 'Gasto real: ' + (r.real === null ? 'sin datos' : mcFmt.format(r.real) + ' MXN'), 'Gasto ' + mcMes(r.mes) + ': ' + (r.sintetico === null ? 'sin dato' : mcFmt.format(r.sintetico) + ' MXN (SINTÉTICO — no real)'), 'Partida: ' + r.partida]))
       .on('pointerleave', () => tip.hide());
   });
 </script>
