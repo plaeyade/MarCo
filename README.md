@@ -55,8 +55,9 @@ Plazas operando: MID, VHSA1 (Villahermosa sede 1), OAX. Próxima apertura: VHSA2
 - **Hecho:** marca oficial (propuesta 1), estrategia de registro ante el IMPI documentada, plantillas de campaña, circuito de
   cumplimiento COFEPRIS/LFPDPPP, plan de publicidad multicanal, calendario de congresos, tablero con datos del plan,
   públicos con fuente y sintéticos rotulados, y copia de lectura de `gamma/referencia@2`.
-- **Siguiente:** conectar las fuentes reales de `dashboard/conectores.json` (`real_inventario.csv` desde HEVESY,
-  agregado y con k ≥ 5, y después canales, embudo, plazas y reseñas). Cuando `gamma/referencia@2` pase a `estable` en
+- **Hecho (15-11-2026):** primer corte real del inventario de expedientes (HEVESY) en el tablero, agregado y con k ≥ 5.
+- **Siguiente:** que HEVESY entregue sede × mes y referente × sede/tipo, OCR de los 5 121 PDF escaneados, y después
+  conectar canales, embudo, plazas y reseñas (`dashboard/conectores.json`). Cuando `gamma/referencia@2` pase a `estable` en
   gamma-contracts, sustituir la copia de `contracts/schemas/` por un paquete versionado.
 
 ## Documentos relacionados
