@@ -1,4 +1,4 @@
-import re, json, sys, os
+import re, json, sys
 D = sys.argv[1]; OUT = sys.argv[2]
 titles = json.load(open(f"{D}/titles.json"))
 def inner(path):

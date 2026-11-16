@@ -1,4 +1,4 @@
-import math, os, subprocess, sys
+import math, os, sys
 OUT = sys.argv[1]
 C = "#5250CC"
 S = 'fill="none" stroke="{c}" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"'

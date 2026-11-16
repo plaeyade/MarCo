@@ -4,3 +4,7 @@ __pycache__/
 secrets/
 exports/
 *.dcm
+.venv/
+.DS_Store
+# Intermedio de tools/logos.py (lo lee tools/sheet.py)
+brand/logos/titles.json

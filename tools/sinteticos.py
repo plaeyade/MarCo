@@ -8,7 +8,6 @@ este script es un dato real: no proviene de expedientes, CRM, agenda ni platafor
 No genera nombres de pacientes ni de médicos: los referentes son códigos R-001, R-002…
 """
 import csv
-import math
 import os
 import random
 
