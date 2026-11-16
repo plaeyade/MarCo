@@ -54,10 +54,10 @@
 
 <div class="mc">
   <h1 class="mc-title" id="titulo">MarCo Tablero</h1>
-  <p class="mc-lead" id="lead">En <span data-draw="lead-mes" data-source="red_resumen" data-field="mes" data-row="0">—</span> la red registró <span data-draw="lead-estudios" data-source="red_resumen" data-field="estudios" data-row="0">—</span> estudios en <span data-draw="lead-sedes" data-source="sedes_resumen" data-field="operando" data-row="0">—</span> sedes operando (<span data-draw="lead-mom" data-source="red_resumen" data-field="estudios_mom_pct" data-row="0">—</span> contra el mes anterior). Origen de estas cifras: <span data-draw="lead-origen" data-source="red_resumen" data-field="origen" data-row="0">—</span>.</p>
+  <p class="mc-lead" id="lead">En <span data-draw="rm-mes" data-source="real_red_mes" data-field="mes" data-row="0">—</span>, último mes cerrado, el inventario de expedientes registra <span data-draw="rm-estudios" data-source="real_red_mes" data-field="estudios" data-row="0">—</span> estudios en la red (<span data-draw="rm-mom" data-source="real_red_mes" data-field="estudios_mom_pct" data-row="0">—</span> contra el mes anterior; promedio móvil de 3 meses: <span data-draw="rm-mm3" data-source="real_red_mes" data-field="mm3" data-row="0">—</span>) con <span data-draw="lead-sedes" data-source="sedes_resumen" data-field="operando" data-row="0">—</span> sedes operando. Origen: <span class="mc-real">REAL — inventario expedientes 15-11-2026</span>. Lo demás de desempeño es SINTÉTICO — no real, salvo donde dice REAL.</p>
 
   <div class="mc-banner" id="aviso">
-    <strong>SINTÉTICO — no real.</strong> Las métricas de desempeño (estudios, terapias, referencias, conversión, ingresos, canales, embudo, CPL/CPA, NPS, reseñas, SEO y resultados de congresos) son datos sintéticos generados con semilla fija 20261115; supuestos en <code>dashboard/data/SUPUESTOS_SINTETICOS.md</code>. No se citan ni se usan para decidir. Son reales, con fuente: población (INEGI 2020), mortalidad (INEGI 2024), GLOBOCAN, calendario de congresos, tarifas IMPI y presupuestos del plan. Cuando el inventario de expedientes tenga filas, pacientes, estudios por tipo y referencias aparecerán como <strong>REAL — inventario expedientes</strong>.
+    <strong>SINTÉTICO — no real.</strong> Las métricas de desempeño (estudios, terapias, referencias, conversión, ingresos, canales, embudo, CPL/CPA, NPS, reseñas, SEO y resultados de congresos) son datos sintéticos generados con semilla fija 20261115; supuestos en <code>dashboard/data/SUPUESTOS_SINTETICOS.md</code>. No se citan ni se usan para decidir. Son reales, con fuente: población (INEGI 2020), mortalidad (INEGI 2024), GLOBOCAN, calendario de congresos, tarifas IMPI y presupuestos del plan. Pacientes por sede, estudios por tipo, tendencia mensual de la red, crecimiento y referentes ya son <strong>REAL — inventario expedientes 15-11-2026</strong> (pestaña «Estudios y referencias» y dos cifras del resumen); el corte no trae sede × mes, así que «Plazas» sigue SINTÉTICO — no real.
   </div>
 
   <div class="mc-bar">
@@ -77,23 +77,23 @@
 
   <!-- ===================== RESUMEN ===================== -->
   <section id="resumen" class="mc-sec">
-    <p class="mc-tag" id="tag-resumen">SINTÉTICO — no real · estudios, pacientes, referencias e ingresos (salvo sedes con inventario real)</p>
+    <p class="mc-tag" id="tag-resumen">SINTÉTICO — no real · terapias, ingresos y tabla de plazas · estudios y pacientes: REAL — inventario expedientes 15-11-2026</p>
     <h2>Resumen ejecutivo</h2>
     <div class="mc-tiles" id="resumen-tiles">
       <div class="mc-card" id="tile-estudios">
-        <h3>Estudios de la red, último mes</h3>
-        <div class="mc-big"><span data-draw="red-estudios" data-source="red_resumen" data-field="estudios" data-row="0">—</span></div>
-        <div class="mc-sub"><span data-draw="red-mom" data-source="red_resumen" data-field="estudios_mom_pct" data-row="0">—</span> vs mes anterior · <span data-draw="red-origen" data-source="red_resumen" data-field="origen" data-row="0">—</span></div>
+        <h3>Estudios de la red, último mes cerrado</h3>
+        <div class="mc-big"><span data-draw="red-estudios" data-source="real_red_mes" data-field="estudios" data-row="0">—</span></div>
+        <div class="mc-sub"><span data-draw="red-mom" data-source="real_red_mes" data-field="estudios_mom_pct" data-row="0">—</span> vs mes anterior · <span class="mc-real" data-draw="red-origen" data-source="real_red_mes" data-field="origen" data-row="0">—</span></div>
       </div>
       <div class="mc-card" id="tile-pacientes">
-        <h3>Pacientes de la red, último mes</h3>
-        <div class="mc-big"><span data-draw="red-pacientes" data-source="red_resumen" data-field="pacientes" data-row="0">—</span></div>
-        <div class="mc-sub">Referidos por un médico: <span data-draw="red-referencias" data-source="red_resumen" data-field="referencias" data-row="0">—</span></div>
+        <h3>Pacientes en el inventario de expedientes</h3>
+        <div class="mc-big"><span data-draw="res-pac-total" data-source="real_inventario_calidad" data-field="valor" data-where="indicador_id=pacientes_total">—</span></div>
+        <div class="mc-sub">Nuevos en el último mes cerrado: <span data-draw="red-pacientes" data-source="real_red_mes" data-field="pacientes_nuevos" data-row="0">—</span> · con referente detectado: <span data-draw="res-ref-con" data-source="real_inventario_calidad" data-field="valor" data-where="indicador_id=ref_con_referente">—</span> · <span class="mc-real">REAL — inventario expedientes 15-11-2026</span></div>
       </div>
       <div class="mc-card" id="tile-terapias">
         <h3>Terapias (I-131 y Lu-177), último mes</h3>
         <div class="mc-big"><span data-draw="red-terapias" data-source="red_resumen" data-field="terapias" data-row="0">—</span></div>
-        <div class="mc-sub">Lu-177 previsto en Villahermosa sede 2 (CINO), próxima apertura fines 2027: hoy sin terapias Lu-177</div>
+        <div class="mc-sub">SINTÉTICO — no real (el corte real no trae terapias por mes) · Lu-177 previsto en Villahermosa sede 2 (CINO), próxima apertura fines 2027: hoy sin terapias Lu-177</div>
       </div>
       <div class="mc-card" id="tile-ingresos">
         <h3>Ingresos de plantilla, último mes</h3>
@@ -162,9 +162,9 @@
 
   <!-- ===================== PLAZAS ===================== -->
   <section id="plazas" class="mc-sec" hidden>
-    <p class="mc-tag" id="tag-plazas">SINTÉTICO — no real · salvo sedes y métricas con inventario real (ver «Origen»)</p>
+    <p class="mc-tag" id="tag-plazas">SINTÉTICO — no real · el corte real (15-11-2026) no trae sede × mes; lo real por sede está en «Estudios y referencias»</p>
     <h2>Por plaza: tendencia mensual</h2>
-    <p class="mc-note">Una gráfica por sede: Mérida, Villahermosa sede 1 (GAMMA: gammagrafía y yodo-131), Oaxaca, y como próxima apertura Villahermosa sede 2 en el CINO con el aliado estratégico (PET-CT, ciclotrón, gammagrafía, yodo-131 y lutecio-177; fines de 2027), Toluca y Colima. Ninguna sede tiene actividad antes de abrir. Pacientes, estudios, terapias, referencias y referentes activos salen del inventario de expedientes cuando existe y, mientras tanto, del inventario sintético; conversión e ingresos son sintéticos.</p>
+    <p class="mc-note">Una gráfica por sede: Mérida, Villahermosa sede 1 (GAMMA: gammagrafía y yodo-131), Oaxaca, y como próxima apertura Villahermosa sede 2 en el CINO con el aliado estratégico (PET-CT, ciclotrón, gammagrafía, yodo-131 y lutecio-177; fines de 2027), Toluca y Colima. Ninguna sede tiene actividad antes de abrir. Todas las series de esta pestaña son SINTÉTICO — no real: el inventario real de expedientes (15-11-2026) sólo trae pacientes nuevos por sede y año, que están en «Estudios y referencias». La escala sintética (cientos de estudios al mes por sede) no coincide con la real (decenas al mes en toda la red).</p>
     <div class="mc-row">
       <label for="mc-metrica">Métrica</label>
       <select class="dash-select" id="mc-metrica" aria-label="Métrica">
@@ -196,89 +196,149 @@
     </div>
   </section>
 
-  <!-- ===================== ESTUDIOS Y REFERENCIAS ===================== -->
+  <!-- ===================== ESTUDIOS Y REFERENCIAS (REAL) ===================== -->
   <section id="estudios" class="mc-sec" hidden>
-    <p class="mc-tag" id="tag-estudios" data-draw="insignia-inv" data-source="inventario_origen" data-field="insignia" data-row="0">—</p>
-    <h2>Estudios por tipo y sede, últimos 12 meses</h2>
-    <p class="mc-note">Periodo: <span data-draw="periodo-desde" data-source="inv_periodo" data-field="desde" data-row="0">—</span> a <span data-draw="periodo-hasta" data-source="inv_periodo" data-field="hasta" data-row="0">—</span>. Vocabulario del inventario de expedientes (HEVESY); Villahermosa sede 2 (CINO) abre a fines de 2027: sin estudios en el periodo; al abrir, su PET-CT irá en «Otras». Celdas de 1 a 4 se muestran como «< 5».</p>
-    <div class="mc-legend" id="leyenda-tipos">
-      <span><span class="mc-sw" data-col="0"></span>Mérida</span>
-      <span><span class="mc-sw" data-col="1"></span>Villahermosa sede 1</span>
-      <span><span class="mc-sw" data-col="2"></span>Villahermosa sede 2 · CINO (próx. apertura)</span>
-      <span><span class="mc-sw" data-col="3"></span>Oaxaca</span>
-      <span><span class="mc-sw" data-col="4"></span>Toluca</span>
-      <span><span class="mc-sw" data-col="5"></span>Colima</span>
+    <p class="mc-tag real" id="tag-estudios">REAL — inventario expedientes 15-11-2026</p>
+    <div class="mc-banner real" id="limitaciones">
+      <strong>Limitaciones del corte real.</strong>
+      <span data-draw="cal-desc-pct" data-source="real_inventario_calidad" data-field="valor" data-where="indicador_id=sede_desconocida_pct">—</span> % de los pacientes (<span data-draw="cal-desc" data-source="real_inventario_calidad" data-field="valor" data-where="indicador_id=sede_desconocida">—</span> de <span data-draw="cal-total" data-source="real_inventario_calidad" data-field="valor" data-where="indicador_id=pacientes_total">—</span>) tienen sede «desconocida»: ni el informe ni la ruta la indican, así que las cifras por sede son un piso.
+      <span data-draw="cal-ocr" data-source="real_inventario_calidad" data-field="valor" data-where="indicador_id=pdf_sin_ocr">—</span> PDF sin texto extraíble (escaneos sin OCR, <span data-draw="cal-ocr-pct" data-source="real_inventario_calidad" data-field="valor" data-where="indicador_id=pdf_sin_ocr_pct">—</span> % de los PDF) pueden subestimar tipos de estudio y referentes.
+      <span data-draw="cal-fecha" data-source="real_inventario_calidad" data-field="valor" data-where="indicador_id=fecha_por_archivo_pct">—</span> % de los estudios se fechan por la fecha del archivo, no por la del informe.
+      Los meses anteriores a 2023-07 (1 a 4 estudios cada uno) son <strong>registro incompleto</strong> y se suman en una sola fila. Noviembre de 2026 es parcial (hasta el día del corte). Celdas con menos de 5 pacientes se suman en «otros/&lt;5» (k ≥ 5).
     </div>
-    <div class="mc-chart mid" id="grafica-tipos" data-draw="tipos-chart" data-source="tipo_matriz"></div>
+
+    <h2 id="real-sedes">Pacientes por sede</h2>
+    <p class="mc-note">Carpetas de paciente por sede detectada, todo el periodo. «Desconocida»: sin señal de sede; «ambigua»: señales de varias sedes. Villahermosa sede 2 (CINO), Toluca y Colima son próxima apertura: sin pacientes.</p>
+    <div class="mc-chart short" id="grafica-real-sedes" data-draw="real-sedes-chart" data-source="real_sedes"></div>
     <div class="mc-wrap">
-      <table class="mc-table" data-source="tipo_matriz" data-row-key="tipo_estudio" id="tabla-tipos">
+      <table class="mc-table" data-source="real_sedes" data-row-key="nombre" id="tabla-real-sedes">
         <thead><tr>
-          <th data-field="estudio">Tipo de estudio</th>
-          <th data-field="MID" class="num">Mérida</th>
-          <th data-field="VHSA1" class="num">VHSA sede 1</th>
-          <th data-field="VHSA2" class="num">VHSA sede 2 · CINO (próx.)</th>
-          <th data-field="OAX" class="num">Oaxaca</th>
-          <th data-field="TOL" class="num">Toluca</th>
-          <th data-field="COL" class="num">Colima</th>
-          <th data-field="total" class="num">Estudios</th>
+          <th data-field="nombre">Sede</th>
           <th data-field="pacientes" class="num">Pacientes</th>
+          <th data-field="pct" class="num">% del total</th>
         </tr></thead>
-        <tbody data-draw="tabla-tipos"></tbody>
+        <tbody data-draw="tabla-real-sedes"></tbody>
       </table>
     </div>
 
-    <h2 id="referentes">Médicos referentes, últimos 12 meses</h2>
-    <p class="mc-note">Sólo códigos de referente (R-001…), nunca nombres. Se listan los 15 con más pacientes y con al menos 5; los demás se suman en «Otros».</p>
-    <div class="mc-row">
-      <label for="mc-sede-ref">Sede</label>
-      <select class="dash-select" id="mc-sede-ref" aria-label="Sede de los referentes">
-        <option value="todas">Todas las sedes</option>
-        <option value="MID">Mérida</option>
-        <option value="VHSA1">Villahermosa sede 1</option>
-        <option value="VHSA2">Villahermosa sede 2 · CINO (próxima apertura)</option>
-        <option value="OAX">Oaxaca</option>
-        <option value="TOL">Toluca</option>
-        <option value="COL">Colima</option>
-      </select>
+    <h2 id="real-tipos">Estudios por tipo: gammagrafía y yodo-131 por separado</h2>
+    <p class="mc-note">Estudio = paciente × tipo × mes. Pacientes = pacientes con al menos un estudio del tipo (un paciente puede contar en varios tipos). Gammagrafía: <span data-draw="fam-gam-est" data-source="real_familias" data-field="estudios" data-where="familia=gammagrafia">—</span> estudios (<span data-draw="fam-gam-pct" data-source="real_familias" data-field="pct_estudios" data-where="familia=gammagrafia">—</span> %); yodo-131: <span data-draw="fam-yod-est" data-source="real_familias" data-field="estudios" data-where="familia=yodo">—</span> estudios (<span data-draw="fam-yod-pct" data-source="real_familias" data-field="pct_estudios" data-where="familia=yodo">—</span> %).</p>
+    <div class="mc-legend" id="leyenda-real-tipos">
+      <span><span class="mc-sw" data-col="0"></span>Gammagrafía</span>
+      <span><span class="mc-sw" data-col="1"></span>Yodo-131 (rastreo y terapia)</span>
     </div>
-    <h2 id="referentes-gamma">Referencias para gammagrafía</h2>
-    <p class="mc-note">Gammagrafía ósea, tiroidea, renal, perfusión miocárdica y paratiroides.</p>
+    <div class="mc-chart mid" id="grafica-real-tipos" data-draw="real-tipos-chart" data-source="real_tipos"></div>
+    <h2 id="real-tipos-gamma">Gammagrafía</h2>
     <div class="mc-wrap">
-      <table class="mc-table" data-source="referentes" data-row-key="grupo,referente_codigo" id="tabla-ref-gamma">
+      <table class="mc-table" data-source="real_tipos" data-row-key="estudio" id="tabla-real-gamma">
         <thead><tr>
-          <th data-field="rango" class="num">#</th>
-          <th data-field="referente_codigo">Referente</th>
-          <th data-field="especialidad">Especialidad</th>
-          <th data-field="sedes">Sedes</th>
-          <th data-field="pacientes" class="num">Pacientes</th>
+          <th data-field="estudio">Tipo de estudio</th>
           <th data-field="estudios" class="num">Estudios</th>
-          <th data-field="origen">Origen</th>
+          <th data-field="pacientes" class="num">Pacientes</th>
+          <th data-field="pct_familia" class="num">% de gammagrafía</th>
         </tr></thead>
-        <tbody data-draw="tabla-ref-gamma"></tbody>
+        <tbody data-draw="tabla-real-gamma"></tbody>
       </table>
     </div>
-    <h2 id="referentes-yodo">Referencias para yodo-131</h2>
-    <p class="mc-note">Rastreo con I-131 y terapia con I-131.</p>
+    <h2 id="real-tipos-yodo">Yodo-131</h2>
     <div class="mc-wrap">
-      <table class="mc-table" data-source="referentes" data-row-key="grupo,referente_codigo" id="tabla-ref-yodo">
+      <table class="mc-table" data-source="real_tipos" data-row-key="estudio" id="tabla-real-yodo">
         <thead><tr>
-          <th data-field="rango" class="num">#</th>
-          <th data-field="referente_codigo">Referente</th>
-          <th data-field="especialidad">Especialidad</th>
-          <th data-field="sedes">Sedes</th>
-          <th data-field="pacientes" class="num">Pacientes</th>
+          <th data-field="estudio">Tipo de estudio</th>
           <th data-field="estudios" class="num">Estudios</th>
-          <th data-field="origen">Origen</th>
+          <th data-field="pacientes" class="num">Pacientes</th>
+          <th data-field="pct_familia" class="num">% de yodo-131</th>
         </tr></thead>
-        <tbody data-draw="tabla-ref-yodo"></tbody>
+        <tbody data-draw="tabla-real-yodo"></tbody>
       </table>
     </div>
-    <h2 id="especialidades">Pacientes referidos por especialidad</h2>
-    <div class="mc-legend" id="leyenda-esp">
+    <p class="mc-note">Subtipos de yodo-131 (pacientes): rastreo diagnóstico <span data-draw="sub-rd" data-source="real_inventario" data-field="pacientes" data-where="sede=todas&amp;tipo_estudio=rastreo_i131/diagnostico">—</span>, rastreo post-dosis <span data-draw="sub-rp" data-source="real_inventario" data-field="pacientes" data-where="sede=todas&amp;tipo_estudio=rastreo_i131/post_dosis">—</span>; terapia ablativa <span data-draw="sub-ta" data-source="real_inventario" data-field="pacientes" data-where="sede=todas&amp;tipo_estudio=terapia_i131/ablativa">—</span>, adyuvante <span data-draw="sub-tad" data-source="real_inventario" data-field="pacientes" data-where="sede=todas&amp;tipo_estudio=terapia_i131/adyuvante">—</span>, sin especificar <span data-draw="sub-ts" data-source="real_inventario" data-field="pacientes" data-where="sede=todas&amp;tipo_estudio=terapia_i131/sin_especificar">—</span>. Sin Lu-177 ni PET-CT: sólo se ofrecerán en Villahermosa sede 2 (CINO), que aún no abre.</p>
+
+    <h2 id="real-gy">Proporción gammagrafía vs yodo-131 por sede</h2>
+    <p class="mc-note">Pacientes con al menos un estudio de cada familia (un paciente con ambos cuenta en las dos). Las celdas de menos de 5 pacientes (perfusión y «otras» en algunas sedes) quedan fuera, por k ≥ 5.</p>
+    <div class="mc-legend" id="leyenda-real-gy">
       <span><span class="mc-sw" data-col="0"></span>Gammagrafía</span>
       <span><span class="mc-sw" data-col="1"></span>Yodo-131</span>
     </div>
-    <div class="mc-chart mid" id="grafica-especialidades" data-draw="esp-chart" data-source="especialidades"></div>
+    <div class="mc-chart short" id="grafica-real-gy" data-draw="real-gy-chart" data-source="real_gamma_yodo"></div>
+    <div class="mc-wrap">
+      <table class="mc-table" data-source="real_gamma_yodo" data-row-key="nombre" id="tabla-real-gy">
+        <thead><tr>
+          <th data-field="nombre">Sede</th>
+          <th data-field="gammagrafia" class="num">Gammagrafía (pacientes)</th>
+          <th data-field="yodo" class="num">Yodo-131 (pacientes)</th>
+          <th data-field="pct_gamma" class="num">% gammagrafía</th>
+          <th data-field="pct_yodo" class="num">% yodo-131</th>
+        </tr></thead>
+        <tbody data-draw="tabla-real-gy"></tbody>
+      </table>
+    </div>
+
+    <h2 id="real-mensual">Tendencia mensual real de la red</h2>
+    <p class="mc-note">Estudios por mes (barras) y promedio móvil de 3 meses (línea), de 2023-07 al corte. El inventario no trae sede × mes, por eso la tendencia es de la red completa. Antes de 2023-07: registro incompleto, <span data-draw="pre-est" data-source="real_inventario" data-field="estudios" data-where="sede=todas&amp;anio=&lt;2023-07">—</span> estudios sumados en <span data-draw="pre-meses" data-source="real_inventario_calidad" data-field="valor" data-where="indicador_id=meses_registro_incompleto">—</span> meses sueltos (no se grafican). La barra clara es el mes en curso (parcial).</p>
+    <div class="mc-chart" id="grafica-real-mensual" data-draw="real-mensual-chart" data-source="real_mensual"></div>
+    <div class="mc-wrap">
+      <table class="mc-table" data-source="real_anual" data-row-key="periodo" id="tabla-real-anual">
+        <thead><tr>
+          <th data-field="periodo">Periodo</th>
+          <th data-field="estudios" class="num">Estudios</th>
+          <th data-field="meses" class="num">Meses</th>
+          <th data-field="estudios_mes" class="num">Estudios / mes</th>
+          <th data-field="pct_vs_anterior" class="num">vs año anterior</th>
+          <th data-field="pacientes_nuevos" class="num">Pacientes nuevos</th>
+        </tr></thead>
+        <tbody data-draw="tabla-real-anual"></tbody>
+      </table>
+    </div>
+
+    <h2 id="real-crecimiento">Crecimiento: pacientes nuevos por año y sede</h2>
+    <p class="mc-note">Pacientes cuyo primer estudio cae en el año. 2023 empieza en julio y no se compara. 2026 se anualiza con enero a octubre: el corte por sede incluye hasta el 15 de noviembre, así que se ajusta por la parte de enero a octubre de la red (<span data-draw="fac-eneoct" data-source="real_factor" data-field="ene_oct" data-row="0">—</span> de <span data-draw="fac-total" data-source="real_factor" data-field="total_corte" data-row="0">—</span>) y se multiplica por 12/10 (factor <span data-draw="fac-f" data-source="real_factor" data-field="factor" data-row="0">—</span>).</p>
+    <div class="mc-legend" id="leyenda-real-crec">
+      <span><span class="mc-sw" data-col="0"></span>2024</span>
+      <span><span class="mc-sw" data-col="1"></span>2025</span>
+      <span><span class="mc-sw" data-col="2"></span>2026 anualizado</span>
+    </div>
+    <div class="mc-chart mid" id="grafica-real-crec" data-draw="real-crec-chart" data-source="real_crecimiento"></div>
+    <div class="mc-wrap">
+      <table class="mc-table" data-source="real_crecimiento" data-row-key="nombre" id="tabla-real-crec">
+        <thead><tr>
+          <th data-field="nombre">Sede</th>
+          <th data-field="n2024" class="num">2024</th>
+          <th data-field="n2025" class="num">2025</th>
+          <th data-field="pct_24_25" class="num">2024→2025</th>
+          <th data-field="n2026_corte" class="num">2026 al corte</th>
+          <th data-field="n2026_anualizado" class="num">2026 anualizado</th>
+          <th data-field="pct_25_26" class="num">2025→2026 (anual.)</th>
+        </tr></thead>
+        <tbody data-draw="tabla-real-crec"></tbody>
+      </table>
+    </div>
+
+    <h2 id="referentes">Médicos referentes por código</h2>
+    <p class="mc-note">Sólo códigos (R-###); la tabla código → médico es local y nunca sale de la PC del propietario. Se listan los <span data-draw="ref-k5" data-source="real_inventario_calidad" data-field="valor" data-where="indicador_id=ref_codigos_k5">—</span> referentes con 5 o más pacientes; los otros <span data-draw="ref-otros" data-source="real_inventario_calidad" data-field="valor" data-where="indicador_id=ref_codigos_otros">—</span> se suman en «otros/&lt;5». Pacientes con referente detectado: <span data-draw="ref-con" data-source="real_inventario_calidad" data-field="valor" data-where="indicador_id=ref_con_referente">—</span>; sin referente en el texto: <span data-draw="ref-nd" data-source="real_inventario_calidad" data-field="valor" data-where="indicador_id=ref_no_detectado">—</span>; ilegibles por falta de OCR: <span data-draw="ref-ocr" data-source="real_inventario_calidad" data-field="valor" data-where="indicador_id=ref_sin_ocr">—</span>. Un paciente puede tener más de un referente. El inventario no cruza referente con sede ni con tipo de estudio.</p>
+    <div class="mc-wrap">
+      <table class="mc-table" data-source="real_referentes" data-row-key="referente_codigo" id="tabla-real-ref">
+        <thead><tr>
+          <th data-field="rango" class="num">#</th>
+          <th data-field="referente_codigo">Referente</th>
+          <th data-field="especialidad">Especialidad</th>
+          <th data-field="pacientes" class="num">Pacientes</th>
+        </tr></thead>
+        <tbody data-draw="tabla-real-ref"></tbody>
+      </table>
+    </div>
+    <h2 id="especialidades">Pacientes referidos por especialidad del referente</h2>
+    <p class="mc-note">Suma por especialidad de todos los referentes (incluye los de «otros/&lt;5»). <span data-draw="esp-nd" data-source="real_inventario_calidad" data-field="valor" data-where="indicador_id=esp_no_detectada_pct">—</span> % no tiene especialidad detectada en el texto; especialidades con menos de 5 pacientes se suman.</p>
+    <div class="mc-wrap">
+      <table class="mc-table" data-source="real_especialidades" data-row-key="especialidad" id="tabla-real-esp">
+        <thead><tr>
+          <th data-field="especialidad">Especialidad</th>
+          <th data-field="pacientes" class="num">Pacientes referidos</th>
+          <th data-field="pct" class="num">%</th>
+        </tr></thead>
+        <tbody data-draw="tabla-real-esp"></tbody>
+      </table>
+    </div>
   </section>
 
   <!-- ===================== AUDIENCIA ===================== -->
@@ -579,7 +639,7 @@
   </details>
 
   <footer class="mc-foot" id="pie">
-    <strong>SINTÉTICO — no real:</strong> todas las métricas de desempeño de este tablero salvo las marcadas «REAL». Semilla 20261115 · <code>tools/sinteticos.py</code> · supuestos en <code>dashboard/data/SUPUESTOS_SINTETICOS.md</code>. Inventario de expedientes: <span data-draw="pie-inv" data-source="inventario_origen" data-field="insignia" data-row="0">—</span>.
+    <strong>SINTÉTICO — no real:</strong> todas las métricas de desempeño de este tablero salvo las marcadas «REAL». Semilla 20261115 · <code>tools/sinteticos.py</code> · supuestos en <code>dashboard/data/SUPUESTOS_SINTETICOS.md</code>. Inventario de expedientes: <span data-draw="pie-inv" data-source="inventario_origen" data-field="insignia" data-row="0">—</span>. Generado con <code>tools/real_inventario.py</code> a partir del resumen agregado de HEVESY (sin nombres, CURP, folios ni fechas de nacimiento).
   </footer>
 </div>
 
@@ -596,7 +656,7 @@
   });
   window.mcMes = (m) => (m ? mcEs.utcFormat('%B %Y')(new Date(m + '-01T00:00:00Z')) : '');
   window.mcSINT = 'SINTÉTICO — no real';
-  window.mcREAL = 'REAL — inventario expedientes';
+  window.mcREAL = 'REAL — inventario expedientes 15-11-2026';
   window.mcSedes = [['MID', 'GAMMA Mérida'], ['VHSA1', 'GAMMA Villahermosa sede 1'], ['VHSA2', 'GAMMA Villahermosa sede 2 · CINO'], ['OAX', 'GAMMA Oaxaca'], ['TOL', 'GAMMA Toluca'], ['COL', 'GAMMA Colima']];
   window.mcProximas = ['VHSA2', 'TOL', 'COL'];
   window.mcEsProxima = (e) => String(e || '').startsWith('Próxima apertura');
@@ -614,33 +674,26 @@
         pacientes: +r.pacientes || 0, estudios: +r.estudios || 0,
         referente_codigo: r.referente_codigo || '', especialidad_referente: r.especialidad_referente || '', origen,
       });
-      const sedesReales = new Set(real.map((r) => r.sede));
+      // Sólo filas reales de grano completo (sede operando × año × mes × tipo) sustituyen al sintético; el corte 15-11-2026 no las trae.
+      const grano = real.filter((r) => mcSedes.some(([s]) => s === r.sede) && /^\d{4}$/.test(r.anio) && r.mes && r.tipo_estudio && r.tipo_estudio !== 'todos' && !r.tipo_estudio.includes('/'));
+      const sedesReales = new Set(grano.map((r) => r.sede));
       return [
-        ...real.map((r) => norm(r, 'REAL — inventario expedientes')),
+        ...grano.map((r) => norm(r, 'REAL — inventario expedientes')),
         ...sintetico.filter((r) => !sedesReales.has(r.sede)).map((r) => norm(r, 'SINTÉTICO — no real')),
       ];
     },
   });
   dash.calc('inventario_origen', {
     title: 'Origen del inventario',
-    description: 'Dice si el inventario real de expedientes tiene filas y de qué sedes.',
-    inputs: ['real_inventario'],
-    fn: (real) => {
-      const sedes = Array.from(new Set(real.map((r) => r.sede))).sort();
-      const insignia = !real.length ? 'SINTÉTICO — no real' : sedes.length >= 6 ? 'REAL — inventario expedientes' : 'REAL — inventario expedientes (' + sedes.join(', ') + ') · SINTÉTICO — no real (resto de sedes)';
+    description: 'Dice si el inventario real de expedientes tiene filas, de qué sedes y la fecha del corte.',
+    inputs: ['real_inventario', 'real_inventario_calidad'],
+    fn: (real, calidad) => {
+      const sedes = Array.from(new Set(real.map((r) => r.sede).filter((s) => mcSedes.some(([c]) => c === s)))).sort();
+      const corte = ((calidad.find((r) => r.indicador_id === 'fecha_corrida') || {}).valor || '').split('-').reverse().join('-');
+      const insignia = !real.length ? 'SINTÉTICO — no real' : 'REAL — inventario expedientes ' + corte + ' (agregado: ' + sedes.join(', ') + ', sede desconocida y ambigua; sin sede × mes) · SINTÉTICO — no real en «Plazas»';
       return [{ filas_reales: real.length, sedes_reales: sedes.join(', '), insignia }];
     },
   });
-  dash.calc('inv_periodo', {
-    title: 'Periodo de los últimos 12 meses del inventario',
-    description: 'Primer y último mes de la ventana de 12 meses usada en tipos de estudio y referentes.',
-    inputs: ['inventario_vista'],
-    fn: (inv) => {
-      const meses = Array.from(new Set(inv.map((r) => r.mes))).sort().slice(-12);
-      return [{ desde: meses[0] || '', hasta: meses[meses.length - 1] || '' }];
-    },
-  });
-
   // ---------- Plazas ----------
   dash.calc('plazas_base', {
     title: 'Métricas por sede y mes',
@@ -722,72 +775,6 @@
         estudios_mom_pct: estp ? Math.round((est / estp - 1) * 1000) / 10 : null,
         origen: origenes.length === 1 ? origenes[0] : 'mixto: REAL en algunas sedes, SINTÉTICO — no real en otras',
       }];
-    },
-  });
-
-  // ---------- Tipos de estudio y referentes ----------
-  dash.calc('tipo_matriz', {
-    title: 'Estudios por tipo y sede, últimos 12 meses',
-    description: 'Suma de estudios por tipo y sede en los últimos 12 meses del inventario; celdas de 1 a 4 se ocultan (k ≥ 5).',
-    inputs: ['inventario_vista'],
-    fn: (inventario) => {
-      const meses = new Set(Array.from(new Set(inventario.map((r) => r.mes))).sort().slice(-12));
-      const f = inventario.filter((r) => meses.has(r.mes));
-      const k5 = (v) => (v > 0 && v < 5 ? null : v);
-      const nombres = { gammagrafia_osea: 'Gammagrafía ósea', tiroidea: 'Gammagrafía tiroidea', renal: 'Gammagrafía renal', perfusion_miocardica: 'Perfusión miocárdica', paratiroides: 'Paratiroides', rastreo_i131: 'Rastreo con I-131', terapia_i131: 'Terapia con I-131', lu177: 'Terapia con Lu-177', otras: 'Otras (incluye PET-CT en VHSA sede 2)' };
-      return Object.keys(nombres).map((t) => {
-        const ft = f.filter((r) => r.tipo_estudio === t);
-        const fila = { tipo_estudio: t, estudio: nombres[t] };
-        for (const s of ['MID', 'VHSA1', 'VHSA2', 'OAX', 'TOL', 'COL']) fila[s] = k5(d3.sum(ft.filter((r) => r.sede === s), (r) => r.estudios));
-        fila.total = k5(d3.sum(ft, (r) => r.estudios));
-        fila.pacientes = k5(d3.sum(ft, (r) => r.pacientes));
-        return fila;
-      });
-    },
-  });
-  dash.calc('referentes', {
-    title: 'Referentes para gammagrafía y para yodo-131, últimos 12 meses',
-    description: 'Pacientes y estudios por código de referente (sin nombres) en la sede elegida; top 15 con al menos 5 pacientes y el resto sumado en «Otros».',
-    inputs: ['inventario_vista'],
-    fn: (inventario) => {
-      const sede = dash.params().sede_ref || 'todas';
-      const meses = new Set(Array.from(new Set(inventario.map((r) => r.mes))).sort().slice(-12));
-      const grupos = { gammagrafia: ['gammagrafia_osea', 'tiroidea', 'renal', 'perfusion_miocardica', 'paratiroides'], yodo: ['rastreo_i131', 'terapia_i131'] };
-      const out = [];
-      for (const [grupo, tipos] of Object.entries(grupos)) {
-        const f = inventario.filter((r) => meses.has(r.mes) && r.referente_codigo && tipos.includes(r.tipo_estudio) && (sede === 'todas' || r.sede === sede));
-        const por = d3.rollups(f, (v) => ({
-          especialidad: v[0].especialidad_referente, sedes: Array.from(new Set(v.map((r) => r.sede))).sort().join(', '),
-          pacientes: d3.sum(v, (r) => r.pacientes), estudios: d3.sum(v, (r) => r.estudios),
-          origen: Array.from(new Set(v.map((r) => r.origen))).join(' / '),
-        }), (r) => r.referente_codigo).map(([codigo, x]) => ({ grupo, referente_codigo: codigo, ...x })).sort((a, b) => b.pacientes - a.pacientes);
-        const top = por.filter((r) => r.pacientes >= 5).slice(0, 15);
-        const resto = por.filter((r) => !top.includes(r));
-        top.forEach((r, i) => out.push({ ...r, rango: i + 1 }));
-        if (resto.length) {
-          const pac = d3.sum(resto, (r) => r.pacientes), est = d3.sum(resto, (r) => r.estudios);
-          out.push({ grupo, referente_codigo: 'Otros', rango: null, especialidad: resto.length + ' referentes más', sedes: '', pacientes: pac < 5 ? null : pac, estudios: est < 5 ? null : est, origen: Array.from(new Set(resto.map((r) => r.origen))).join(' / ') });
-        }
-      }
-      return out;
-    },
-  });
-  dash.calc('especialidades', {
-    title: 'Pacientes referidos por especialidad',
-    description: 'Pacientes referidos para gammagrafía y para yodo-131 por especialidad del referente, últimos 12 meses, sede elegida; celdas de 1 a 4 se ocultan.',
-    inputs: ['inventario_vista'],
-    fn: (inventario) => {
-      const sede = dash.params().sede_ref || 'todas';
-      const meses = new Set(Array.from(new Set(inventario.map((r) => r.mes))).sort().slice(-12));
-      const gam = ['gammagrafia_osea', 'tiroidea', 'renal', 'perfusion_miocardica', 'paratiroides'], yod = ['rastreo_i131', 'terapia_i131'];
-      const f = inventario.filter((r) => meses.has(r.mes) && r.referente_codigo && (sede === 'todas' || r.sede === sede));
-      const k5 = (v) => (v > 0 && v < 5 ? null : v);
-      return d3.rollups(f, (v) => ({
-        gammagrafia: k5(d3.sum(v.filter((r) => gam.includes(r.tipo_estudio)), (r) => r.pacientes)),
-        yodo: k5(d3.sum(v.filter((r) => yod.includes(r.tipo_estudio)), (r) => r.pacientes)),
-      }), (r) => r.especialidad_referente || 'Sin especialidad').map(([especialidad, x]) => ({ especialidad, ...x }))
-        .filter((r) => r.gammagrafia !== 0 || r.yodo !== 0)
-        .sort((a, b) => (b.gammagrafia || 0) + (b.yodo || 0) - (a.gammagrafia || 0) - (a.yodo || 0));
     },
   });
 
@@ -976,6 +963,161 @@
     },
   });
 </script>
+<script>
+  // ---------- REAL — inventario expedientes (HEVESY), corte agregado ----------
+  // real_inventario.csv trae tablas marginales en un solo archivo (ver SUPUESTOS_SINTETICOS.md, «Datos reales»):
+  // sede total (anio, mes vacíos; tipo «todos»), sede × tipo, sede × año del primer estudio, red × mes, red × tipo/subtipo y referentes.
+  window.mcSedesReal = [['OAX', 'GAMMA Oaxaca'], ['desconocida', 'Sede desconocida (sin señal)'], ['VHSA1', 'GAMMA Villahermosa sede 1'], ['MID', 'GAMMA Mérida'], ['ambigua', 'Ambigua (varias sedes)']];
+  window.mcTiposReal = { gammagrafia_osea: ['Gammagrafía ósea', 'gammagrafia'], tiroidea: ['Gammagrafía tiroidea', 'gammagrafia'], renal: ['Gammagrafía renal', 'gammagrafia'], paratiroides: ['Paratiroides', 'gammagrafia'], perfusion_miocardica: ['Perfusión miocárdica', 'gammagrafia'], otras: ['Otras', 'gammagrafia'], rastreo_i131: ['Rastreo con I-131', 'yodo'], terapia_i131: ['Terapia con I-131', 'yodo'] };
+  window.mcEspReal = { no_detectada: 'No detectada', oncologia: 'Oncología', cirugia: 'Cirugía', hematologia: 'Hematología', cardiologia: 'Cardiología', endocrinologia: 'Endocrinología', medicina_interna: 'Medicina interna', medicina_general: 'Medicina general', urologia: 'Urología', varias: 'Varias', 'otros/<5': 'Otras (menos de 5 c/u)' };
+  dash.calc('real_sedes', {
+    title: 'REAL · Pacientes por sede',
+    description: 'Pacientes por sede detectada en el corte del inventario de expedientes, con su porcentaje del total.',
+    inputs: ['real_inventario'],
+    fn: (real) => {
+      const tot = real.find((r) => r.sede === 'todas' && !r.anio && r.tipo_estudio === 'todos' && !r.referente_codigo);
+      const tt = tot ? +tot.pacientes : 0;
+      return mcSedesReal.map(([sede, nombre]) => {
+        const r = real.find((x) => x.sede === sede && !x.anio && x.tipo_estudio === 'todos' && !x.referente_codigo);
+        const n = r ? +r.pacientes : null;
+        return { sede, nombre, pacientes: n, pct: n != null && tt ? Math.round((n / tt) * 1000) / 10 : null };
+      }).filter((r) => r.pacientes != null);
+    },
+  });
+  dash.calc('real_tipos', {
+    title: 'REAL · Estudios y pacientes por tipo',
+    description: 'Estudios (paciente × tipo × mes) y pacientes por tipo en la red, agrupados en gammagrafía y yodo-131, con su porcentaje dentro de la familia.',
+    inputs: ['real_inventario'],
+    fn: (real) => {
+      const f = real.filter((r) => r.sede === 'todas' && !r.anio && mcTiposReal[r.tipo_estudio] && !r.referente_codigo);
+      const fam = d3.rollup(f, (v) => d3.sum(v, (r) => +r.estudios), (r) => mcTiposReal[r.tipo_estudio][1]);
+      return f.map((r) => {
+        const [estudio, familia] = mcTiposReal[r.tipo_estudio];
+        return { tipo_estudio: r.tipo_estudio, estudio, familia, estudios: +r.estudios, pacientes: +r.pacientes, pct_familia: Math.round((+r.estudios / fam.get(familia)) * 1000) / 10 };
+      }).sort((a, b) => d3.ascending(a.familia, b.familia) || b.estudios - a.estudios);
+    },
+  });
+  dash.calc('real_familias', {
+    title: 'REAL · Gammagrafía vs yodo-131 (red)',
+    description: 'Estudios de gammagrafía y de yodo-131 en la red y su porcentaje del total de estudios.',
+    inputs: ['real_tipos'],
+    fn: (tipos) => {
+      const tot = d3.sum(tipos, (r) => r.estudios);
+      return ['gammagrafia', 'yodo'].map((familia) => {
+        const e = d3.sum(tipos.filter((r) => r.familia === familia), (r) => r.estudios);
+        return { familia, estudios: e, pct_estudios: tot ? Math.round((e / tot) * 1000) / 10 : null };
+      });
+    },
+  });
+  dash.calc('real_gamma_yodo', {
+    title: 'REAL · Proporción gammagrafía vs yodo-131 por sede',
+    description: 'Por sede, pacientes con estudios de gammagrafía y de yodo-131 (rastreo y terapia) y su proporción; la red usa los conteos por tipo de la red.',
+    inputs: ['real_inventario'],
+    fn: (real) => {
+      const filas = [...mcSedesReal.filter(([s]) => s !== 'ambigua'), ['todas', 'Red completa']];
+      return filas.map(([sede, nombre]) => {
+        const f = real.filter((r) => r.sede === sede && !r.anio && mcTiposReal[r.tipo_estudio] && !r.referente_codigo);
+        const g = d3.sum(f.filter((r) => mcTiposReal[r.tipo_estudio][1] === 'gammagrafia'), (r) => +r.pacientes);
+        const y = d3.sum(f.filter((r) => mcTiposReal[r.tipo_estudio][1] === 'yodo'), (r) => +r.pacientes);
+        const t = g + y;
+        return { sede, nombre, gammagrafia: g, yodo: y, pct_gamma: t ? Math.round((g / t) * 1000) / 10 : null, pct_yodo: t ? Math.round((y / t) * 1000) / 10 : null };
+      });
+    },
+  });
+  dash.calc('real_mensual', {
+    title: 'REAL · Estudios por mes y promedio móvil de 3 meses',
+    description: 'Estudios y pacientes nuevos por mes en la red desde 2023-07, con promedio móvil de 3 meses (sin el mes en curso, que es parcial).',
+    inputs: ['real_inventario', 'real_inventario_calidad'],
+    fn: (real, calidad) => {
+      const parcial = (calidad.find((r) => r.indicador_id === 'mes_parcial') || {}).valor || '';
+      const f = real.filter((r) => r.sede === 'todas' && /^\d{4}$/.test(r.anio) && r.mes)
+        .map((r) => ({ mes: r.anio + '-' + String(r.mes).padStart(2, '0'), estudios: +r.estudios, pacientes_nuevos: +r.pacientes }))
+        .sort((a, b) => d3.ascending(a.mes, b.mes));
+      return f.map((r, i) => {
+        const es = r.mes === parcial;
+        const v = i >= 2 && !es ? [f[i - 2], f[i - 1], r] : null;
+        return { ...r, estado: es ? 'mes en curso (parcial)' : 'completo', mm3: v ? Math.round((d3.sum(v, (x) => x.estudios) / 3) * 10) / 10 : null };
+      });
+    },
+  });
+  dash.calc('real_red_mes', {
+    title: 'REAL · Red, último mes cerrado',
+    description: 'Estudios y pacientes nuevos del último mes completo, variación contra el mes anterior y promedio móvil de 3 meses.',
+    inputs: ['real_mensual'],
+    fn: (serie) => {
+      const c = serie.filter((r) => r.estado === 'completo');
+      const u = c[c.length - 1], p = c[c.length - 2];
+      if (!u) return [];
+      return [{ mes: u.mes, estudios: u.estudios, pacientes_nuevos: u.pacientes_nuevos, mm3: u.mm3, estudios_mom_pct: p ? Math.round((u.estudios / p.estudios - 1) * 1000) / 10 : null, origen: 'REAL — inventario expedientes 15-11-2026' }];
+    },
+  });
+  dash.calc('real_anual', {
+    title: 'REAL · Estudios por año y promedio mensual',
+    description: 'Estudios, meses con dato, estudios por mes y pacientes nuevos por año; 2026 sólo enero a octubre (meses completos).',
+    inputs: ['real_mensual'],
+    fn: (serie) => {
+      const c = serie.filter((r) => r.estado === 'completo');
+      const out = [];
+      for (const [anio, v] of d3.groups(c, (r) => r.mes.slice(0, 4)).sort((a, b) => d3.ascending(a[0], b[0]))) {
+        const e = d3.sum(v, (r) => r.estudios);
+        out.push({ anio, periodo: anio + (anio === '2023' ? ' (desde julio)' : v.length < 12 ? ' (enero a ' + mcEs.utcFormat('%B')(new Date(v[v.length - 1].mes + '-01T00:00:00Z')) + ')' : ''), estudios: e, meses: v.length, estudios_mes: Math.round((e / v.length) * 10) / 10, pacientes_nuevos: d3.sum(v, (r) => r.pacientes_nuevos) });
+      }
+      out.forEach((r, i) => { r.pct_vs_anterior = i > 0 && out[i - 1].anio !== '2023' ? Math.round((r.estudios_mes / out[i - 1].estudios_mes - 1) * 1000) / 10 : null; });
+      return out;
+    },
+  });
+  dash.calc('real_factor', {
+    title: 'REAL · Factor para anualizar 2026',
+    description: 'Pacientes nuevos de la red en enero a octubre de 2026 y en todo 2026 al corte; factor = (enero a octubre ÷ total al corte) × 12/10.',
+    inputs: ['real_mensual'],
+    fn: (serie) => {
+      const a = serie.filter((r) => r.mes.startsWith('2026'));
+      const eo = d3.sum(a.filter((r) => r.estado === 'completo'), (r) => r.pacientes_nuevos), tt = d3.sum(a, (r) => r.pacientes_nuevos);
+      return [{ ene_oct: eo, total_corte: tt, factor: tt ? Math.round((eo / tt) * 1.2 * 10000) / 10000 : null }];
+    },
+  });
+  dash.calc('real_crecimiento', {
+    title: 'REAL · Pacientes nuevos por año y sede',
+    description: 'Pacientes con primer estudio en 2024, 2025 y 2026 por sede, 2026 anualizado con el factor de la red, y crecimiento año contra año.',
+    inputs: ['real_inventario', 'real_mensual', 'real_factor'],
+    fn: (real, serie, factor) => {
+      const fct = factor[0] ? factor[0].factor : null;
+      const pct = (a, b) => (a == null || !b ? null : Math.round((a / b - 1) * 1000) / 10);
+      const filas = mcSedesReal.filter(([s]) => s !== 'ambigua').map(([sede, nombre]) => {
+        const n = (a) => { const r = real.find((x) => x.sede === sede && x.anio === a && !x.mes && x.tipo_estudio === 'todos'); return r ? +r.pacientes : null; };
+        const a26 = n('2026');
+        return { sede, nombre, n2024: n('2024'), n2025: n('2025'), n2026_corte: a26, n2026_anualizado: a26 != null && fct ? Math.round(a26 * fct) : null };
+      });
+      const red = (a) => d3.sum(serie.filter((r) => r.mes.startsWith(a)), (r) => r.pacientes_nuevos);
+      const eo = d3.sum(serie.filter((r) => r.mes.startsWith('2026') && r.estado === 'completo'), (r) => r.pacientes_nuevos);
+      filas.push({ sede: 'todas', nombre: 'Red completa', n2024: red('2024'), n2025: red('2025'), n2026_corte: red('2026'), n2026_anualizado: Math.round(eo * 1.2) });
+      return filas.map((r) => ({ ...r, pct_24_25: pct(r.n2025, r.n2024), pct_25_26: pct(r.n2026_anualizado, r.n2025) }));
+    },
+  });
+  dash.calc('real_referentes', {
+    title: 'REAL · Referentes por código (k ≥ 5)',
+    description: 'Pacientes por código de referente con 5 o más pacientes, con su especialidad detectada; el resto sumado en «otros/<5».',
+    inputs: ['real_inventario'],
+    fn: (real) => {
+      const f = real.filter((r) => r.referente_codigo && r.referente_codigo !== 'todos');
+      const top = f.filter((r) => r.referente_codigo !== 'otros/<5').sort((a, b) => +b.pacientes - +a.pacientes || d3.ascending(a.referente_codigo, b.referente_codigo));
+      const otros = f.filter((r) => r.referente_codigo === 'otros/<5');
+      return [...top.map((r, i) => ({ rango: i + 1, referente_codigo: r.referente_codigo, especialidad: mcEspReal[r.especialidad_referente] || r.especialidad_referente, pacientes: +r.pacientes })),
+        ...otros.map((r) => ({ rango: null, referente_codigo: r.referente_codigo, especialidad: mcEspReal[r.especialidad_referente] || r.especialidad_referente, pacientes: +r.pacientes }))];
+    },
+  });
+  dash.calc('real_especialidades', {
+    title: 'REAL · Pacientes referidos por especialidad',
+    description: 'Suma de pacientes por especialidad del referente (todos los referentes) y su porcentaje; especialidades con menos de 5 se suman.',
+    inputs: ['real_inventario'],
+    fn: (real) => {
+      const f = real.filter((r) => r.referente_codigo === 'todos');
+      const tot = d3.sum(f, (r) => +r.pacientes);
+      return f.map((r) => ({ especialidad_referente: r.especialidad_referente, especialidad: mcEspReal[r.especialidad_referente] || r.especialidad_referente, pacientes: +r.pacientes, pct: tot ? Math.round((+r.pacientes / tot) * 1000) / 10 : null }))
+        .sort((a, b) => b.pacientes - a.pacientes);
+    },
+  });
+</script>
 
 <script>
   // Celdas sueltas
@@ -993,16 +1135,7 @@
   const f0 = (v) => mcFmt.format(+v);
   const fs = (v) => ((+v > 0 ? '+' : '') + mcFmt1.format(+v) + ' %');
   const fM = (v) => (+v >= 1e6 ? mcFmt1.format(+v / 1e6) + ' M' : mcFmt.format(+v));
-  dash.draw('lead-mes', mcCell('red_resumen', 'mes', mcMes));
-  dash.draw('lead-estudios', mcCell('red_resumen', 'estudios', f0));
   dash.draw('lead-sedes', mcCell('sedes_resumen', 'operando', f0));
-  dash.draw('lead-mom', mcCell('red_resumen', 'estudios_mom_pct', fs));
-  dash.draw('lead-origen', mcCell('red_resumen', 'origen'));
-  dash.draw('red-estudios', mcCell('red_resumen', 'estudios', f0));
-  dash.draw('red-mom', mcCell('red_resumen', 'estudios_mom_pct', fs));
-  dash.draw('red-origen', mcCell('red_resumen', 'origen'));
-  dash.draw('red-pacientes', mcCell('red_resumen', 'pacientes', f0));
-  dash.draw('red-referencias', mcCell('red_resumen', 'referencias', f0));
   dash.draw('red-terapias', mcCell('red_resumen', 'terapias', f0));
   dash.draw('red-ingresos', mcCell('red_resumen', 'ingresos_mxn', fM));
   dash.draw('sedes-operando', mcCell('sedes_resumen', 'operando', f0));
@@ -1024,8 +1157,6 @@
   dash.draw('piezas', mcCell('piezas_resumen', 'registradas', f0));
   dash.draw('kpis-con-dato', mcCell('kpis_resumen', 'con_dato', f0));
   dash.draw('kpis-total', mcCell('kpis_resumen', 'total', f0));
-  dash.draw('periodo-desde', mcCell('inv_periodo', 'desde', mcMes));
-  dash.draw('periodo-hasta', mcCell('inv_periodo', 'hasta', mcMes));
   dash.draw('canales-mes', mcCell('canales_vista', 'mes', mcMes));
   dash.draw('congresos-ppto', mcWhere('presupuesto_anual', 'partida', 'Congresos', 'bajo_mxn_anual', f0));
   dash.draw('congresos-ppto-alto', mcWhere('presupuesto_anual', 'partida', 'Congresos', 'alto_mxn_anual', f0));
@@ -1036,7 +1167,6 @@
     el.textContent = t;
     el.classList.toggle('real', t.startsWith('REAL') && !t.includes('SINTÉTICO'));
   };
-  dash.draw('insignia-inv', mcInsignia);
   dash.draw('pie-inv', mcInsignia);
 </script>
 
@@ -1062,7 +1192,6 @@
       }
     };
     sel('mc-metrica', 'metrica', 'estudios');
-    sel('mc-sede-ref', 'sede_ref', 'todas');
     sel('mc-canal-metrica', 'canal_metrica', 'leads');
     for (const sw of document.querySelectorAll('.mc-sw[data-col]')) sw.style.background = dash.colors[+sw.getAttribute('data-col') % dash.colors.length];
   })();
@@ -1102,13 +1231,8 @@
   const n1 = (v) => mcFmt1.format(+v);
   const sg = (v) => (v > 0 ? '+' : '') + mcFmt1.format(+v) + ' %';
   const vMet = (v) => (dash.params().metrica === 'conversion_pct' ? n1(v) + ' %' : n0(v));
-  const k5 = { num: 1, fmt: n0, blank: '< 5' };
   dash.draw('tabla-resumen-plazas', mcTable('plazas_resumen', [{ f: 'nombre' }, { f: 'estatus' }, { f: 'metrica' }, { f: 'ultimo_mes', fmt: mcMes, blank: '—' }, { f: 'valor', num: 1, fmt: vMet, blank: '—' }, { f: 'mom_pct', num: 1, fmt: sg, blank: '—' }, { f: 'yoy_pct', num: 1, fmt: sg, blank: '—' }, { f: 'origen' }], 'Sin sedes'));
   dash.draw('tabla-plazas', mcTable('plazas_resumen', [{ f: 'nombre' }, { f: 'ultimo_mes', fmt: mcMes, blank: '—' }, { f: 'valor', num: 1, fmt: vMet, blank: '—' }, { f: 'mom_pct', num: 1, fmt: sg, blank: '—' }, { f: 'yoy_pct', num: 1, fmt: sg, blank: '—' }, { f: 'acumulado', num: 1, fmt: n0, blank: 'no aplica / sin datos' }, { f: 'origen' }], 'Sin sedes'));
-  dash.draw('tabla-tipos', mcTable('tipo_matriz', [{ f: 'estudio' }, { f: 'MID', ...k5 }, { f: 'VHSA1', ...k5 }, { f: 'VHSA2', ...k5 }, { f: 'OAX', ...k5 }, { f: 'TOL', ...k5 }, { f: 'COL', ...k5 }, { f: 'total', ...k5 }, { f: 'pacientes', ...k5 }], 'Sin estudios'));
-  const colsRef = [{ f: 'rango', num: 1, blank: '' }, { f: 'referente_codigo' }, { f: 'especialidad', blank: '' }, { f: 'sedes', blank: '' }, { f: 'pacientes', ...k5 }, { f: 'estudios', ...k5 }, { f: 'origen' }];
-  dash.draw('tabla-ref-gamma', mcTable('referentes', colsRef, 'Sin referencias para gammagrafía en esta sede.', (r) => r.grupo === 'gammagrafia'));
-  dash.draw('tabla-ref-yodo', mcTable('referentes', colsRef, 'Sin referencias para yodo-131 en esta sede.', (r) => r.grupo === 'yodo'));
   dash.draw('tabla-canales', mcTable('canales_vista', [{ f: 'canal' }, { f: 'alcance', num: 1, fmt: n0 }, { f: 'impresiones', num: 1, fmt: n0 }, { f: 'clics', num: 1, fmt: n0 }, { f: 'ctr_pct', num: 1, fmt: n1 }, { f: 'cpc_mxn', num: 1, fmt: n1 }, { f: 'leads', num: 1, fmt: n0 }, { f: 'cpl_mxn', num: 1, fmt: n0 }, { f: 'pacientes', num: 1, fmt: n0 }, { f: 'costo_paciente_mxn', num: 1, fmt: n0 }, { f: 'gasto_mxn', num: 1, fmt: n0 }, { f: 'atribucion_ultimo_clic_pct', num: 1, fmt: n1 }, { f: 'origen' }], 'Sin canales'));
   dash.draw('tabla-resenas', mcTable('resenas_vista', [{ f: 'nombre' }, { f: 'resenas_google', num: 1, fmt: n0 }, { f: 'calificacion_google', num: 1, fmt: n1 }, { f: 'nps_pacientes', num: 1, fmt: n0 }, { f: 'nps_referentes', num: 1, fmt: n0 }, { f: 'posicion_media_seo', num: 1, fmt: n1 }, { f: 'local_pack_top3' }, { f: 'origen' }], 'Sin sedes'));
   dash.draw('tabla-sedes', mcTable('geo_sedes', [{ f: 'nombre' }, { f: 'estatus' }, { f: 'ciudad' }, { f: 'estado' }, { f: 'municipio_pob_2020', num: 1, fmt: n0 }, { f: 'servicios' }, { f: 'fuente_pob', link: 1 }], 'Sin sedes'));
@@ -1196,63 +1320,6 @@
         .on('pointerenter pointermove', (ev, p) => tip.show(ev, [nombre + ' · ' + mcMes(p.mes), mcMetricas[m] + ': ' + (m === 'conversion_pct' ? mcFmt1.format(p.v) + ' %' : mcFmt.format(p.v)), p.origen]))
         .on('pointerleave', () => tip.hide());
     }
-  });
-
-  // Tipos de estudio: barras apiladas por sede
-  dash.draw('tipos-chart', (el) => {
-    if (!mcStatus(el, ['tipo_matriz', 'inventario_origen'])) return;
-    const rows = dash.data('tipo_matriz').data;
-    const origen = dash.data('inventario_origen').data[0]?.insignia || '';
-    const sedes = ['MID', 'VHSA1', 'VHSA2', 'OAX', 'TOL', 'COL'];
-    const nom = Object.fromEntries(mcSedes);
-    el.replaceChildren();
-    const W = Math.max(300, el.clientWidth), rowH = 26, top = 6, bottom = 24, labW = Math.min(230, W * 0.4), right = 56;
-    const H = top + rows.length * rowH + bottom;
-    const tot = (r) => d3.sum(sedes, (s) => r[s] || 0);
-    const x = d3.scaleLinear().domain([0, d3.max(rows, tot) || 1]).nice().range([labW, W - right]);
-    const svg = d3.select(el).append('svg').attr('width', '100%').attr('viewBox', `0 0 ${W} ${H}`).attr('role', 'img').attr('aria-label', 'Estudios por tipo, apilados por sede, últimos 12 meses (' + origen + ')');
-    svg.append('g').attr('transform', `translate(0,${H - bottom})`).call(d3.axisBottom(x).ticks(W < 480 ? 3 : 6).tickFormat(mcAxisNum))
-      .call((g) => g.select('.domain').remove()).call((g) => g.selectAll('line').attr('y1', -(H - bottom - top)).style('stroke', 'var(--cds-chart-grid)'));
-    mcWm(svg, W, H - bottom, origen);
-    const tip = mcTip(el);
-    const g = svg.append('g').selectAll('g').data(rows).join('g').attr('transform', (r, i) => `translate(0,${top + i * rowH})`);
-    g.append('text').attr('class', 'mc-lab').attr('x', 0).attr('y', 16).text((r) => { const max = Math.floor(labW / 6.3); return r.estudio.length > max ? r.estudio.slice(0, max - 1) + '…' : r.estudio; });
-    g.each(function (r) {
-      let acc = 0;
-      for (const s of sedes) {
-        const v = r[s] || 0; if (!v) continue;
-        d3.select(this).append('rect').attr('x', x(acc)).attr('y', 5).attr('height', 15).attr('width', Math.max(1, x(acc + v) - x(acc))).style('fill', mcSedeCol(s))
-          .on('pointerenter pointermove', (ev) => tip.show(ev, [r.estudio, nom[s] + ': ' + mcFmt.format(v) + ' estudios', 'Total: ' + mcFmt.format(tot(r)), origen]))
-          .on('pointerleave', () => tip.hide());
-        acc += v;
-      }
-      d3.select(this).append('text').attr('x', x(acc) + 6).attr('y', 17).text(mcFmt.format(acc));
-    });
-  });
-
-  // Especialidades: barras agrupadas
-  dash.draw('esp-chart', (el) => {
-    if (!mcStatus(el, ['especialidades', 'inventario_origen'])) return;
-    const rows = dash.data('especialidades').data;
-    const origen = dash.data('inventario_origen').data[0]?.insignia || '';
-    el.replaceChildren();
-    if (!rows.length) { const p = document.createElement('div'); p.className = 'mc-empty'; p.textContent = 'Sin referencias en esta sede.'; el.appendChild(p); return; }
-    const W = Math.max(300, el.clientWidth), rowH = 34, top = 6, bottom = 24, labW = Math.min(180, W * 0.36), right = 48;
-    const H = top + rows.length * rowH + bottom;
-    const x = d3.scaleLinear().domain([0, d3.max(rows, (r) => Math.max(r.gammagrafia || 0, r.yodo || 0)) || 1]).nice().range([labW, W - right]);
-    const svg = d3.select(el).append('svg').attr('width', '100%').attr('viewBox', `0 0 ${W} ${H}`).attr('role', 'img').attr('aria-label', 'Pacientes referidos para gammagrafía y para yodo-131 por especialidad (' + origen + ')');
-    svg.append('g').attr('transform', `translate(0,${H - bottom})`).call(d3.axisBottom(x).ticks(W < 480 ? 3 : 6).tickFormat(mcAxisNum))
-      .call((g) => g.select('.domain').remove()).call((g) => g.selectAll('line').attr('y1', -(H - bottom - top)).style('stroke', 'var(--cds-chart-grid)'));
-    mcWm(svg, W, H - bottom, origen);
-    const tip = mcTip(el);
-    const g = svg.append('g').selectAll('g').data(rows).join('g').attr('transform', (r, i) => `translate(0,${top + i * rowH})`);
-    g.append('text').attr('class', 'mc-lab').attr('x', 0).attr('y', 18).text((r) => r.especialidad);
-    [['gammagrafia', 0, 'Gammagrafía'], ['yodo', 1, 'Yodo-131']].forEach(([k, i, et]) => {
-      g.append('rect').attr('x', labW).attr('y', 4 + i * 13).attr('height', 11).attr('width', (r) => Math.max(0, x(r[k] || 0) - labW)).style('fill', dash.colors[i])
-        .on('pointerenter pointermove', (ev, r) => tip.show(ev, [r.especialidad, et + ': ' + (r[k] == null ? '< 5' : mcFmt.format(r[k])) + ' pacientes', origen]))
-        .on('pointerleave', () => tip.hide());
-      g.append('text').attr('x', (r) => x(r[k] || 0) + 4).attr('y', 13 + i * 13).text((r) => (r[k] == null ? '< 5' : r[k] ? mcFmt.format(r[k]) : ''));
-    });
   });
 
   // Canales: líneas por canal
@@ -1422,4 +1489,189 @@
       .on('pointerenter pointermove', (ev, r) => tip.show(ev, [r.canal, 'Presupuesto: ' + mcFmt.format(r.bajo) + '–' + mcFmt.format(r.alto) + ' MXN/mes', 'Gasto real: ' + (r.real === null ? 'sin datos' : mcFmt.format(r.real) + ' MXN'), 'Gasto ' + mcMes(r.mes) + ': ' + (r.sintetico === null ? 'sin dato' : mcFmt.format(r.sintetico) + ' MXN (SINTÉTICO — no real)'), 'Partida: ' + r.partida]))
       .on('pointerleave', () => tip.hide());
   });
+</script>
+<script>
+  // Dibujos del inventario REAL
+  (function () {
+    const n0 = (v) => mcFmt.format(+v);
+    const n1 = (v) => mcFmt1.format(+v);
+    const pc = (v) => mcFmt1.format(+v) + ' %';
+    const sg = (v) => (v > 0 ? '+' : '') + mcFmt1.format(+v) + ' %';
+    const cal = (id, fmt) => (el) => {
+      const d = dash.data('real_inventario_calidad');
+      const r = d.status === 'ok' ? d.data.find((x) => x.indicador_id === id) : null;
+      el.textContent = r ? (fmt ? fmt(r.valor) : String(r.valor)) : '—';
+    };
+    const inv = (pred, field) => (el) => {
+      const d = dash.data('real_inventario');
+      const r = d.status === 'ok' ? d.data.find(pred) : null;
+      el.textContent = r ? n0(r[field]) : '—';
+    };
+    const cel = (id, field, fmt, where) => (el) => {
+      const d = dash.data(id);
+      if (d.status !== 'ok' || !d.data || !d.data.length) { el.textContent = '—'; return; }
+      const r = where ? d.data.find(where) : d.data[0];
+      const v = r ? r[field] : null;
+      el.textContent = v == null || v === '' ? 'sin datos' : fmt ? fmt(v) : String(v);
+    };
+    dash.draw('cal-desc-pct', cal('sede_desconocida_pct', n1));
+    dash.draw('cal-desc', cal('sede_desconocida', n0));
+    dash.draw('cal-total', cal('pacientes_total', n0));
+    dash.draw('cal-ocr', cal('pdf_sin_ocr', n0));
+    dash.draw('cal-ocr-pct', cal('pdf_sin_ocr_pct', n1));
+    dash.draw('cal-fecha', cal('fecha_por_archivo_pct', n1));
+    dash.draw('pre-meses', cal('meses_registro_incompleto', n0));
+    dash.draw('ref-k5', cal('ref_codigos_k5', n0));
+    dash.draw('ref-otros', cal('ref_codigos_otros', n0));
+    dash.draw('ref-con', cal('ref_con_referente', n0));
+    dash.draw('ref-nd', cal('ref_no_detectado', n0));
+    dash.draw('ref-ocr', cal('ref_sin_ocr', n0));
+    dash.draw('esp-nd', cal('esp_no_detectada_pct', n1));
+    dash.draw('res-ref-con', cal('ref_con_referente', n0));
+    const sub = (t) => inv((r) => r.sede === 'todas' && r.tipo_estudio === t, 'pacientes');
+    dash.draw('sub-rd', sub('rastreo_i131/diagnostico'));
+    dash.draw('sub-rp', sub('rastreo_i131/post_dosis'));
+    dash.draw('sub-ta', sub('terapia_i131/ablativa'));
+    dash.draw('sub-tad', sub('terapia_i131/adyuvante'));
+    dash.draw('sub-ts', sub('terapia_i131/sin_especificar'));
+    dash.draw('pre-est', inv((r) => r.sede === 'todas' && r.anio === '<2023-07', 'estudios'));
+    dash.draw('fam-gam-est', cel('real_familias', 'estudios', n0, (r) => r.familia === 'gammagrafia'));
+    dash.draw('fam-gam-pct', cel('real_familias', 'pct_estudios', n1, (r) => r.familia === 'gammagrafia'));
+    dash.draw('fam-yod-est', cel('real_familias', 'estudios', n0, (r) => r.familia === 'yodo'));
+    dash.draw('fam-yod-pct', cel('real_familias', 'pct_estudios', n1, (r) => r.familia === 'yodo'));
+    dash.draw('fac-eneoct', cel('real_factor', 'ene_oct', n0));
+    dash.draw('fac-total', cel('real_factor', 'total_corte', n0));
+    dash.draw('fac-f', cel('real_factor', 'factor', (v) => new Intl.NumberFormat('es-MX', { maximumFractionDigits: 4 }).format(+v)));
+    dash.draw('rm-mes', cel('real_red_mes', 'mes', mcMes));
+    dash.draw('rm-estudios', cel('real_red_mes', 'estudios', n0));
+    dash.draw('rm-mom', cel('real_red_mes', 'estudios_mom_pct', sg));
+    dash.draw('rm-mm3', cel('real_red_mes', 'mm3', n1));
+    dash.draw('red-estudios', cel('real_red_mes', 'estudios', n0));
+    dash.draw('red-mom', cel('real_red_mes', 'estudios_mom_pct', sg));
+    dash.draw('red-origen', cel('real_red_mes', 'origen'));
+    dash.draw('red-pacientes', cel('real_red_mes', 'pacientes_nuevos', n0));
+    dash.draw('res-pac-total', cal('pacientes_total', n0));
+
+    const k = { num: 1, fmt: n0, blank: '—' };
+    dash.draw('tabla-real-sedes', mcTable('real_sedes', [{ f: 'nombre' }, { f: 'pacientes', ...k }, { f: 'pct', num: 1, fmt: pc }], 'Sin datos'));
+    const colsT = [{ f: 'estudio' }, { f: 'estudios', ...k }, { f: 'pacientes', ...k }, { f: 'pct_familia', num: 1, fmt: pc }];
+    dash.draw('tabla-real-gamma', mcTable('real_tipos', colsT, 'Sin datos', (r) => r.familia === 'gammagrafia'));
+    dash.draw('tabla-real-yodo', mcTable('real_tipos', colsT, 'Sin datos', (r) => r.familia === 'yodo'));
+    dash.draw('tabla-real-gy', mcTable('real_gamma_yodo', [{ f: 'nombre' }, { f: 'gammagrafia', ...k }, { f: 'yodo', ...k }, { f: 'pct_gamma', num: 1, fmt: pc, blank: '—' }, { f: 'pct_yodo', num: 1, fmt: pc, blank: '—' }], 'Sin datos'));
+    dash.draw('tabla-real-anual', mcTable('real_anual', [{ f: 'periodo' }, { f: 'estudios', ...k }, { f: 'meses', ...k }, { f: 'estudios_mes', num: 1, fmt: n1 }, { f: 'pct_vs_anterior', num: 1, fmt: sg, blank: '—' }, { f: 'pacientes_nuevos', ...k }], 'Sin datos'));
+    dash.draw('tabla-real-crec', mcTable('real_crecimiento', [{ f: 'nombre' }, { f: 'n2024', ...k }, { f: 'n2025', ...k }, { f: 'pct_24_25', num: 1, fmt: sg, blank: '—' }, { f: 'n2026_corte', ...k }, { f: 'n2026_anualizado', ...k }, { f: 'pct_25_26', num: 1, fmt: sg, blank: '—' }], 'Sin datos'));
+    dash.draw('tabla-real-ref', mcTable('real_referentes', [{ f: 'rango', num: 1, blank: '' }, { f: 'referente_codigo' }, { f: 'especialidad' }, { f: 'pacientes', ...k }], 'Sin referentes'));
+    dash.draw('tabla-real-esp', mcTable('real_especialidades', [{ f: 'especialidad' }, { f: 'pacientes', ...k }, { f: 'pct', num: 1, fmt: pc }], 'Sin datos'));
+
+    const colSede = (s) => (['MID', 'VHSA1', 'OAX'].includes(s) ? mcSedeCol(s) : 'var(--cds-chart-muted)');
+    const ejeX = (svg, x, H, bottom, top, W) => svg.append('g').attr('transform', `translate(0,${H - bottom})`).call(d3.axisBottom(x).ticks(W < 480 ? 3 : 6).tickFormat(mcAxisNum))
+      .call((g) => g.select('.domain').remove()).call((g) => g.selectAll('line').attr('y1', -(H - bottom - top)).style('stroke', 'var(--cds-chart-grid)'));
+    const REAL = 'REAL — inventario expedientes 15-11-2026';
+
+    // Pacientes por sede: barras horizontales
+    dash.draw('real-sedes-chart', (el) => {
+      if (!mcStatus(el, ['real_sedes'])) return;
+      const rows = dash.data('real_sedes').data;
+      el.replaceChildren();
+      const W = Math.max(300, el.clientWidth), rowH = 28, top = 4, bottom = 24, labW = Math.min(220, W * 0.42), right = 90;
+      const H = top + rows.length * rowH + bottom;
+      const x = d3.scaleLinear().domain([0, d3.max(rows, (r) => r.pacientes) || 1]).nice().range([labW, W - right]);
+      const svg = d3.select(el).append('svg').attr('width', '100%').attr('viewBox', `0 0 ${W} ${H}`).attr('role', 'img').attr('aria-label', 'Pacientes por sede (' + REAL + ')');
+      ejeX(svg, x, H, bottom, top, W);
+      const tip = mcTip(el);
+      const g = svg.append('g').selectAll('g').data(rows).join('g').attr('transform', (r, i) => `translate(0,${top + i * rowH})`);
+      g.append('text').attr('class', 'mc-lab').attr('x', 0).attr('y', 17).text((r) => { const m = Math.floor(labW / 6.3); return r.nombre.length > m ? r.nombre.slice(0, m - 1) + '…' : r.nombre; });
+      g.append('rect').attr('x', labW).attr('y', 6).attr('height', 15).attr('rx', 2).attr('width', (r) => Math.max(1, x(r.pacientes) - labW)).style('fill', (r) => colSede(r.sede))
+        .attr('stroke-dasharray', (r) => (r.sede === 'desconocida' ? '3 2' : null)).style('stroke', (r) => (r.sede === 'desconocida' ? 'var(--color-warn)' : 'none'))
+        .on('pointerenter pointermove', (ev, r) => tip.show(ev, [r.nombre, mcFmt.format(r.pacientes) + ' pacientes (' + mcFmt1.format(r.pct) + ' %)', REAL]))
+        .on('pointerleave', () => tip.hide());
+      g.append('text').attr('x', (r) => x(r.pacientes) + 6).attr('y', 18).text((r) => mcFmt.format(r.pacientes) + ' · ' + mcFmt1.format(r.pct) + ' %');
+    });
+
+    // Estudios por tipo: barras por familia
+    dash.draw('real-tipos-chart', (el) => {
+      if (!mcStatus(el, ['real_tipos'])) return;
+      const rows = dash.data('real_tipos').data;
+      el.replaceChildren();
+      const W = Math.max(300, el.clientWidth), rowH = 26, top = 4, bottom = 24, labW = Math.min(200, W * 0.4), right = 56;
+      const H = top + rows.length * rowH + bottom;
+      const x = d3.scaleLinear().domain([0, d3.max(rows, (r) => r.estudios) || 1]).nice().range([labW, W - right]);
+      const svg = d3.select(el).append('svg').attr('width', '100%').attr('viewBox', `0 0 ${W} ${H}`).attr('role', 'img').attr('aria-label', 'Estudios por tipo, gammagrafía y yodo-131 (' + REAL + ')');
+      ejeX(svg, x, H, bottom, top, W);
+      const tip = mcTip(el);
+      const g = svg.append('g').selectAll('g').data(rows).join('g').attr('transform', (r, i) => `translate(0,${top + i * rowH})`);
+      g.append('text').attr('class', 'mc-lab').attr('x', 0).attr('y', 16).text((r) => r.estudio);
+      g.append('rect').attr('x', labW).attr('y', 5).attr('height', 15).attr('rx', 2).attr('width', (r) => Math.max(1, x(r.estudios) - labW)).style('fill', (r) => dash.colors[r.familia === 'yodo' ? 1 : 0])
+        .on('pointerenter pointermove', (ev, r) => tip.show(ev, [r.estudio, mcFmt.format(r.estudios) + ' estudios · ' + mcFmt.format(r.pacientes) + ' pacientes', mcFmt1.format(r.pct_familia) + ' % de ' + (r.familia === 'yodo' ? 'yodo-131' : 'gammagrafía'), REAL]))
+        .on('pointerleave', () => tip.hide());
+      g.append('text').attr('x', (r) => x(r.estudios) + 6).attr('y', 17).text((r) => mcFmt.format(r.estudios));
+    });
+
+    // Proporción gammagrafía vs yodo por sede: barras 100 %
+    dash.draw('real-gy-chart', (el) => {
+      if (!mcStatus(el, ['real_gamma_yodo'])) return;
+      const rows = dash.data('real_gamma_yodo').data.filter((r) => r.pct_gamma != null);
+      el.replaceChildren();
+      const W = Math.max(300, el.clientWidth), rowH = 28, top = 4, bottom = 24, labW = Math.min(220, W * 0.42), right = 12;
+      const H = top + rows.length * rowH + bottom;
+      const x = d3.scaleLinear().domain([0, 100]).range([labW, W - right]);
+      const svg = d3.select(el).append('svg').attr('width', '100%').attr('viewBox', `0 0 ${W} ${H}`).attr('role', 'img').attr('aria-label', 'Proporción de pacientes de gammagrafía y de yodo-131 por sede (' + REAL + ')');
+      svg.append('g').attr('transform', `translate(0,${H - bottom})`).call(d3.axisBottom(x).ticks(W < 480 ? 2 : 4).tickFormat((v) => v + ' %')).call((g) => g.select('.domain').remove()).call((g) => g.selectAll('line').attr('y1', -(H - bottom - top)).style('stroke', 'var(--cds-chart-grid)'));
+      const tip = mcTip(el);
+      const g = svg.append('g').selectAll('g').data(rows).join('g').attr('transform', (r, i) => `translate(0,${top + i * rowH})`);
+      g.append('text').attr('class', 'mc-lab').attr('x', 0).attr('y', 17).text((r) => { const m = Math.floor(labW / 6.3); return r.nombre.length > m ? r.nombre.slice(0, m - 1) + '…' : r.nombre; });
+      const show = (ev, r) => tip.show(ev, [r.nombre, 'Gammagrafía: ' + mcFmt.format(r.gammagrafia) + ' (' + mcFmt1.format(r.pct_gamma) + ' %)', 'Yodo-131: ' + mcFmt.format(r.yodo) + ' (' + mcFmt1.format(r.pct_yodo) + ' %)', REAL]);
+      g.append('rect').attr('x', labW).attr('y', 6).attr('height', 15).attr('width', (r) => x(r.pct_gamma) - labW).style('fill', dash.colors[0]).on('pointerenter pointermove', show).on('pointerleave', () => tip.hide());
+      g.append('rect').attr('x', (r) => x(r.pct_gamma)).attr('y', 6).attr('height', 15).attr('width', (r) => W - right - x(r.pct_gamma)).style('fill', dash.colors[1]).on('pointerenter pointermove', show).on('pointerleave', () => tip.hide());
+      g.append('text').attr('x', labW + 4).attr('y', 18).style('fill', 'var(--color-bg)').text((r) => mcFmt.format(Math.round(r.pct_gamma)) + ' %');
+      g.append('text').attr('x', W - right - 4).attr('y', 18).attr('text-anchor', 'end').style('fill', 'var(--color-bg)').text((r) => mcFmt.format(Math.round(r.pct_yodo)) + ' %');
+    });
+
+    // Tendencia mensual: barras + promedio móvil 3 meses
+    dash.draw('real-mensual-chart', (el) => {
+      if (!mcStatus(el, ['real_mensual'])) return;
+      const rows = dash.data('real_mensual').data.map((r) => ({ ...r, d: new Date(r.mes + '-01T00:00:00Z') }));
+      el.replaceChildren();
+      if (!rows.length) { el.textContent = 'Sin datos'; return; }
+      const W = Math.max(300, el.clientWidth), H = 300, ml = 40, mr = 12, mt = 10, mb = 26;
+      const x = d3.scaleBand().domain(rows.map((r) => r.mes)).range([ml, W - mr]).padding(0.15);
+      const y = d3.scaleLinear().domain([0, d3.max(rows, (r) => r.estudios) || 1]).nice().range([H - mb, mt]);
+      const svg = d3.select(el).append('svg').attr('width', '100%').attr('viewBox', `0 0 ${W} ${H}`).attr('role', 'img').attr('aria-label', 'Estudios por mes de la red con promedio móvil de 3 meses (' + REAL + ')');
+      const ticks = rows.filter((r) => r.mes.endsWith('-01') || (W >= 520 && r.mes.endsWith('-07'))).map((r) => r.mes);
+      svg.append('g').attr('transform', `translate(0,${H - mb})`).call(d3.axisBottom(x).tickValues(ticks).tickFormat((m) => mcEs.utcFormat('%b %y')(new Date(m + '-01T00:00:00Z')))).call((g) => g.select('.domain').style('stroke', 'var(--cds-chart-axis)')).call((g) => g.selectAll('line').style('stroke', 'var(--cds-chart-axis)'));
+      svg.append('g').attr('transform', `translate(${ml},0)`).call(d3.axisLeft(y).ticks(5).tickFormat(mcAxisNum)).call((g) => g.select('.domain').remove()).call((g) => g.selectAll('line').attr('x2', W - ml - mr).style('stroke', 'var(--cds-chart-grid)'));
+      svg.append('g').selectAll('rect').data(rows).join('rect').attr('x', (r) => x(r.mes)).attr('width', x.bandwidth()).attr('y', (r) => y(r.estudios)).attr('height', (r) => y(0) - y(r.estudios))
+        .style('fill', dash.colors[0]).style('fill-opacity', (r) => (r.estado === 'completo' ? 0.55 : 0.2));
+      const pts = rows.filter((r) => r.mm3 != null);
+      svg.append('path').datum(pts).attr('fill', 'none').style('stroke', dash.colors[1]).attr('stroke-width', 2.5).attr('d', d3.line().x((r) => x(r.mes) + x.bandwidth() / 2).y((r) => y(r.mm3)));
+      const u = pts[pts.length - 1];
+      if (u) svg.append('text').attr('class', 'mc-lab').attr('x', x(u.mes) + x.bandwidth() / 2).attr('y', y(u.mm3) - 8).attr('text-anchor', 'end').text('mm3 ' + mcFmt1.format(u.mm3));
+      const tip = mcTip(el);
+      svg.append('g').selectAll('rect').data(rows).join('rect').attr('x', (r) => x(r.mes)).attr('width', x.bandwidth()).attr('y', mt).attr('height', H - mb - mt).style('fill', 'transparent')
+        .on('pointerenter pointermove', (ev, r) => tip.show(ev, [mcMes(r.mes) + (r.estado === 'completo' ? '' : ' · ' + r.estado), 'Estudios: ' + mcFmt.format(r.estudios), 'Promedio móvil 3 meses: ' + (r.mm3 == null ? '—' : mcFmt1.format(r.mm3)), 'Pacientes nuevos: ' + mcFmt.format(r.pacientes_nuevos), REAL]))
+        .on('pointerleave', () => tip.hide());
+    });
+
+    // Crecimiento: pacientes nuevos por año y sede
+    dash.draw('real-crec-chart', (el) => {
+      if (!mcStatus(el, ['real_crecimiento'])) return;
+      const rows = dash.data('real_crecimiento').data.filter((r) => r.sede !== 'todas');
+      el.replaceChildren();
+      const keys = [['n2024', '2024'], ['n2025', '2025'], ['n2026_anualizado', '2026 anualizado']];
+      const W = Math.max(300, el.clientWidth), rowH = 50, top = 4, bottom = 24, labW = Math.min(200, W * 0.38), right = 48;
+      const H = top + rows.length * rowH + bottom;
+      const x = d3.scaleLinear().domain([0, d3.max(rows, (r) => Math.max(r.n2024 || 0, r.n2025 || 0, r.n2026_anualizado || 0)) || 1]).nice().range([labW, W - right]);
+      const svg = d3.select(el).append('svg').attr('width', '100%').attr('viewBox', `0 0 ${W} ${H}`).attr('role', 'img').attr('aria-label', 'Pacientes nuevos por año y sede, 2026 anualizado (' + REAL + ')');
+      ejeX(svg, x, H, bottom, top, W);
+      const tip = mcTip(el);
+      const g = svg.append('g').selectAll('g').data(rows).join('g').attr('transform', (r, i) => `translate(0,${top + i * rowH})`);
+      g.append('text').attr('class', 'mc-lab').attr('x', 0).attr('y', 24).text((r) => { const m = Math.floor(labW / 6.3); return r.nombre.length > m ? r.nombre.slice(0, m - 1) + '…' : r.nombre; });
+      keys.forEach(([kk, et], i) => {
+        g.append('rect').attr('x', labW).attr('y', 4 + i * 14).attr('height', 12).attr('width', (r) => Math.max(0, x(r[kk] || 0) - labW)).style('fill', dash.colors[i])
+          .on('pointerenter pointermove', (ev, r) => tip.show(ev, [r.nombre + ' · ' + et, mcFmt.format(r[kk]) + ' pacientes nuevos', '2024→2025: ' + (r.pct_24_25 == null ? '—' : sg(r.pct_24_25)) + ' · 2025→2026: ' + (r.pct_25_26 == null ? '—' : sg(r.pct_25_26)), REAL]))
+          .on('pointerleave', () => tip.hide());
+        g.append('text').attr('x', (r) => x(r[kk] || 0) + 4).attr('y', 14 + i * 14).text((r) => (r[kk] == null ? '' : mcFmt.format(r[kk])));
+      });
+    });
+  })();
 </script>

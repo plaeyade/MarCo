@@ -190,15 +190,29 @@ class TestTablero(unittest.TestCase):
         tipos = {"gammagrafia_osea", "tiroidea", "renal", "rastreo_i131", "terapia_i131", "lu177",
                  "perfusion_miocardica", "paratiroides", "otras"}
         sedes = {"MID", "VHSA1", "VHSA2", "OAX", "TOL", "COL"}
-        for nombre in ("real_inventario.csv", "sintetico_inventario.csv"):
-            rows = list(csv.reader(open(os.path.join(ROOT, "dashboard/data", nombre), encoding="utf-8")))
-            self.assertEqual(rows[0], cols, nombre)
-            for r in rows[1:]:
-                d = dict(zip(cols, r))
-                self.assertIn(d["sede"], sedes)
-                self.assertIn(d["tipo_estudio"], tipos)
-                self.assertRegex(d["referente_codigo"], r"^(R-\d{3,})?$")
-                self.assertTrue(int(d["estudios"]) >= 0 and int(d["pacientes"]) >= 0)
+        rows = list(csv.reader(open(os.path.join(ROOT, "dashboard/data", "sintetico_inventario.csv"), encoding="utf-8")))
+        self.assertEqual(rows[0], cols)
+        for r in rows[1:]:
+            d = dict(zip(cols, r))
+            self.assertIn(d["sede"], sedes)
+            self.assertIn(d["tipo_estudio"], tipos)
+            self.assertRegex(d["referente_codigo"], r"^(R-\d{3,})?$")
+            self.assertTrue(int(d["estudios"]) >= 0 and int(d["pacientes"]) >= 0)
+        # Real (HEVESY, corte agregado): tablas marginales con «todas», «todos», «desconocida», «ambigua» y «otros/<5»;
+        # k >= 5 en cada celda de pacientes; sólo códigos de referente.
+        rows = list(csv.reader(open(os.path.join(ROOT, "dashboard/data", "real_inventario.csv"), encoding="utf-8")))
+        self.assertEqual(rows[0], cols)
+        tipos_real = tipos | {"todos", "otros/<5", "subtipo/otros/<5"}
+        for r in rows[1:]:
+            d = dict(zip(cols, r))
+            self.assertIn(d["sede"], sedes | {"todas", "desconocida", "ambigua", "otros/<5"})
+            self.assertTrue(d["tipo_estudio"] in tipos_real or d["tipo_estudio"].split("/")[0] in tipos, d)
+            self.assertRegex(d["anio"], r"^(\d{4}|<\d{4}-\d{2}|otros/<5)?$")
+            self.assertRegex(d["mes"], r"^([1-9]|1[0-2])?$")
+            self.assertRegex(d["referente_codigo"], r"^(R-\d{3,}|otros/<5|todos)?$")
+            self.assertRegex(d["especialidad_referente"], r"^[a-z_/<5]*$")
+            self.assertGreaterEqual(int(d["pacientes"]), 5, d)
+            self.assertTrue(d["estudios"] == "" or int(d["estudios"]) >= 5, d)
 
     def test_datos_publicos_con_fuente(self):
         for r in csv.DictReader(open(os.path.join(ROOT, "dashboard/data/geo_estados.csv"))):

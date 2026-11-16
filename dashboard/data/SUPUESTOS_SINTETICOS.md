@@ -32,17 +32,26 @@ Instrucción del propietario (15-nov-2026): poblar todas las métricas de desemp
 
 ## Datos reales del inventario de expedientes (HEVESY)
 
-`real_inventario.csv` tiene el mismo esquema que `sintetico_inventario.csv` y hoy está **vacío** (sólo encabezado):
+**Primer corte: 15-11-2026** (`REAL — inventario expedientes 15-11-2026`). HEVESY corrió en la PC del propietario y entregó sólo un resumen agregado (`resumen_tablero.json`, esquema `hevesy/resumen-tablero@1`: vocabulario cerrado, conteos y códigos `R-###`; sin nombres, CURP, folios, fechas de nacimiento ni texto libre; verificado antes de usarlo). `tools/real_inventario.py <ruta>/resumen_tablero.json` escribe:
 
-| Columna | Contenido |
-|---|---|
-| `sede` | MID, VHSA1, VHSA2, OAX, TOL, COL |
-| `anio`, `mes` | Año (aaaa) y mes (1–12) del estudio |
-| `tipo_estudio` | `gammagrafia_osea`, `tiroidea`, `renal`, `rastreo_i131`, `terapia_i131`, `lu177`, `perfusion_miocardica`, `paratiroides`, `otras` |
-| `pacientes`, `estudios` | Conteos agregados de la celda |
-| `referente_codigo` | `R-001…` (vacío si no hay referente). Tabla de correspondencia código ↔ médico **fuera** del repositorio y del tablero |
-| `especialidad_referente` | Especialidad del referente (texto libre corto) |
+- `real_inventario.csv` — mismo encabezado que `sintetico_inventario.csv`, pero el corte **no trae el cruce completo** sede × mes × tipo × referente. Por eso el archivo contiene tablas marginales, distinguibles por qué columnas están llenas:
 
-Nunca: nombres, CURP, expediente, diagnóstico, CIE ni fechas de nacimiento. Cuando el archivo tenga filas de una sede, el tablero muestra para esa sede los valores de pacientes, estudios, terapias, tipo de estudio, referencias y referentes activos como **REAL — inventario expedientes**, y deja los sintéticos sólo para las sedes y métricas que el inventario no cubre (conversión, ingresos, canales, reseñas, congresos). Los referentes con menos de 5 pacientes en el periodo se agrupan (k ≥ 5).
+| Tabla | `sede` | `anio` | `mes` | `tipo_estudio` | `referente_codigo` | `pacientes` / `estudios` |
+|---|---|---|---|---|---|---|
+| Total red / por sede | `todas` / sede | — | — | `todos` | — | pacientes |
+| Red × tipo | `todas` | — | — | tipo | — | pacientes con ≥ 1 estudio del tipo / estudios (paciente × tipo × mes) |
+| Red × subtipo | `todas` | — | — | `tipo/subtipo` | — | pacientes |
+| Sede × tipo | sede | — | — | tipo | — | pacientes |
+| Sede × año | sede | aaaa | — | `todos` | — | pacientes nuevos (año del primer estudio) |
+| Red × mes | `todas` | aaaa (o `<2023-07`) | 1–12 | `todos` | — | pacientes nuevos / estudios |
+| Referentes | `todas` | — | — | `todos` | `R-###` u `otros/<5` | pacientes |
+| Especialidades | `todas` | — | — | `todos` | `todos` | pacientes (suma por especialidad) |
+
+- Sedes: `merida` → `MID`, `villahermosa_sede1_gamma` → `VHSA1`, `oaxaca` → `OAX`; `desconocida` y `ambigua` se conservan. Tipo `osea` → `gammagrafia_osea`.
+- **k ≥ 5**: ninguna celda con 1–4 pacientes se escribe sola. Se suman en `otros/<5` dentro de su sede; si esa suma sigue < 5, en una fila `sede = otros/<5`. Referentes con < 5 pacientes van en `R` = `otros/<5` (416 de 439 códigos). La prueba `test_inventario_real_esquema` exige `pacientes ≥ 5` en cada fila.
+- Meses anteriores a 2023-07 (1–4 estudios cada uno): **registro incompleto**, sumados en una fila `anio = <2023-07`.
+- `real_inventario_calidad.csv` — limitaciones del corte: 645 de 1 703 pacientes (37.9 %) con sede «desconocida»; 5 121 PDF sin texto (sin OCR, 51 % de los PDF), que pueden subestimar tipos y referentes; 70 % de los estudios fechados por la fecha del archivo; noviembre de 2026 parcial.
+
+En el tablero: la pestaña «Estudios y referencias» y las cifras de estudios y pacientes del resumen son REAL; «Plazas» (sede × mes), terapias por mes, conversión e ingresos siguen SINTÉTICO — no real, porque el corte no los trae. Una fila real sólo sustituye al sintético de su sede si tiene grano completo (sede operando, año, mes y tipo). La escala sintética (≈ 700 estudios/mes en la red) no coincide con la real del inventario (≈ 65–75/mes en 2026): los supuestos sintéticos no deben usarse para dimensionar.
 
 Nota: el contrato `gamma/referencia@2` (`contracts/schemas/`, PR #1 de `gamma-contracts`) usa los mismos códigos de sede que el tablero; el borrador `@1` usaba VSA y CINO, alias obsoletos de VHSA1 y VHSA2.

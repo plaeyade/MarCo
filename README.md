@@ -46,7 +46,7 @@ El tablero «MarCo Tablero» (artifact Data, https://claude.ai/artifact/Rr3smpN4
 
 - **Reales con fuente:** presupuestos del plan y datos públicos (INEGI 2020, mortalidad INEGI 2024, GLOBOCAN, congresos, IMPI).
 - **SINTÉTICOS — no reales:** `sintetico_*.csv`, generados por `tools/sinteticos.py` con semilla fija 20261115; supuestos en `dashboard/data/SUPUESTOS_SINTETICOS.md`. Se rotulan «SINTÉTICO — no real» en cada pestaña y en el pie. No se citan ni se usan para decidir.
-- **Reales por llegar:** `real_inventario.csv` (inventario de expedientes HEVESY, agregado y sin nombres; hoy vacío). Cuando tenga filas de una sede, el tablero muestra para esa sede pacientes, estudios por tipo y referencias como «REAL — inventario expedientes». Las plantillas `plazas_mensual.csv`, `canales.csv`, `embudo.csv` y `resenas_seo.csv` siguen vacías hasta conectar sus fuentes (`dashboard/conectores.json`).
+- **Reales:** `real_inventario.csv` y `real_inventario_calidad.csv` (inventario de expedientes HEVESY, corte 15-11-2026, agregado, sin nombres, k ≥ 5; `tools/real_inventario.py`). El tablero muestra pacientes por sede, estudios por tipo, tendencia mensual, crecimiento y referentes por código como «REAL — inventario expedientes 15-11-2026». Las plantillas `plazas_mensual.csv`, `canales.csv`, `embudo.csv` y `resenas_seo.csv` siguen vacías hasta conectar sus fuentes (`dashboard/conectores.json`).
 
 Plazas operando: MID, VHSA1 (Villahermosa sede 1), OAX. Próxima apertura: VHSA2 (Villahermosa sede 2 en el CINO, fines de 2027), TOL y COL. Las sedes de próxima apertura no tienen actividad en el tablero, ni siquiera sintética.
 
