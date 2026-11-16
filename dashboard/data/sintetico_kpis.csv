@@ -1,12 +1,12 @@
 kpi_id,valor_sintetico
-referencias_mes,"768 (red, 2026-10)"
-referentes_activos,"156 (red, 2026-10)"
-conversion,79.4 %
-sla_respuesta,78 %
-nps_pacientes,68
-nps_referentes,57
-trafico_organico,"10639 sesiones (red, 2026-10)"
+referencias_mes,"70 (red, 2026-10)"
+referentes_activos,"44 (red, 2026-10)"
+conversion,80.1 %
+sla_respuesta,90 %
+nps_pacientes,69
+nps_referentes,61
+trafico_organico,"2850 sesiones (red, 2026-10)"
 seo_localpack,1 de 3 sedes operando
-costo_paciente,550 MXN
-inversion_vs_presupuesto,85 k MXN/mes
-convenios_aseguradoras,6
+costo_paciente,7026 MXN
+inversion_vs_presupuesto,84 k MXN/mes
+convenios_aseguradoras,3
