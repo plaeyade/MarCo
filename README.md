@@ -46,7 +46,7 @@ El tablero «MarCo Tablero» (artifact Data, https://claude.ai/artifact/Rr3smpN4
 
 - **Reales con fuente:** presupuestos del plan y datos públicos (INEGI 2020, mortalidad INEGI 2024, GLOBOCAN, congresos, IMPI).
 - **SINTÉTICOS — no reales:** `sintetico_*.csv`, generados por `tools/sinteticos.py` con semilla fija 20261115; supuestos en `dashboard/data/SUPUESTOS_SINTETICOS.md`. Se rotulan «SINTÉTICO — no real» en cada pestaña y en el pie. No se citan ni se usan para decidir.
-- **Reales:** `real_inventario.csv` y `real_inventario_calidad.csv` (inventario de expedientes HEVESY, corte 15-11-2026, agregado, sin nombres, k ≥ 5; `tools/real_inventario.py`). El tablero muestra pacientes por sede, estudios por tipo, tendencia mensual, crecimiento y referentes por código como «REAL — inventario expedientes 15-11-2026». Las plantillas `plazas_mensual.csv`, `canales.csv`, `embudo.csv` y `resenas_seo.csv` siguen vacías hasta conectar sus fuentes (`dashboard/conectores.json`).
+- **Reales:** `real_inventario.csv` y `real_inventario_calidad.csv` (inventario de expedientes HEVESY, corte 16-11-2026 con OCR, agregado, sin nombres, k ≥ 5; `tools/real_inventario.py`). El tablero muestra pacientes por sede, estudios por tipo, tendencia mensual, crecimiento y referentes por código y especialidad como «REAL — inventario expedientes 16-11-2026, con OCR», con una tabla que lo compara con el corte 15-11-2026 sin OCR. Las plantillas `plazas_mensual.csv`, `canales.csv`, `embudo.csv` y `resenas_seo.csv` siguen vacías hasta conectar sus fuentes (`dashboard/conectores.json`).
 
 Plazas operando: MID, VHSA1 (Villahermosa sede 1), OAX. Próxima apertura: VHSA2 (Villahermosa sede 2 en el CINO, fines de 2027), TOL y COL. Las sedes de próxima apertura no tienen actividad en el tablero, ni siquiera sintética.
 
@@ -56,7 +56,8 @@ Plazas operando: MID, VHSA1 (Villahermosa sede 1), OAX. Próxima apertura: VHSA2
   cumplimiento COFEPRIS/LFPDPPP, plan de publicidad multicanal, calendario de congresos, tablero con datos del plan,
   públicos con fuente y sintéticos rotulados, y copia de lectura de `gamma/referencia@2`.
 - **Hecho (15-11-2026):** primer corte real del inventario de expedientes (HEVESY) en el tablero, agregado y con k ≥ 5.
-- **Siguiente:** que HEVESY entregue sede × mes y referente × sede/tipo, OCR de los 5 121 PDF escaneados, y después
+- **Hecho (16-11-2026):** segundo corte con OCR local (4 057 escaneos): sede desconocida 645 → 439, referentes detectados 779 → 1 010.
+- **Siguiente:** que HEVESY entregue sede × mes y referente × sede/tipo, aplicar `firmantes_sugeridos.txt` (excluir firmantes propios de los referentes), OCR de los 1 069 PDF que siguen sin texto, y después
   conectar canales, embudo, plazas y reseñas (`dashboard/conectores.json`). Cuando `gamma/referencia@2` pase a `estable` en
   gamma-contracts, sustituir la copia de `contracts/schemas/` por un paquete versionado.
 

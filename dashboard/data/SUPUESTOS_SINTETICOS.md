@@ -32,7 +32,7 @@ Instrucción del propietario (15-nov-2026): poblar todas las métricas de desemp
 
 ## Datos reales del inventario de expedientes (HEVESY)
 
-**Primer corte: 15-11-2026** (`REAL — inventario expedientes 15-11-2026`). HEVESY corrió en la PC del propietario y entregó sólo un resumen agregado (`resumen_tablero.json`, esquema `hevesy/resumen-tablero@1`: vocabulario cerrado, conteos y códigos `R-###`; sin nombres, CURP, folios, fechas de nacimiento ni texto libre; verificado antes de usarlo). `tools/real_inventario.py <ruta>/resumen_tablero.json` escribe:
+**Corte vigente: 16-11-2026, con OCR** (`REAL — inventario expedientes 16-11-2026, con OCR`); primer corte 15-11-2026 sin OCR, conservado en el tablero sólo para comparar. HEVESY corrió en la PC del propietario y entregó sólo un resumen agregado (`resumen_tablero.json`, esquema `hevesy/resumen-tablero@1`: vocabulario cerrado, conteos y códigos `R-###`; sin nombres, CURP, folios, fechas de nacimiento ni texto libre; verificado antes de usarlo). `tools/real_inventario.py <ruta>/resumen_tablero.json` escribe:
 
 - `real_inventario.csv` — mismo encabezado que `sintetico_inventario.csv`, pero el corte **no trae el cruce completo** sede × mes × tipo × referente. Por eso el archivo contiene tablas marginales, distinguibles por qué columnas están llenas:
 
@@ -48,9 +48,9 @@ Instrucción del propietario (15-nov-2026): poblar todas las métricas de desemp
 | Especialidades | `todas` | — | — | `todos` | `todos` | pacientes (suma por especialidad) |
 
 - Sedes: `merida` → `MID`, `villahermosa_sede1_gamma` → `VHSA1`, `oaxaca` → `OAX`; `desconocida` y `ambigua` se conservan. Tipo `osea` → `gammagrafia_osea`.
-- **k ≥ 5**: ninguna celda con 1–4 pacientes se escribe sola. Se suman en `otros/<5` dentro de su sede; si esa suma sigue < 5, en una fila `sede = otros/<5`. Referentes con < 5 pacientes van en `R` = `otros/<5` (416 de 439 códigos). La prueba `test_inventario_real_esquema` exige `pacientes ≥ 5` en cada fila.
+- **k ≥ 5**: ninguna celda con 1–4 pacientes se escribe sola. Se suman en `otros/<5` dentro de su sede; si esa suma sigue < 5, en una fila `sede = otros/<5`. Si las celdas chicas de subtipo suman < 5 (corte 16-11: `renal/dtpa` = 1), se suman a la celda más grande de su tipo, rotulada `<tipo>/<subtipo>+otros/<5`. Referentes con < 5 pacientes van en `R` = `otros/<5` (843 de 887 códigos en el corte 16-11-2026). La prueba `test_inventario_real_esquema` exige `pacientes ≥ 5` en cada fila.
 - Meses anteriores a 2023-07 (1–4 estudios cada uno): **registro incompleto**, sumados en una fila `anio = <2023-07`.
-- `real_inventario_calidad.csv` — limitaciones del corte: 645 de 1 703 pacientes (37.9 %) con sede «desconocida»; 5 121 PDF sin texto (sin OCR, 51 % de los PDF), que pueden subestimar tipos y referentes; 70 % de los estudios fechados por la fecha del archivo; noviembre de 2026 parcial.
+- `real_inventario_calidad.csv` — limitaciones del corte 16-11-2026 (con OCR local de 4 057 escaneos): 439 de 1 705 pacientes (25.7 %) con sede «desconocida» (antes 645, 37.9 %); 1 069 PDF aún sin texto (10.6 % de los PDF; antes 5 121, 51 %); referentes detectados en 1 010 pacientes (antes 779), 887 códigos, 74.4 % de los referidos sin especialidad detectada; **los firmantes propios de la unidad aún no se excluyen** (falta aplicar `firmantes_sugeridos.txt`), así que los códigos más frecuentes pueden ser médicos de la unidad; 75.5 % de los estudios fechados por la fecha del archivo; noviembre de 2026 parcial.
 
 En el tablero: la pestaña «Estudios y referencias» y las cifras de estudios y pacientes del resumen son REAL; «Plazas» (sede × mes), terapias por mes, conversión e ingresos siguen SINTÉTICO — no real, porque el corte no los trae. Una fila real sólo sustituye al sintético de su sede si tiene grano completo (sede operando, año, mes y tipo). Desde el 15-11-2026 los sintéticos están **recalibrados a esa escala real** (≈ 72 estudios/mes en la red en 2026, mezcla y crecimiento por sede); siguen siendo SINTÉTICO — no real y no sustituyen al dato.
 

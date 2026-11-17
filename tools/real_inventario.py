@@ -62,6 +62,15 @@ for t, n in d["pacientes_por_tipo_estudio"].items():
 
 # 3. Red por subtipo (tipo/subtipo)
 vis, otros, residuo = con_k([("todas", tipo(k.split("/")[0]) + "/" + k.split("/")[1], n) for k, n in d["pacientes_por_subtipo"].items()])
+if 0 < otros.get("todas", 0) + residuo < K:
+    # Pocas celdas chicas (p. ej. renal/dtpa = 1): se suman a la celda visible más grande de su mismo tipo,
+    # que pasa a llamarse «<tipo>/<subtipo>+otros/<5». Así ninguna celda de 1-4 queda sola.
+    chicas = [(c, n) for c, n in ((tipo(k.split("/")[0]) + "/" + k.split("/")[1], n) for k, n in d["pacientes_por_subtipo"].items()) if n < K]
+    for c, n in chicas:
+        t = c.split("/")[0]
+        i = max((j for j, v in enumerate(vis) if v[1].split("/")[0] == t), key=lambda j: vis[j][2])
+        vis[i] = ("todas", vis[i][1].split("+")[0] + "+" + OTROS, vis[i][2] + n)
+    otros, residuo = {}, 0
 for _, c, n in vis:
     fila("todas", tipo_estudio=c, pacientes=n)
 if otros.get("todas", 0) + residuo:
@@ -126,7 +135,8 @@ with open(os.path.join(OUT, "real_inventario.csv"), "w", newline="", encoding="u
 
 # Calidad y limitaciones del corte
 o, est = d["ocr"], d["referentes_estado"]
-pdf = o["pdf_con_texto"] + o["pdf_sin_ocr"]
+ocr_txt = o.get("pdf_texto_ocr", 0)  # desde el corte 16-11-2026: escaneos leídos con OCR local
+pdf = o["pdf_con_texto"] + ocr_txt + o["pdf_sin_ocr"]
 desc = d["sedes"]["desconocida"]["pacientes"]
 ff = d["fuente_fecha"]
 cal = [
@@ -139,6 +149,7 @@ cal = [
     ("sede_por_ruta", "Sede detectada por la ruta de la carpeta", d["fuente_sede"]["ruta"], "pacientes", ""),
     ("pdf_sin_ocr", "PDF sin texto extraíble (escaneos sin OCR)", o["pdf_sin_ocr"], "archivos", "Pueden subestimar tipos y referentes"),
     ("pdf_con_texto", "PDF con capa de texto", o["pdf_con_texto"], "archivos", ""),
+    ("pdf_texto_ocr", "Escaneos leídos con OCR local", ocr_txt, "archivos", "OCR en la PC del propietario; puede tener errores de lectura"),
     ("pdf_sin_ocr_pct", "PDF sin texto extraíble", round(o["pdf_sin_ocr"] / pdf * 100, 1), "% de los PDF", ""),
     ("ref_con_referente", "Pacientes con referente detectado", est["con_referente"], "pacientes", ""),
     ("ref_no_detectado", "Pacientes con texto pero sin referente detectado", est["no_detectado"], "pacientes", ""),
@@ -147,6 +158,8 @@ cal = [
     ("ref_codigos", "Códigos de referente distintos", len(refs), "referentes", ""),
     ("ref_codigos_k5", "Referentes con 5 o más pacientes (se muestran)", sum(1 for r in refs if r["pacientes"] >= K), "referentes", ""),
     ("ref_codigos_otros", "Referentes con menos de 5 pacientes (en «otros/<5»)", len(chicos), "referentes", ""),
+    ("ref_firmantes_no_excluidos", "Firmantes propios de la unidad excluidos de referentes", "no", "estado",
+     "Falta aplicar firmantes_sugeridos.txt: los códigos más frecuentes pueden ser médicos de la unidad"),
     ("esp_no_detectada_pct", "Pacientes referidos cuyo referente no tiene especialidad detectada",
      round(por_esp.get("no_detectada", 0) / sum(por_esp.values()) * 100, 1), "%", ""),
     ("fecha_por_archivo_pct", "Estudios fechados por la fecha del archivo (no del informe)",
